@@ -47,9 +47,10 @@ def run(vw=(390,844)):
         # D dossier -> titolo (Timeline) -> Indietro
         click('.a2-card'); 
         ev("()=>document.querySelector('.a2-row[data-go]').click()"); pg.wait_for_timeout(900)
+        pg.evaluate("()=>{const b=document.getElementById('d4Scheda');if(b)b.click()}"); pg.wait_for_timeout(1200)  # Fase 4: N° -> Dossier Opera -> Scheda in guida
         s=st(); ck(not s['on'] and s['tab']!='none','D1 Atlante chiuso, barra app visibile %s'%s)
         ck(ev("()=>!document.getElementById('tvaBackBtn').hidden"),'D2 chip indietro')
-        backchip(); s=st(); ck(s['on'] and s['sc']=='uni' and s['uid']==uid and s['tab']=='none','D3 ritorno al dossier %s'%s)
+        backchip(); backchip() if st()['sc']=='opera' else None; s=st(); ck(s['on'] and s['sc']=='uni' and s['uid']==uid and s['tab']=='none','D3 ritorno al dossier %s'%s)
         # E App Marvel da dossier
         click('.a2-exit'); pg.wait_for_timeout(700); s=st()
         ck((not s['on']) and s['d']==0 and not s['hub'] and s['tab']!='none','E1 uscita ad app %s'%s)

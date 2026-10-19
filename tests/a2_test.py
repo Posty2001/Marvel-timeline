@@ -74,6 +74,7 @@ with sync_playwright() as p:
             ck(nres[0]>=2 and nres[1]>=3,'ricerca "spider": gruppi risultato + universi',nres)
             tch=pg.query_selector("#atlas2 .a2-resbox [data-go^='item:']"); ck(tch is not None,'ricerca → titolo cliccabile')
             tgt=tch.get_attribute('data-go').split(':')[1]; tch.click(); pg.wait_for_timeout(1300)
+            pg.evaluate("()=>{const b=document.getElementById('d4Scheda');if(b)b.click()}"); pg.wait_for_timeout(1500)  # Fase 4: il chip N° apre il Dossier Opera; la scheda si raggiunge da 'Scheda in guida'
             ck(pg.evaluate("t=>!atlas2Toggle.checked&&document.getElementById(t).getBoundingClientRect().top<150",tgt),'Ricerca → Risultato → scheda in Timeline')
             pg.click('#tvaBackBtn'); pg.wait_for_timeout(900)
             q=pg.evaluate("()=>[atlas2Toggle.checked,tvaAtlas2.stato().sq,document.getElementById('a2HomeSearch').value]")

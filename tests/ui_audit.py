@@ -63,7 +63,7 @@ with sync_playwright() as p:
         ck(gi['ttl'][2]>=70,'[%s] titolo dell’header leggibile (larghezza >= 70px)'%tag,gi['ttl'])
         ck(g['lastBottom'] is None or g['lastBottom']<=g['ih']-sab+0.5,'[%s] ultimo contenuto sopra la safe area inferiore'%tag,(g['lastBottom'],g['ih'],sab))
         # chip Indietro: non copre i controlli principali (si muove sopra la barra)
-        pg.evaluate("()=>tvaGo('item','item-125')"); pg.wait_for_timeout(1200)
+        pg.evaluate("()=>tvaGo('item','item-125',{scheda:true})"); pg.wait_for_timeout(1200)
         pg.evaluate("()=>{const b=document.getElementById('tvaBackBtn');window.__bk=b.getBoundingClientRect().toJSON?b.getBoundingClientRect().toJSON():null}")
         bk=pg.evaluate("()=>{const b=document.getElementById('tvaBackBtn').getBoundingClientRect(),t=document.getElementById('appTabbar').getBoundingClientRect();return {l:b.left,r:b.right,t:b.top,b:b.bottom,h:b.height,w:b.width,barTop:t.top,iw:innerWidth}}")
         ck(bk['h']>=43.5 and bk['r']<=bk['iw']-sar+0.5 and bk['l']>=sal-0.5 and bk['b']<=bk['barTop']+0.5,'[%s] chip Indietro >= 44px, dentro safe area, sopra la barra'%tag,bk)

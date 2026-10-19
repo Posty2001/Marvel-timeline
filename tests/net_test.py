@@ -42,8 +42,10 @@ with sync_playwright() as p:
     print(st); ck(st['a2'] and not st['classic'] and st['back'] and st['depth']==1 and st['tab']=='atlante' and st['scr']=='uni' and st['uid']=='uni-earth-828','Timeline→Universo apre Atlante 2.0 sulla scheda',st)
     t=pg.query_selector("#atlas2 [data-go='item:item-125']"); ck(t is not None,'scheda universo→titolo 125')
     t.scroll_into_view_if_needed(); t.click(); pg.wait_for_timeout(1200)
+    pg.evaluate("()=>{const b=document.getElementById('d4Scheda');if(b)b.click()}"); pg.wait_for_timeout(1200)  # Fase 4: N° -> Dossier Opera -> Scheda in guida
     st=pg.evaluate("()=>({a2:atlas2Toggle.checked,tab:document.querySelector('.app-tab-active')?.dataset.tab,depth:tvaNavStato().depth,top:document.getElementById('item-125').getBoundingClientRect().top,open:document.querySelector('#item-125 details').open})")
-    print(st); ck((not st['a2']) and st['depth']==2 and st['tab']=='timeline' and st['open'] and abs(st['top'])<120,'Universo→Film apre la Timeline sulla scheda',st)
+    print(st); ck((not st['a2']) and st['depth']==3 and st['tab']=='timeline' and st['open'] and abs(st['top'])<120,'Universo→Film apre la Timeline sulla scheda',st)
+    pg.evaluate("()=>{const b=document.getElementById('tvaBackBtn');(b.offsetParent!==null?b:document.querySelector('.a2-back')).click()}"); pg.wait_for_timeout(900)
     pg.evaluate("()=>{const b=document.getElementById('tvaBackBtn');(b.offsetParent!==null?b:document.querySelector('.a2-back')).click()}"); pg.wait_for_timeout(900)
     st=pg.evaluate("()=>({a2:atlas2Toggle.checked,depth:tvaNavStato().depth,scr:tvaAtlas2.stato().screen,uid:tvaAtlas2.stato().uid})")
     ck(st['a2'] and st['depth']==1 and st['scr']=='uni' and st['uid']=='uni-earth-828','Back 1 → scheda universo 2.0',st)

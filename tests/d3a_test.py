@@ -92,7 +92,10 @@ with sync_playwright() as p:
     ok('indietro -> dossier MCU',st()==['uni',mcu],st())
     pg.evaluate("()=>{const b=document.querySelector('.ud-lk .ud-ref');b.scrollIntoView({block:'center'})}"); pg.wait_for_timeout(200)
     pg.click('.ud-lk .ud-ref'); pg.wait_for_timeout(900)
+    ok('titolo di riferimento -> Dossier Opera (Fase 4)',st()[0]=='opera',st())
+    pg.evaluate("()=>document.getElementById('d4Scheda').click()"); pg.wait_for_timeout(1500)
     ok('titolo di riferimento -> scheda titolo (esce dall\'Atlante)',pg.evaluate("()=>!document.getElementById('atlas2Toggle').checked"),st())
+    pg.evaluate("()=>tvaBack()"); pg.wait_for_timeout(700)  # scheda -> opera
     pg.evaluate("()=>tvaBack()"); pg.wait_for_timeout(900)
     ok('indietro dal titolo -> dossier MCU',st()==['uni',mcu],st())
     pg.click('.ud-ix[data-ix=personaggi]'); pg.wait_for_timeout(300)

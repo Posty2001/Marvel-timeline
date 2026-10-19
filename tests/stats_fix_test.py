@@ -8,7 +8,7 @@ with sync_playwright() as p:
     ctx=b.new_context(viewport={'width':390,'height':844},is_mobile=True,has_touch=True,service_workers='block'); pg=ctx.new_page(); errs=[]; reqs=[]
     pg.on('pageerror',lambda e:errs.append(str(e))); pg.on('response',lambda r: reqs.append((r.url.split('/')[-1],r.status)) if '/assets/images/tva/' in r.url else None)
     pg.goto(U); pg.wait_for_timeout(1500)
-    ok('build id',pg.evaluate("()=>document.querySelector('meta[name=tva-build]').content")=='20261019-0900-xmen-chiusura')
+    ok('build id',pg.evaluate("()=>document.querySelector('meta[name=tva-build]').content")=='20261019-1030-fase4-dossier')
     api=pg.evaluate("()=>tvaAtlas2.stats()"); print(api)
     ok('stats() 27/300/138/176',[api['universi'],api['personaggi'],api['titoliTimeline'],api['opereTotali']]==[27,300,138,176])
     # intro: vai alla scena II

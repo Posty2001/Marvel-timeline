@@ -229,6 +229,7 @@
     // ricerca universale: archivi, universi, titoli, personaggi (stessi indici dei collegamenti: nessun dato duplicato)
     function drawResults(box, raw) {
       box.textContent = '';
+      if (EXT.drawResults && EXT.drawResults(box, raw)) return;   /* F4: ricerca tollerante (dossier4.js) */
       var q = (raw || '').trim().toLowerCase();
       if (q.length < 2) return;
       var any = false;
@@ -1970,7 +1971,7 @@
 
     EXT.api = { cover: cover, heroImg: imgLayer, $: $, el: el, btn: btn, go: go, art: art, ART: ART, heading: heading, row: row, badge: badge, searchBox: searchBox, nav: nav, setTitle: setTitle, body: body, ST: ST,
       UNI: UNI, IDX: IDX, USCITA: USCITA, personaggiLista: personaggiLista, titoliBase: titoliBase, tipoTitolo: tipoTitolo, anno: anno, prog: prog, info: info, sec: sec, draw: draw, show: show,
-      setScroll: setScroll, openArchive: openArchive, openChrono: openChrono, nat: nat, PTIPO: PTIPO, PSUB: PSUB, tog: tog, cardByTitle: cardByTitle, run: run, fire: fire, leave: leave, SEZ: SEZ, GRP: GRP, updateBack: updateBack };
+      setScroll: setScroll, NOTA_NUM: NOTA_NUM, openMappa: openMappa, crOpen: crOpen, openUni: openUni, openArchive: openArchive, openChrono: openChrono, nat: nat, PTIPO: PTIPO, PSUB: PSUB, tog: tog, cardByTitle: cardByTitle, run: run, fire: fire, leave: leave, SEZ: SEZ, GRP: GRP, updateBack: updateBack };
     W.tvaAtlas2.ext = EXT;
   } catch (eA2) { if (window.console) console.error('Marvel guide - TVA Archives:', eA2); }
 })();

@@ -19,7 +19,7 @@ with sync_playwright() as p:
     ok('sfondo body #101014', pg.evaluate("()=>getComputedStyle(document.body).backgroundColor")=='rgb(16, 16, 20)')
     ok('theme-color #101014', pg.evaluate("()=>document.querySelector('meta[name=theme-color]').content")=='#101014')
     # 2 home
-    ok('build id', pg.evaluate("()=>document.querySelector('meta[name=tva-build]').content")=='20261019-0900-xmen-chiusura')
+    ok('build id', pg.evaluate("()=>document.querySelector('meta[name=tva-build]').content")=='20261019-1030-fase4-dossier')
     ok('home visibile', pg.evaluate("()=>getComputedStyle(document.getElementById('homeHub')).display!=='none'"))
     ord=pg.evaluate("""()=>{const y=s=>{const e=document.querySelector(s);return e?e.getBoundingClientRect().top:-1};return {g:y('.home-hub-greeting'),h:y('#hhsNextRow'),n:y('.home-hub-nav'),s:y('.hhs-grid'),a:y('#a2Entry, .a2-entry'),m:y('#rsHomeMis')}}""")
     ok('gerarchia home: saluto<prossimo<continua<statistiche<TVA<missioni', 0<ord['g']<ord['h']<ord['n']<ord['s']<ord['a']<ord['m'], ord)

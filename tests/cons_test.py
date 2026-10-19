@@ -111,8 +111,10 @@ with sync_playwright() as p:
     tgt=pg.evaluate("""()=>{const rows=[...document.querySelectorAll('#atlas2 .a2-sec-prim .a2-row')];for(const r of rows){const id=r.getAttribute('data-go').split(':')[1];const li=document.getElementById(id);if(li&&li.style.display==='none'&&!li.closest('.tva-archives-overlay'))return id}return null}""")
     ck(tgt is not None,'esiste un titolo dell’universo nascosto dai filtri attivi',tgt)
     pg.evaluate("(id)=>{document.querySelector('#atlas2 [data-go=\"item:'+id+'\"]').click()}",tgt); pg.wait_for_timeout(2500)
+    pg.evaluate("()=>{const b=document.getElementById('d4Scheda');if(b)b.click()}"); pg.wait_for_timeout(1500)  # Fase 4: il chip N° apre il Dossier Opera; la scheda si raggiunge da 'Scheda in guida'
     r=pg.evaluate("""(id)=>{const li=document.getElementById(id);const r=li.getBoundingClientRect();return {vis:li.offsetParent!==null&&li.style.display!=='none',top:r.top,depth:tvaNavStato().depth,q:document.getElementById('searchBox').value,a2:atlas2Toggle.checked}}""",tgt)
-    ck(r['vis'] and r['depth']==2 and not r['a2'] and r['top']<400,'link a titolo nascosto: la scheda viene mostrata (filtri responsabili azzerati)',r)
+    ck(r['vis'] and r['depth']==3 and not r['a2'] and r['top']<400,'link a titolo nascosto: la scheda viene mostrata (filtri responsabili azzerati)',r)
+    pg.evaluate("()=>{const b=document.getElementById('tvaBackBtn');(b.offsetParent!==null?b:document.querySelector('.a2-back')).click()}"); pg.wait_for_timeout(1200)  # Fase 4: scheda -> Dossier Opera
     ls2=pg.evaluate(LS)
     chg=[k for k in set(ls1)|set(ls2) if ls1.get(k)!=ls2.get(k) and k!='marvel-ultimate-timeline-auto-backup']   # auto-backup: copia di sicurezza ritardata scritta dall'app dopo la spunta iniziale, non dalla navigazione
     ck(not chg,'sbloccare la scheda non scrive nulla in localStorage (preferenze dei filtri salvate invariate)',chg)
@@ -140,7 +142,9 @@ with sync_playwright() as p:
     print('a2 prima del click',rec)
     ck(rec['y']>1500,'Atlante 2.0 scorso in profondita\' dentro .a2-scroll',rec)
     pg.evaluate("()=>document.querySelector('#atlas2 [data-go=\"'+window.__row+'\"]').click()"); pg.wait_for_timeout(1800)
+    pg.evaluate("()=>{const b=document.getElementById('d4Scheda');if(b)b.click()}"); pg.wait_for_timeout(1500)  # Fase 4: il chip N° apre il Dossier Opera; la scheda si raggiunge da 'Scheda in guida'
     st=pg.evaluate("()=>({a2:atlas2Toggle.checked,depth:tvaNavStato().depth})"); ck(not st['a2'] and st['depth']>=1,'Atlante -> Film -> Timeline',st)
+    pg.evaluate("()=>{const b=document.getElementById('tvaBackBtn');(b.offsetParent!==null?b:document.querySelector('.a2-back')).click()}"); pg.wait_for_timeout(1200)  # Fase 4: scheda -> Dossier Opera
     pg.evaluate("()=>{const b=document.getElementById('tvaBackBtn');(b.offsetParent!==null?b:document.querySelector('.a2-back')).click()}"); pg.wait_for_timeout(1500)
     after=pg.evaluate("""()=>{const s=document.querySelector('.a2-scroll');const sr=s.getBoundingClientRect();const row=document.querySelector('#atlas2 [data-go="'+window.__row+'"]');
       return {a2:atlas2Toggle.checked,y:s.scrollTop,top:row?row.getBoundingClientRect().top-sr.top:null,win:pageYOffset,uid:tvaAtlas2.stato().uid}}""")

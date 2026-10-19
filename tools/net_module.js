@@ -350,7 +350,7 @@
       restore(s); return true;
     };
     W.tvaPushNav = function (lbl) { push(lbl); };
-    W.tvaNavStato = function () { return { depth: stack.length, last: stack.length ? stack[stack.length - 1] : null }; };
+    W.tvaNavStato = function () { return { depth: stack.length, last: stack.length ? stack[stack.length - 1] : null, labels: stack.map(function (x) { return x.lbl || ''; }) }; };
 
     // le sei tab in basso sono navigazione di primo livello: azzerano la cronologia interna
     D.addEventListener('click', function (ev) { if (ev.target.closest && ev.target.closest('.app-tab')) resetStack(); }, true);
