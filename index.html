@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="tva-build" content="20261019-1030-fase4-dossier">
+<meta name="tva-build" content="20261019-1130-fix-ios-voti">
 <link rel="preload" as="image" href="assets/images/intro/living-multiverse.webp" type="image/webp" fetchpriority="high">
 <script id="rs-early">try{var __v=localStorage.getItem("marvel-skin-v2-dark");if(__v!=="0")document.documentElement.classList.add("marvel-dark-mode");}catch(e){document.documentElement.classList.add("marvel-dark-mode");}</script>
 <title>Marvel Multiverse — TVA Archive — The Definitive Watch Order</title>
@@ -4784,6 +4784,74 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
 .intro-screen .intro-stat:nth-child(5) { grid-column: 1 / -1; }
 .intro-screen .intro-stat-lbl { text-align: center; }
 </style>
+<style id="fx-ios">
+/* FX-CSS-BEGIN: correzioni iPhone (onboarding, grafo classico) e sistema di voto a mezze stelle */
+@media screen {
+  /* 1) Registrazione: l'introduzione sottostante non resta montata mentre l'onboarding e' attivo */
+  html.tva-onb #intro, html.tva-onb .intro-screen { display: none !important; }
+  /* l'onboarding copre sempre l'intero viewport visibile (top+bottom, non una altezza in dvh/vh che su iOS puo' restare corta) */
+  .onboarding-screen { height: auto; bottom: 0; min-height: 100vh; min-height: 100dvh; }
+  /* 2) Grafo classico del Multiverso: contenuto normale della pagina (stesso rimedio gia' applicato a Tessera, Friends e Database)
+     invece di un pannello position:fixed con altezza in dvh + transform, che su iOS lascia un'area scoperta in basso */
+  .multiverse-graph-overlay {
+    position: static; height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible;
+    transform: none; -webkit-transform: none; will-change: auto; z-index: auto; background: #101014;
+  }
+  /* la barra inferiore dell'app e' nascosta nel grafo: niente spazio riservato in fondo alla pagina */
+  @supports selector(:has(*)) { body:has(#multiverseGraphToggle:checked) { padding-bottom: 0; } }
+}
+/* 3) Valutazione: 5 stelle, mezzi voti, blocco compatto */
+.rating-widget.rw2 {
+  display: block; width: auto; align-self: stretch; margin: 0.15rem -0.95rem 0.7rem -1.375rem; padding: 0.4rem 0.7rem 0.4rem; max-width: none; box-sizing: border-box;
+  border: 1px solid rgba(168,52,70,0.42); border-radius: 12px;
+  background: linear-gradient(180deg, rgba(168,52,70,0.13), rgba(168,52,70,0.03)), #15110e;
+  box-shadow: inset 0 1px 0 rgba(210,177,132,0.08);
+}
+.rw2 .rw-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 1.4rem; }
+.rw2 .rw-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(210,177,132,0.85); white-space: nowrap; }
+.rw2 .rw-reset {
+  font: inherit; font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; letter-spacing: 0.06em; color: rgba(239,228,201,0.7);
+  background: transparent; border: 1px solid rgba(168,52,70,0.45); border-radius: 999px; padding: 0.12rem 0.7rem; min-height: 1.45rem; cursor: pointer; touch-action: manipulation;
+}
+.rw2 .rw-reset { position: relative; }
+.rw2 .rw-reset::after { content: ''; position: absolute; inset: -9px -8px; }   /* area di tocco >= 44px, aspetto discreto */
+.rw2 .rw-reset { flex: 0 0 auto; }
+.rw2 .rw-reset:hover { color: #efe4c9; border-color: rgba(210,177,132,0.7); }
+.rw2 .rw-reset[hidden] { display: none; }
+.rw2 .rw-main { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; column-gap: 0.4rem; row-gap: 0; }
+.rw2 .rw-stars { display: inline-flex; border-radius: 8px; outline-offset: 2px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.rw2 .rw-stars:focus-visible { outline: 2px solid #D2B184; }
+.rw-s {
+  --f: 0; position: relative; display: inline-block; width: 2.05rem; height: 2.75rem; flex: 0 0 auto;
+}
+.rw-s::before, .rw-s::after {
+  content: ''; position: absolute; left: 0.07rem; right: 0.07rem; top: 50%; height: 1.9rem; margin-top: -0.95rem;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.4l2.85 6.1 6.65.8-4.9 4.55 1.3 6.6L12 17.1 6.1 20.45l1.3-6.6L2.5 9.3l6.65-.8z' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.4l2.85 6.1 6.65.8-4.9 4.55 1.3 6.6L12 17.1 6.1 20.45l1.3-6.6L2.5 9.3l6.65-.8z' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.rw-s::before { background: rgba(210,177,132,0.2); }
+.rw-s::after { background: #D2B184; clip-path: inset(0 calc((1 - var(--f)) * 100%) 0 0); }
+.rw-h { position: absolute; top: 0; bottom: 0; width: 50%; cursor: pointer; z-index: 1; }
+.rw-h[data-v$=".5"] { left: 0; }
+.rw-h:not([data-v$=".5"]) { right: 0; }
+.rw2 .rw-val { margin-left: auto; font-family: 'Special Elite', 'IBM Plex Mono', monospace; font-size: 1.1rem; color: #efe4c9; white-space: nowrap; letter-spacing: 0.02em; }
+.rw2 .rw-val b { font-weight: 700; color: #D2B184; font-variant-numeric: tabular-nums; }
+.rw2 .rw-val .rw-of { font-size: 0.8rem; color: rgba(239,228,201,0.55); }
+.rw2 .rw-val.rw-empty b { color: rgba(239,228,201,0.4); }
+.rw2 .rw-live { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.rw2 { position: relative; }
+@media (prefers-reduced-motion: no-preference) {
+  .rw-s.rw-pop { animation: rw-pop 0.22s ease-out; }
+  @keyframes rw-pop { 0% { transform: scale(1); } 45% { transform: scale(1.2); } 100% { transform: scale(1); } }
+}
+/* miniatura in sola lettura (es. "ultimo titolo visto") */
+.rw-mini { display: inline-flex; vertical-align: middle; }
+.rw-mini .rw-s { width: 0.95rem; height: 1rem; }
+.rw-mini .rw-s::before, .rw-mini .rw-s::after { left: 0; right: 0; height: 0.85rem; margin-top: -0.425rem; }
+@media (max-width: 400px) { .rw-s { width: 1.7rem; } .rw2 .rw-val { font-size: 1rem; } }
+@media (max-width: 340px) { .rw-s { width: 1.4rem; } .rw2 .rw-val .rw-of { font-size: 0.62rem; } .rw2 .rw-label { letter-spacing: 0.05em; font-size: 0.55rem; white-space: normal; min-width: 0; } .rw2 .rw-val { font-size: 0.95rem; } .rating-widget.rw2 { padding-left: 0.6rem; padding-right: 0.6rem; } }
+/* FX-CSS-END */
+</style>
 </head>
 <body>
 <a href="#parte1" class="skip-link">Salta al contenuto principale</a>
@@ -5069,7 +5137,8 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
       </summary>
       <div class="detail-panel">
         <p style="font-size:0.9rem;color:var(--ink-soft);margin-bottom:0.8rem;">Universi e collegamenti in una disposizione radiale interattiva &mdash; tocca un nodo per vedere descrizione e incroci.</p>
-        <label for="multiverseGraphToggle" class="mg-open-btn">&#128302; Apri il Grafico del Multiverso</label>
+        <button type="button" class="mg-open-btn" id="guideMapBtn">&#128506;&#65039; Apri la Mappa del Multiverso</button>
+        <label for="multiverseGraphToggle" class="mg-open-btn" style="background:transparent;border:1px solid var(--marvel-red);box-shadow:none;margin-left:.4rem">Grafo classico</label>
       </div>
     </details></li><li class="card-wrap"><details class="card">
       <summary>
@@ -12799,7 +12868,7 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
     <nav class="home-hub-nav">
       <button type="button" class="home-hub-btn" id="homeHubStartBtn"><span class="home-hub-btn-ic">&#128214;</span> Inizia</button>
       <button type="button" class="home-hub-btn" id="homeHubContinueBtn"><span class="home-hub-btn-ic">&#9654;&#65039;</span> Continua</button>
-      <label for="multiverseGraphToggle" class="home-hub-btn"><span class="home-hub-btn-ic">&#128506;&#65039;</span> Esplora il Multiverso</label>
+      <button type="button" class="home-hub-btn" id="homeHubMapBtn"><span class="home-hub-btn-ic">&#128506;&#65039;</span> Esplora il Multiverso</button>
       <label for="tvaArchivesToggle" class="home-hub-btn"><span class="home-hub-btn-ic">&#128218;</span> Apri Database</label>
       <button type="button" class="home-hub-btn" id="homeHubSearchBtn"><span class="home-hub-btn-ic">&#128269;</span> Cerca</button>
       <label for="tesseraToggle" class="home-hub-btn"><span class="home-hub-btn-ic">&#127942;</span> La mia Tessera</label>
@@ -21587,6 +21656,7 @@ function marvelInit() {
       step2.hidden = true;
       if (loadingFill) loadingFill.style.width = '0%';
       onboardingEl.hidden = false;
+      document.documentElement.classList.add('tva-onb');   // l'introduzione non resta montata sotto la registrazione
       setTimeout(function() { if (loadingFill) loadingFill.style.width = '100%'; }, 60);
       var ridotto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var ritardo = ridotto ? 50 : 1700;
@@ -21599,12 +21669,14 @@ function marvelInit() {
       }, ritardo);
       startBtn.addEventListener('click', function esegui() {
         onboardingEl.hidden = true;
+        document.documentElement.classList.remove('tva-onb');
         if (journeyCb) journeyCb.checked = true;
         startBtn.removeEventListener('click', esegui);
         if (dopoCallback) dopoCallback();
       });
     } catch(eOnboarding) {
       if (window.console) console.error('Marvel guide - onboarding:', eOnboarding);
+      document.documentElement.classList.remove('tva-onb');
       var journeyCbFallback = document.getElementById('journeyStarted');
       if (journeyCbFallback) journeyCbFallback.checked = true;
       if (dopoCallback) dopoCallback();
@@ -21909,7 +21981,7 @@ function marvelInit() {
         var ratings = JSON.parse(localStorage.getItem('marvel-ultimate-timeline-ratings') || '{}');
         var voto = ratings[item.id];
         if (voto) {
-          starsHtml = '<span class="next-watch-stars">' + '&#9733;'.repeat(voto) + '&#9734;'.repeat(5 - voto) + '</span>';
+          starsHtml = '<span class="next-watch-stars">' + ratingMiniHtml(voto) + '</span>';
         }
       } catch(eLwRating) {}
       card.innerHTML =
@@ -25706,47 +25778,113 @@ function marvelInit() {
     if (window.console) console.error('Marvel guide - blocco service worker:', errSwBlock);
   }
 
-  // ---- Sistema di voto: 1-5 stelle cliccabili, salvate in localStorage ----
+  // ---- Sistema di voto: 5 stelle con mezzi voti (0,5 – 5), salvate in localStorage ----
+  // Stessa chiave e stesso oggetto { idTitolo: voto } di sempre: nessuna seconda sorgente di verita'.
+  // Un voto intero gia' salvato (1..5) e' un valore valido della nuova scala e non viene toccato.
   var RATINGS_KEY = 'marvel-ultimate-timeline-ratings';
+  function ratingNorm(v) {
+    v = Number(v);
+    if (!isFinite(v) || v < 0.5) return 0;
+    return Math.min(5, Math.round(v * 2) / 2);
+  }
+  function ratingFmt(v) { return String(v).replace('.', ','); }
   function loadRatings() {
-    try { return JSON.parse(localStorage.getItem(RATINGS_KEY) || '{}'); } catch(e) { return {}; }
+    var out = {};
+    try {
+      var r = JSON.parse(localStorage.getItem(RATINGS_KEY) || '{}');
+      if (r && typeof r === 'object' && !Array.isArray(r)) Object.keys(r).forEach(function(k) { var n = ratingNorm(r[k]); if (n > 0) out[k] = n; });
+    } catch(e) {}
+    return out;
   }
   function saveRatings(r) {
-    try { localStorage.setItem(RATINGS_KEY, JSON.stringify(r)); } catch(e) {}
+    try {
+      var s = JSON.stringify(r);
+      localStorage.setItem(RATINGS_KEY, s);
+      return localStorage.getItem(RATINGS_KEY) === s;   // il voto conta come salvato solo se rileggibile
+    } catch(e) { return false; }
   }
-  function paintStars(widget, value) {
-    var stars = widget.querySelectorAll('.rating-star');
-    stars.forEach(function(s) {
-      var v = parseInt(s.getAttribute('data-value'), 10);
-      if (v <= value) { s.classList.add('filled'); s.innerHTML = '&#9733;'; }
-      else { s.classList.remove('filled'); s.innerHTML = '&#9734;'; }
+  // Stelle in miniatura (sola lettura), usate dove il voto e' solo mostrato (es. "ultimo titolo visto")
+  function ratingMiniHtml(v) {
+    v = ratingNorm(v); var h = '<span class="rw-mini" role="img" aria-label="Voto ' + ratingFmt(v) + ' su 5">';
+    for (var i = 1; i <= 5; i++) h += '<i class="rw-s" style="--f:' + (v >= i ? 1 : (v >= i - 0.5 ? 0.5 : 0)) + '"></i>';
+    return h + '</span>';
+  }
+  function ratingEl(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; }
+  function ratingBuild(widget, id) {
+    widget.classList.add('rw2');
+    widget.textContent = '';
+    var lid = 'rw-l-' + id;
+    var top = ratingEl('div', 'rw-top'), lab = ratingEl('span', 'rw-label', 'La tua valutazione'); lab.id = lid;
+    var reset = ratingEl('button', 'rw-reset', 'Azzera'); reset.type = 'button'; reset.hidden = true; reset.setAttribute('aria-label', 'Azzera la valutazione');
+    top.appendChild(lab); top.appendChild(reset);
+    var main = ratingEl('div', 'rw-main'), stars = ratingEl('div', 'rw-stars');
+    stars.setAttribute('role', 'slider'); stars.tabIndex = 0; stars.setAttribute('aria-labelledby', lid);
+    stars.setAttribute('aria-valuemin', '0'); stars.setAttribute('aria-valuemax', '5');
+    var sp = [];
+    for (var i = 1; i <= 5; i++) {
+      var s = ratingEl('span', 'rw-s');
+      [i - 0.5, i].forEach(function(v) { var h = ratingEl('span', 'rw-h'); h.setAttribute('data-v', String(v)); h.setAttribute('aria-hidden', 'true'); s.appendChild(h); });
+      stars.appendChild(s); sp.push(s);
+    }
+    var val = ratingEl('span', 'rw-val'); val.setAttribute('aria-hidden', 'true');
+    var vb = ratingEl('b', '', '—'), vs = ratingEl('span', 'rw-of', ' / 5'); val.appendChild(vb); val.appendChild(vs);
+    main.appendChild(stars); main.appendChild(val);
+    var live = ratingEl('span', 'rw-live'); live.setAttribute('role', 'status'); live.setAttribute('aria-live', 'polite');
+    widget.appendChild(top); widget.appendChild(main); widget.appendChild(live);
+    var cur = 0;
+    function paint(v, animIdx) {
+      cur = v;
+      sp.forEach(function(s, k) { s.style.setProperty('--f', v >= k + 1 ? '1' : (v >= k + 0.5 ? '0.5' : '0')); });
+      vb.textContent = v ? ratingFmt(v) : '—'; val.classList.toggle('rw-empty', !v);
+      reset.hidden = !v;
+      stars.setAttribute('aria-valuenow', String(v));
+      stars.setAttribute('aria-valuetext', v ? ratingFmt(v) + ' su 5' : 'Nessun voto');
+      if (animIdx != null && sp[animIdx]) { var s = sp[animIdx]; s.classList.remove('rw-pop'); void s.offsetWidth; s.classList.add('rw-pop'); }
+    }
+    function commit(v) {
+      v = ratingNorm(v);
+      if (v === cur) return;
+      var r = loadRatings();
+      if (v > 0) r[id] = v; else delete r[id];
+      if (!saveRatings(r)) { live.textContent = 'Voto non salvato: memoria del dispositivo non disponibile.'; return; }
+      paint(v, v > 0 ? Math.ceil(v) - 1 : null);
+      live.textContent = v ? 'Voto ' + ratingFmt(v) + ' su 5' : 'Valutazione azzerata';
+      try { updateTessera(); } catch(eRatingXp) {}
+      // le card "voto medio" (Home hub, Dashboard) si ricalcolano da updateProgress()
+      try { updateProgress(); } catch(eRatingProgress) {}
+    }
+    stars.addEventListener('click', function(e) {
+      var h = e.target && e.target.closest ? e.target.closest('.rw-h') : null;
+      if (h) commit(parseFloat(h.getAttribute('data-v')));
     });
+    stars.addEventListener('keydown', function(e) {
+      var k = e.key, v = null;
+      if (k === 'ArrowRight' || k === 'ArrowUp') v = Math.min(5, cur + 0.5);
+      else if (k === 'ArrowLeft' || k === 'ArrowDown') v = Math.max(0, cur - 0.5);
+      else if (k === 'PageUp') v = Math.min(5, cur + 1);
+      else if (k === 'PageDown') v = Math.max(0, cur - 1);
+      else if (k === 'End') v = 5;
+      else if (k === 'Home' || k === 'Delete' || k === 'Backspace' || k === '0') v = 0;
+      else if (/^[1-5]$/.test(k)) v = parseInt(k, 10);
+      if (v === null) return;
+      e.preventDefault(); commit(v);
+    });
+    reset.addEventListener('click', function() { commit(0); });
+    paint(loadRatings()[id] || 0);
   }
   try {
-    var ratingsState = loadRatings();
     var widgets = Array.prototype.slice.call(document.querySelectorAll('.rating-widget'));
     widgets.forEach(function(widget) {
       var id = widget.getAttribute('data-item');
-      var current = ratingsState[id] || 0;
-      paintStars(widget, current);
-      var stars = widget.querySelectorAll('.rating-star');
-      stars.forEach(function(s) {
-        s.addEventListener('click', function() {
-          var v = parseInt(s.getAttribute('data-value'), 10);
-          var r = loadRatings();
-          // ri-cliccando la stessa stella già massima selezionata si azzera il voto
-          if (r[id] === v) { delete r[id]; v = 0; }
-          else { r[id] = v; }
-          saveRatings(r);
-          try { updateTessera(); } catch(eRatingXp) {}
-          // Bug reale: solo updateTessera() veniva chiamata qui. La card "voto medio" della Home
-          // hub e quella della Dashboard vengono però ricalcolate da updateProgress() (finora
-          // attivata solo spuntando un titolo come visto, non votandolo) — per questo il voto
-          // medio restava fermo a "Ancora nessun voto"/vuoto anche dopo aver votato.
-          try { updateProgress(); } catch(eRatingProgress) {}
-          paintStars(widget, v);
-        });
-      });
+      ratingBuild(widget, id);
+      // posizione: subito sotto titolo e informazioni principali, prima della descrizione lunga (primo sotto-gruppo)
+      var card = widget.closest('details.card'), panel = null;
+      if (card) for (var c = card.firstElementChild; c; c = c.nextElementSibling) { if (c.classList.contains('detail-panel')) { panel = c; break; } }
+      if (panel) {
+        var first = null;
+        for (var q = panel.firstElementChild; q; q = q.nextElementSibling) { if (q.classList.contains('sub-group')) { first = q; break; } }
+        panel.insertBefore(widget, first);
+      }
     });
   } catch(errRating) {
     if (window.console) console.error('Marvel guide - blocco voto:', errRating);
@@ -26068,7 +26206,7 @@ function marvelInit() {
           var out = {};
           Object.keys(v).forEach(function(k) {
             if (!idTitoli[k]) throw erroreProfilo('“ratings” contiene una chiave non valida (' + profiloTronca(k) + ').');
-            if (typeof v[k] !== 'number' || Math.floor(v[k]) !== v[k] || v[k] < 0 || v[k] > 5) throw erroreProfilo('“ratings” contiene un voto non valido per ' + k + ' (ammessi 1-5).');
+            if (typeof v[k] !== 'number' || Math.round(v[k] * 2) / 2 !== v[k] || v[k] < 0 || v[k] > 5) throw erroreProfilo('“ratings” contiene un voto non valido per ' + k + ' (ammessi multipli di 0,5 da 0,5 a 5).');
             if (v[k] > 0) out[k] = v[k];
           });
           return Object.keys(out).length ? JSON.stringify(out) : null;
@@ -34002,6 +34140,16 @@ window.addEventListener('load', function() {
     var prevDos = X.screens.dossier;
     if (prevDos) X.screens.dossier = function () { prevDos.apply(this, arguments); decorateArc(); };
   } catch (eD4) { if (window.console) console.error('Dossier 4:', eD4); }
+})();
+</script>
+<script id="tva-fixnav">
+/* Punti d'ingresso al Multiverso: aprono la Mappa 3B (Atlante); il grafo classico resta raggiungibile come opzione secondaria. */
+(function(){
+  function apri(){
+    try { var a=window.tvaAtlas2&&window.tvaAtlas2.ext&&window.tvaAtlas2.ext.api; if(a&&a.openMappa){ a.openMappa(); return; } } catch(e){ if(window.console) console.error('openMappa:',e); }
+    var t=document.getElementById('multiverseGraphToggle'); if(t){ t.checked=true; t.dispatchEvent(new Event('change',{bubbles:true})); }   // ripiego: grafo classico
+  }
+  ['homeHubMapBtn','guideMapBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.addEventListener('click',apri); });
 })();
 </script>
 </body>

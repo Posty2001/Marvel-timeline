@@ -1,0 +1,66 @@
+/* FX-CSS-BEGIN: correzioni iPhone (onboarding, grafo classico) e sistema di voto a mezze stelle */
+@media screen {
+  /* 1) Registrazione: l'introduzione sottostante non resta montata mentre l'onboarding e' attivo */
+  html.tva-onb #intro, html.tva-onb .intro-screen { display: none !important; }
+  /* l'onboarding copre sempre l'intero viewport visibile (top+bottom, non una altezza in dvh/vh che su iOS puo' restare corta) */
+  .onboarding-screen { height: auto; bottom: 0; min-height: 100vh; min-height: 100dvh; }
+  /* 2) Grafo classico del Multiverso: contenuto normale della pagina (stesso rimedio gia' applicato a Tessera, Friends e Database)
+     invece di un pannello position:fixed con altezza in dvh + transform, che su iOS lascia un'area scoperta in basso */
+  .multiverse-graph-overlay {
+    position: static; height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible;
+    transform: none; -webkit-transform: none; will-change: auto; z-index: auto; background: #101014;
+  }
+  /* la barra inferiore dell'app e' nascosta nel grafo: niente spazio riservato in fondo alla pagina */
+  @supports selector(:has(*)) { body:has(#multiverseGraphToggle:checked) { padding-bottom: 0; } }
+}
+/* 3) Valutazione: 5 stelle, mezzi voti, blocco compatto */
+.rating-widget.rw2 {
+  display: block; width: auto; align-self: stretch; margin: 0.15rem -0.95rem 0.7rem -1.375rem; padding: 0.4rem 0.7rem 0.4rem; max-width: none; box-sizing: border-box;
+  border: 1px solid rgba(168,52,70,0.42); border-radius: 12px;
+  background: linear-gradient(180deg, rgba(168,52,70,0.13), rgba(168,52,70,0.03)), #15110e;
+  box-shadow: inset 0 1px 0 rgba(210,177,132,0.08);
+}
+.rw2 .rw-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 1.4rem; }
+.rw2 .rw-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(210,177,132,0.85); white-space: nowrap; }
+.rw2 .rw-reset {
+  font: inherit; font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; letter-spacing: 0.06em; color: rgba(239,228,201,0.7);
+  background: transparent; border: 1px solid rgba(168,52,70,0.45); border-radius: 999px; padding: 0.12rem 0.7rem; min-height: 1.45rem; cursor: pointer; touch-action: manipulation;
+}
+.rw2 .rw-reset { position: relative; }
+.rw2 .rw-reset::after { content: ''; position: absolute; inset: -9px -8px; }   /* area di tocco >= 44px, aspetto discreto */
+.rw2 .rw-reset { flex: 0 0 auto; }
+.rw2 .rw-reset:hover { color: #efe4c9; border-color: rgba(210,177,132,0.7); }
+.rw2 .rw-reset[hidden] { display: none; }
+.rw2 .rw-main { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; column-gap: 0.4rem; row-gap: 0; }
+.rw2 .rw-stars { display: inline-flex; border-radius: 8px; outline-offset: 2px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.rw2 .rw-stars:focus-visible { outline: 2px solid #D2B184; }
+.rw-s {
+  --f: 0; position: relative; display: inline-block; width: 2.05rem; height: 2.75rem; flex: 0 0 auto;
+}
+.rw-s::before, .rw-s::after {
+  content: ''; position: absolute; left: 0.07rem; right: 0.07rem; top: 50%; height: 1.9rem; margin-top: -0.95rem;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.4l2.85 6.1 6.65.8-4.9 4.55 1.3 6.6L12 17.1 6.1 20.45l1.3-6.6L2.5 9.3l6.65-.8z' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.4l2.85 6.1 6.65.8-4.9 4.55 1.3 6.6L12 17.1 6.1 20.45l1.3-6.6L2.5 9.3l6.65-.8z' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.rw-s::before { background: rgba(210,177,132,0.2); }
+.rw-s::after { background: #D2B184; clip-path: inset(0 calc((1 - var(--f)) * 100%) 0 0); }
+.rw-h { position: absolute; top: 0; bottom: 0; width: 50%; cursor: pointer; z-index: 1; }
+.rw-h[data-v$=".5"] { left: 0; }
+.rw-h:not([data-v$=".5"]) { right: 0; }
+.rw2 .rw-val { margin-left: auto; font-family: 'Special Elite', 'IBM Plex Mono', monospace; font-size: 1.1rem; color: #efe4c9; white-space: nowrap; letter-spacing: 0.02em; }
+.rw2 .rw-val b { font-weight: 700; color: #D2B184; font-variant-numeric: tabular-nums; }
+.rw2 .rw-val .rw-of { font-size: 0.8rem; color: rgba(239,228,201,0.55); }
+.rw2 .rw-val.rw-empty b { color: rgba(239,228,201,0.4); }
+.rw2 .rw-live { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.rw2 { position: relative; }
+@media (prefers-reduced-motion: no-preference) {
+  .rw-s.rw-pop { animation: rw-pop 0.22s ease-out; }
+  @keyframes rw-pop { 0% { transform: scale(1); } 45% { transform: scale(1.2); } 100% { transform: scale(1); } }
+}
+/* miniatura in sola lettura (es. "ultimo titolo visto") */
+.rw-mini { display: inline-flex; vertical-align: middle; }
+.rw-mini .rw-s { width: 0.95rem; height: 1rem; }
+.rw-mini .rw-s::before, .rw-mini .rw-s::after { left: 0; right: 0; height: 0.85rem; margin-top: -0.425rem; }
+@media (max-width: 400px) { .rw-s { width: 1.7rem; } .rw2 .rw-val { font-size: 1rem; } }
+@media (max-width: 340px) { .rw-s { width: 1.4rem; } .rw2 .rw-val .rw-of { font-size: 0.62rem; } .rw2 .rw-label { letter-spacing: 0.05em; font-size: 0.55rem; white-space: normal; min-width: 0; } .rw2 .rw-val { font-size: 0.95rem; } .rating-widget.rw2 { padding-left: 0.6rem; padding-right: 0.6rem; } }
+/* FX-CSS-END */
