@@ -1,0 +1,103 @@
+// Service Worker per Marvel Multiverse — TVA Archive.
+// Strategia principale: network-first con fallback su cache. Quando sei online, ricevi sempre
+// la versione più recente del file (utile dato che il progetto viene aggiornato spesso);
+// quando sei offline, ricevi l'ultima versione che il browser è riuscito a scaricare.
+// Non pre-carica nulla per nome file esplicito: cattura dinamicamente ogni richiesta GET
+// alla prima visita online, così funziona qualunque sia il nome con cui l'HTML viene caricato.
+//
+// Font Google: la registrazione di questo SW avviene DOPO che la pagina ha già finito di
+// caricarsi (window.onload), quindi il fetch handler generico sotto non farebbe mai in tempo a
+// intercettare le richieste font della primissima visita — solo dalla seconda visita online in
+// poi. Per risolverlo, durante "install" questo SW scarica DIRETTAMENTE il CSS di Google Fonts
+// (qui gira nel browser reale, non ha i limiti di un tool esterno), lo analizza per trovare gli
+// URL dei file .woff2 referenziati, e li mette in cache esplicitamente — indipendentemente da
+// quando/come la pagina stessa li carica.
+
+const SW_BUILD = '20261017-sw8';
+const CACHE_NAME = 'marvel-timeline-cache-v8';
+const FONT_CSS_URL = 'https://fonts.googleapis.com/css2?family=Special+Elite&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap';
+
+function precacheFonts(cache) {
+  return fetch(FONT_CSS_URL, { mode: 'cors' })
+    .then(function (cssResponse) {
+      var cssForCache = cssResponse.clone();
+      return cssResponse.text().then(function (cssText) {
+        var matches = cssText.match(/url\(([^)]+)\)/g) || [];
+        var fontUrls = matches.map(function (m) {
+          return m.replace(/^url\(/, '').replace(/\)$/, '').replace(/["']/g, '');
+        });
+        var cachePromises = fontUrls.map(function (fontUrl) {
+          return fetch(fontUrl, { mode: 'cors' })
+            .then(function (fontResponse) { return cache.put(fontUrl, fontResponse); })
+            .catch(function () { /* un singolo peso mancante non blocca gli altri */ });
+        });
+        cachePromises.push(cache.put(FONT_CSS_URL, cssForCache));
+        return Promise.all(cachePromises);
+      });
+    })
+    .catch(function () { /* offline già alla prima installazione: nessun font da pre-caricare, non è un errore fatale */ });
+}
+
+self.addEventListener('install', function (event) {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function (cache) { return precacheFonts(cache); })
+  );
+});
+
+self.addEventListener('activate', function (event) {
+  event.waitUntil(
+    caches.keys()
+      .then(function (keys) {
+        return Promise.all(
+          keys.filter(function (k) { return k !== CACHE_NAME; })
+            .map(function (k) { return caches.delete(k); })
+        );
+      })
+      .then(function () { return self.clients.claim(); })
+  );
+});
+
+// Versione leggibile dalla pagina (diagnostica ?debugLayout=1 e verifica build). Non tocca dati utente.
+self.addEventListener('message', function (event) {
+  var d = event.data;
+  if (d && d.type === 'tva-get-version' && event.ports && event.ports[0]) {
+    event.ports[0].postMessage({ swBuild: SW_BUILD, cache: CACHE_NAME });
+  }
+});
+
+self.addEventListener('fetch', function (event) {
+  var req = event.request;
+  if (req.method !== 'GET') return;
+
+  // Navigazione (l'HTML): rivalida sempre con il server, senza passare dalla cache HTTP del WebView
+  // (una copia "fresca" li' darebbe una versione precedente anche con rete presente). Se la costruzione
+  // della richiesta non e' supportata, si ricade sul comportamento precedente.
+  var netReq = req;
+  if (req.mode === 'navigate') {
+    try { netReq = new Request(req, { cache: 'no-cache' }); } catch (e) { netReq = req; }
+  }
+
+  event.respondWith(
+    fetch(netReq)
+      .then(function (networkResponse) {
+        // Solo risposte complete (200): niente 206 parziali (verifica build via Range) ne' errori in cache.
+        if (networkResponse && networkResponse.status === 200 && !req.headers.get('Range')) {
+          var responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then(function (cache) {
+            return cache.put(req, responseClone);
+          }).catch(function () {});
+        }
+        return networkResponse;
+      })
+      .catch(function () {
+        return caches.match(req).then(function (cached) {
+          if (cached) return cached;
+          return new Response(
+            'Contenuto non disponibile offline. Apri la guida almeno una volta con connessione attiva.',
+            { status: 503, statusText: 'Offline', headers: { 'Content-Type': 'text/plain; charset=utf-8' } }
+          );
+        });
+      })
+  );
+});

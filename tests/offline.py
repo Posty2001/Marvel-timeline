@@ -1,0 +1,20 @@
+from playwright.sync_api import sync_playwright
+U='http://127.0.0.1:8123/index.html'
+with sync_playwright() as p:
+    b=p.chromium.launch(); ctx=b.new_context(viewport={'width':390,'height':844},is_mobile=True,has_touch=True,service_workers='allow'); pg=ctx.new_page()
+    errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
+    pg.goto(U); pg.wait_for_timeout(2500)
+    print('sw',pg.evaluate("()=>navigator.serviceWorker.getRegistration().then(r=>!!r&&!!(r.active||r.waiting||r.installing))"))
+    pg.wait_for_timeout(3000)
+    print('controller',pg.evaluate("()=>!!navigator.serviceWorker.controller"))
+    pg.evaluate("()=>caches.keys().then(k=>k)")
+    print('caches',pg.evaluate("()=>caches.keys().then(async ks=>{const o={};for(const k of ks){o[k]=(await (await caches.open(k)).keys()).map(r=>r.url.replace(location.origin,''))}return o})"))
+    ctx.set_offline(True)
+    pg.goto(U); pg.wait_for_timeout(2500)
+    ok=pg.evaluate("()=>!!document.querySelector('#item-001')&&!!window.tvaAtlas2")
+    print('offline render',ok)
+    pg.evaluate("()=>{journeyStarted.checked=true; journeyStarted.dispatchEvent(new Event('change',{bubbles:true}))}"); pg.wait_for_timeout(400)
+    pg.evaluate("()=>tvaAtlas2.enter()"); pg.wait_for_timeout(300)
+    pg.evaluate("()=>tvaGo('arc','cos:cos-galactus')"); pg.wait_for_timeout(300)
+    print('atlas offline',pg.evaluate("()=>[tvaAtlas2.getState().screen,document.querySelectorAll('.a2-cov svg').length]"))
+    print('errs',[e for e in errs][:3]); b.close()

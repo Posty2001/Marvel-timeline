@@ -1,0 +1,15 @@
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b=p.chromium.launch(); pg=b.new_page(viewport={'width':390,'height':844}); pg.set_default_timeout(8000)
+    pg.goto('file:///home/claude/work/index.html'); pg.wait_for_timeout(900)
+    pg.evaluate("()=>{journeyStarted.checked=true;homeHubExited.checked=true;const r=document.documentElement.style;r.setProperty('--sat','47px');r.setProperty('--sab','34px')}"); pg.wait_for_timeout(300)
+    pg.evaluate("()=>{document.querySelector('#item-099 details').setAttribute('open','');tvaSettleScroll(document.getElementById('item-099'))}"); pg.wait_for_timeout(2200)
+    pg.evaluate("()=>{const d=document.querySelector('#item-099 .tva-row');d.scrollIntoView({block:'center'})}"); pg.wait_for_timeout(500)
+    pg.screenshot(path='card099.png')
+    pg.evaluate("()=>tvaGo('uni','uni-earth-96283-raimi-verse')"); pg.wait_for_timeout(900)
+    pg.screenshot(path='a2_raimi.png')
+    pg.evaluate("()=>document.getElementById('appTabMissioni').click()"); pg.wait_for_timeout(900)
+    pg.evaluate("()=>{const m=document.getElementById('missioneTematica');m.closest('details').open=true;m.scrollIntoView({block:'start'});window.scrollBy(0,-80)}"); pg.wait_for_timeout(600)
+    print(pg.evaluate("()=>[!!window.marvelMissioniInfo,document.querySelectorAll('.tva-mis').length,document.getElementById('missioneSagaTesto').textContent,document.getElementById('missioneTematicaTesto').textContent]"))
+    pg.screenshot(path='missioni.png')
+    b.close()

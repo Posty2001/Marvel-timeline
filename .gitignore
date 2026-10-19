@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pre_*
+backups/
+old_base/
+out_fase1/
+index.ref_*.html
+index.baseline.html
+index.pre_edit.html
+.env

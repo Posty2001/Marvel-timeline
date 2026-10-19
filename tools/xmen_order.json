@@ -1,0 +1,20 @@
+{
+  "_nota": "Fonte di verità dell'ORDINE DI VISIONE EDITORIALE dei film Fox/X-Men (ID stabili delle schede). Non è una cronologia canonica. Usato da patch_xmen_order.py e dai test.",
+  "order": ["012", "018", "015", "016", "017", "019", "013", "014", "020", "021", "022", "024", "023"],
+  "titles": {
+    "012": "X-Men: First Class",
+    "018": "X-Men Origins: Wolverine",
+    "015": "X-Men",
+    "016": "X2",
+    "017": "X-Men: The Last Stand",
+    "019": "The Wolverine",
+    "013": "X-Men: Days of Future Past",
+    "014": "X-Men: Apocalypse",
+    "020": "Dark Phoenix",
+    "021": "The New Mutants",
+    "022": "Deadpool",
+    "024": "Logan",
+    "023": "Deadpool 2"
+  },
+  "unchanged_anchor": "117"
+}

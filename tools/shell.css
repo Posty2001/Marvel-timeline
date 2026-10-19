@@ -1,0 +1,37 @@
+/* SH-CSS-BEGIN: shell immersiva TVA per gli overlay classici raggiunti dall'Atlante (grafico, timeline universi/alternativa, relazioni, Kang, database classico) */
+#tvaShell { display:none; position:fixed; top:0; left:0; right:0; z-index:258; box-sizing:border-box; align-items:center; gap:.4rem;
+  padding:calc(var(--sat) + .4rem) calc(.6rem + var(--sar)) .45rem calc(.5rem + var(--sal)); min-height:calc(var(--sat) + 3.7rem);
+  background:#101014; border-bottom:1px solid rgba(210,177,132,.28); color:#F2E8D8; }
+#tvaShell button { -webkit-tap-highlight-color:transparent; cursor:pointer; font:inherit; }
+#tvaShell .ts-back { flex:0 0 auto; width:2.75rem; min-width:44px; height:2.75rem; min-height:44px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; border:1px solid rgba(210,177,132,.5); background:transparent; color:#D2B184; padding:0; }
+#tvaShell .ts-ttl { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; line-height:1.2; }
+#tvaShell .ts-eyebrow { font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.14em; color:#D2B184; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#tvaShell .ts-t { font-family:'Spectral',Georgia,serif; font-weight:600; font-size:1.05rem; color:#F2E8D8; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+#tvaShell .ts-exit { flex:0 0 auto; min-height:44px; display:inline-flex; align-items:center; gap:.35rem; padding:0 .8rem; border-radius:999px; border:1px solid #DB777C; background:rgba(219,119,124,.12); color:#F2E8D8; font-size:.74rem; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif; font-weight:600; }
+#tvaShell svg { width:1.15rem; height:1.15rem; display:block; }
+#tvaShell .ts-exit svg { color:#DB777C; }
+@media (max-width:380px) { #tvaShell .ts-exit { width:44px; padding:0; justify-content:center; } #tvaShell .ts-exit span { display:none; } }
+#multiverseGraphToggle:checked ~ #tvaShell#tvaShell,
+#universeTimelineToggle:checked ~ #tvaShell#tvaShell,
+#altTimelineToggle:checked ~ #tvaShell#tvaShell,
+#relationshipGraphToggle:checked ~ #tvaShell#tvaShell,
+#kangTvaGraphToggle:checked ~ #tvaShell#tvaShell,
+#tvaArchivesToggle:checked ~ #tvaShell#tvaShell { display:flex !important; }
+#multiverseGraphToggle:checked ~ #tvaShell .ts-t::before { content:'Grafico del Multiverso'; }
+#universeTimelineToggle:checked ~ #tvaShell .ts-t::before { content:'Timeline degli Universi'; }
+#altTimelineToggle:checked ~ #tvaShell .ts-t::before { content:'Timeline alternativa'; }
+#relationshipGraphToggle:checked ~ #tvaShell .ts-t::before { content:'Grafo delle Relazioni'; }
+#kangTvaGraphToggle:checked ~ #tvaShell .ts-t::before { content:'Kang e la TVA'; }
+#tvaArchivesToggle:checked ~ #tvaShell .ts-t::before { content:'Archivio classico'; }
+/* nessuna barra inferiore e nessun menu circolare in modalità immersiva */
+#multiverseGraphToggle:checked ~ .app-tabbar, #universeTimelineToggle:checked ~ .app-tabbar, #altTimelineToggle:checked ~ .app-tabbar, #relationshipGraphToggle:checked ~ .app-tabbar, #kangTvaGraphToggle:checked ~ .app-tabbar, #tvaArchivesToggle:checked ~ .app-tabbar,
+#multiverseGraphToggle:checked ~ .sidebar-open-btn, #universeTimelineToggle:checked ~ .sidebar-open-btn, #altTimelineToggle:checked ~ .sidebar-open-btn, #relationshipGraphToggle:checked ~ .sidebar-open-btn, #kangTvaGraphToggle:checked ~ .sidebar-open-btn, #tvaArchivesToggle:checked ~ .sidebar-open-btn { display:none !important; }
+/* l'overlay lascia spazio all'intestazione; il vecchio «Torna alla guida» è sostituito dal comando Indietro dell'intestazione */
+#multiverseGraphToggle:checked ~ .multiverse-graph-overlay, #universeTimelineToggle:checked ~ .universe-timeline-overlay, #altTimelineToggle:checked ~ .alt-timeline-overlay,
+#relationshipGraphToggle:checked ~ .relationship-graph-overlay, #kangTvaGraphToggle:checked ~ .kang-tva-overlay, #tvaArchivesToggle:checked ~ .tva-archives-overlay {
+  padding-top:calc(var(--sat) + 4.2rem) !important; padding-bottom:calc(var(--sab) + 1.5rem) !important; background:#101014; }
+#multiverseGraphToggle:checked ~ .multiverse-graph-overlay > .mg-header .mg-back-btn, #universeTimelineToggle:checked ~ .universe-timeline-overlay > .mg-header .mg-back-btn, #altTimelineToggle:checked ~ .alt-timeline-overlay > .mg-header .mg-back-btn,
+#relationshipGraphToggle:checked ~ .relationship-graph-overlay > .mg-header .mg-back-btn, #kangTvaGraphToggle:checked ~ .kang-tva-overlay > .mg-header .mg-back-btn, #tvaArchivesToggle:checked ~ .tva-archives-overlay > .mg-header .mg-back-btn { display:none !important; }
+#multiverseGraphToggle:checked ~ .multiverse-graph-overlay .mg-header, #universeTimelineToggle:checked ~ .universe-timeline-overlay .mg-header, #altTimelineToggle:checked ~ .alt-timeline-overlay .mg-header,
+#relationshipGraphToggle:checked ~ .relationship-graph-overlay .mg-header, #kangTvaGraphToggle:checked ~ .kang-tva-overlay .mg-header, #tvaArchivesToggle:checked ~ .tva-archives-overlay .mg-header { padding-top:.5rem !important; }
+/* SH-CSS-END */

@@ -1,0 +1,43 @@
+.a2-dossier .ud-hero { position: relative; overflow: hidden; padding: 0; min-height: 17.5rem; display: flex; flex-direction: column; justify-content: flex-end; border-color: rgba(210,177,132,0.45); background: #14090c; isolation: isolate; }
+.ud-bg { position: absolute; inset: 0; z-index: -2; overflow: hidden; background: radial-gradient(120% 90% at 80% 0%, #3a1a20 0%, #14090c 70%); }
+.ud-bg svg { width: 100%; height: 100%; display: block; }
+.ud-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; transform: scale(1.04); animation: ud-drift 48s ease-in-out infinite alternate; }
+@keyframes ud-drift { from { transform: scale(1.04) translate3d(0, 0, 0); } to { transform: scale(1.1) translate3d(0, -1.2%, 0); } }
+.ud-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(16,16,20,0.2) 0%, rgba(16,16,20,0.72) 36%, rgba(16,16,20,0.95) 100%); }
+.ud-hero-c { position: relative; padding: 5.5rem 1rem 0.7rem; }
+.ud-kick { display: block; font-size: 0.72rem; letter-spacing: 0.14em; color: var(--a2-gold); margin-bottom: 0.3rem; }
+.a2-dossier .ud-hero h2 { font-size: 1.55rem; line-height: 1.12; font-weight: 500; margin: 0 0 0.35rem; text-wrap: balance; }
+.ud-nota { font-size: 0.78rem; color: var(--a2-mut); }
+.ud-stats { list-style: none; margin: 0; padding: 0.6rem 1rem 0.9rem; display: flex; flex-wrap: wrap; gap: 0.45rem 1.1rem; position: relative; }
+.ud-stats li { display: flex; flex-direction: column; min-width: 4.2rem; }
+.ud-stats b { font-family: 'Spectral', Georgia, serif; font-size: 1.35rem; font-weight: 500; color: var(--a2-gold); line-height: 1.1; }
+.ud-stats span { font-size: 0.72rem; letter-spacing: 0.04em; color: var(--a2-mut); }
+.ud-index { position: sticky; top: 0; z-index: 5; display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.45rem 0.1rem; margin: 0 0 0.6rem; background: #101014; border-bottom: 1px solid var(--a2-line); scrollbar-width: none; }
+.ud-index::-webkit-scrollbar { display: none; }
+.ud-ix { flex: 0 0 auto; min-height: 44px; padding: 0 0.9rem; border-radius: 999px; border: 1px solid var(--a2-line); background: #1b1b20; color: var(--a2-fg); font: inherit; font-size: 0.78rem; }
+.ud-ix:active { border-color: var(--a2-gold); color: var(--a2-gold); }
+.ud-acts { display: block; }
+.ud-sum { font-size: 0.78rem; color: var(--a2-gold); margin: 0.5rem 0 0.2rem; }
+.ud-st { display: inline-flex; align-items: center; gap: 0.3rem; flex: 0 0 auto; padding: 0.18rem 0.6rem; border-radius: 999px; font-size: 0.7rem; letter-spacing: 0.03em; white-space: nowrap; }
+.ud-st-ok { background: rgba(210,177,132,0.18); color: var(--a2-gold); border: 1px solid var(--a2-gold); }
+.ud-st-lg { background: transparent; color: var(--a2-fg); border: 1px solid rgba(242,232,216,0.55); }
+.ud-st-vf { background: rgba(219,119,124,0.12); color: var(--a2-acc); border: 1px dashed var(--a2-acc); }
+.ud-lk { margin: 0.5rem 0; padding: 0.7rem 0.8rem; border-radius: 12px; border: 1px solid var(--a2-line); background: var(--a2-fill); border-left-width: 3px; }
+.ud-lk-ok { border-left-color: var(--a2-gold); } .ud-lk-lg { border-left-color: rgba(242,232,216,0.55); } .ud-lk-vf { border-left-color: var(--a2-acc); border-left-style: dashed; }
+.ud-lk-h { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+.ud-lk-n { font-weight: 500; font-size: 0.86rem; }
+.ud-lk-t { display: block; margin-top: 0.3rem; font-size: 0.72rem; color: var(--a2-mut); }
+.ud-refs { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+.ud-ref { font-size: 0.72rem; }
+.ud-prov { margin-top: 0.5rem; font-size: 0.75rem; }
+.ud-prov summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; color: var(--a2-gold); }
+.ud-fonti { margin: 0 0 0.3rem; padding-left: 1.1rem; color: var(--a2-mut); line-height: 1.5; }
+.ud-leg { margin-top: 0.5rem; }
+.ud-leg dt { margin-top: 0.5rem; }
+.ud-empty { border-style: dashed; }
+@media (prefers-reduced-motion: reduce) { .ud-bg-img { animation: none; transform: none; } }
+
+.a2-scroll.a2-dossier { padding-top: 0; }
+.a2-dossier .ud-hero { margin-top: 0.7rem; }
+.ud-ord { flex-wrap: wrap; overflow: visible; }
+.ud-bg-proc svg { -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 32%, transparent 66%); mask-image: linear-gradient(180deg, #000 0%, #000 32%, transparent 66%); }
