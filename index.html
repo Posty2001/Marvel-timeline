@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="tva-build" content="20261021-1900-blocco1">
+<meta name="tva-build" content="20261021-2000-blocco2">
 <link rel="preload" as="image" href="assets/images/intro/living-multiverse.webp" type="image/webp" fetchpriority="high">
 <script id="rs-early">try{var __v=localStorage.getItem("marvel-skin-v2-dark");if(__v!=="0")document.documentElement.classList.add("marvel-dark-mode");}catch(e){document.documentElement.classList.add("marvel-dark-mode");}</script>
 <title>Marvel Multiverse — TVA Archive — The Definitive Watch Order</title>
@@ -4923,8 +4923,8 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
 <style id="b1-css">
 /* B1-CSS-BEGIN: Blocco 1 (navigazione, viste Timeline/Centrale, card voti, titoli gruppi, grafi) */
 /* ---- Viste: la pagina e' unica; Timeline mostra solo il percorso di visione, Centrale TVA gli strumenti (nulla viene rimosso dal DOM) ---- */
-html[data-tva-view="timeline"] :is(#dashboard, #database, .bollettino-box, footer.closing, .foot-mark) { display: none !important; }
-html[data-tva-view="centrale"] :is(#cover, #indice, .legend-wrap, #cap0, #parte1, #parte1bis, #parte2, #parte3, #parte4, #serieanimate) { display: none !important; }
+html[data-tva-view="timeline"] :is(#dashboard, #database, .bollettino-box, footer.closing, .foot-mark, #modalita-confronto) { display: none !important; }
+html[data-tva-view="centrale"] :is(#cover, #indice, .legend-wrap, #cap0, #parte1, #parte1bis, #parte2, #parte3, #parte4, #serieanimate, .dopo-sw, #gtimeline, .controlbar, #database, footer.closing, .foot-mark, .back-top) { display: none !important; }
 html[data-tva-view="centrale"] body { padding-top: calc(var(--sat, 0px) + 3.6rem); }   /* libera l'hamburger */
 /* ---- Indice compatto, vicino all'inizio ---- */
 #indice.toc { padding: 0.5rem 1rem 0.2rem; }
@@ -4980,6 +4980,152 @@ html[data-tva-view="centrale"] body { padding-top: calc(var(--sat, 0px) + 3.6rem
 .relationship-graph-overlay .rg-satellite circle { r: 24px; }
 .kang-tva-overlay .mg-node-label { transform: translateY(7px); }
 /* B1-CSS-END */
+</style>
+<style id="b2-css">
+/* B2-CSS-BEGIN: Centrale TVA (Blocco 2) */
+/* contenitore: niente piu' "pannello di carta", i componenti esistenti restano ma si inseriscono in un centro operativo scuro */
+html:not(#rs) section#dashboard.cen { background: none; border: 0; box-shadow: none; border-radius: 0; padding: 0.2rem 1rem 1rem; margin: 0 auto; overflow: visible; max-width: 760px; }
+html:not(#rs) section#dashboard.cen::before { display: none; }
+#dashboard.cen .cen-head { margin: 0 0 0.6rem; padding: 0.2rem 0 0.5rem; border-bottom: 1px solid rgba(210,177,132,0.25); }
+#dashboard.cen .cen-head h2 { font-size: 1.5rem; letter-spacing: 0.02em; margin: 0; color: #f2e8d8; }
+#dashboard.cen .cen-head .part-sub { margin: 0.2rem 0 0; font-size: 0.8rem; color: rgba(239,228,201,0.65); }
+/* navigazione a 4 sezioni */
+.cen-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.35rem; margin: 0 0 0.9rem; padding: 0.3rem; border: 1px solid rgba(210,177,132,0.22); border-radius: 14px; background: rgba(15,13,10,0.6); }
+.cen-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem; min-height: 3rem; padding: 0.3rem 0.1rem; min-width: 0; cursor: pointer; font: inherit; color: rgba(239,228,201,0.7); background: none; border: 0; border-radius: 10px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.cen-tab-ic { font-size: 1.05rem; line-height: 1; }
+.cen-tab-l { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0; text-transform: uppercase; line-height: 1; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+@media (min-width: 360px) { .cen-tab-l { font-size: 0.6rem; letter-spacing: 0.03em; } }
+.cen-tab.cen-on { background: #D2B184; color: #1a120c; }
+.cen-tab:focus-visible, .cen-stab:focus-visible, .cen-link:focus-visible, .cen-sbtn:focus-visible, .cen-dbtn:focus-visible, .cen-work:focus-visible, .cen-pr:focus-visible { outline: 2px solid #D2B184; outline-offset: 2px; }
+.cen-panel[hidden], .cen-subpanel[hidden] { display: none !important; }
+.cen-panel { display: flex; flex-direction: column; gap: 0.8rem; }
+/* card comuni */
+.cen-card { padding: 0.75rem 0.85rem; border: 1px solid rgba(210,177,132,0.2); border-radius: 12px; background: rgba(20,16,12,0.72); }
+.cen-card-h { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem; }
+.cen-card h3, .cen-grp h3 { margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #D2B184; font-weight: 600; }
+.cen-link { font: inherit; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #D2B184; background: none; border: 0; padding: 0.5rem 0.2rem; min-height: 44px; cursor: pointer; touch-action: manipulation; }
+.cen-help, .cen-note { margin: 0.3rem 0 0.2rem; font-size: 0.76rem; line-height: 1.4; color: rgba(239,228,201,0.65); }
+.cen-bar { display: block; height: 6px; border-radius: 999px; background: rgba(239,228,201,0.12); overflow: hidden; }
+.cen-bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #A83446, #D2B184); border-radius: 999px; }
+.cen-bar-s { height: 4px; grid-column: 1 / -1; }
+/* agente */
+.cen-agent { padding: 0.85rem 0.9rem; border: 1px solid rgba(210,177,132,0.4); border-radius: 14px; background: linear-gradient(160deg, rgba(168,52,70,0.22), rgba(20,16,12,0.85) 60%); }
+.cen-ag-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.6rem; }
+.cen-ag-id { display: flex; flex-direction: column; min-width: 0; }
+.cen-ag-kick { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; color: rgba(210,177,132,0.85); }
+.cen-ag-name { font-size: 1.25rem; line-height: 1.2; color: #f2e8d8; overflow-wrap: anywhere; }
+.cen-ag-var { font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; letter-spacing: 0.08em; color: rgba(239,228,201,0.6); }
+.cen-ag-rank { display: flex; flex-direction: column; align-items: flex-end; flex: 0 0 auto; }
+.cen-ag-rk { font-family: 'Special Elite', 'IBM Plex Mono', monospace; font-size: 0.95rem; color: #D2B184; }
+.cen-ag-lv { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: rgba(239,228,201,0.75); }
+.cen-ag-lv b { font-size: 1rem; color: #f2e8d8; }
+.cen-ag-xp { margin-top: 0.6rem; }
+.cen-ag-xpl { display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 0.3rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; color: rgba(239,228,201,0.7); }
+.cen-ag-xpl b { color: #D2B184; }
+.cen-ag-bot { display: flex; justify-content: space-between; align-items: center; margin-top: 0.1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: rgba(239,228,201,0.7); }
+.cen-ag-bot b { color: #f2e8d8; }
+/* anteprime missioni/stagione */
+.cen-prev-rows { display: flex; flex-direction: column; gap: 0.3rem; }
+.cen-pr { display: grid; grid-template-columns: 1fr auto; column-gap: 0.6rem; row-gap: 0.3rem; align-items: center; width: 100%; min-height: 44px; padding: 0.45rem 0.6rem; text-align: left; font: inherit; color: #efe4c9; background: rgba(239,228,201,0.04); border: 1px solid rgba(210,177,132,0.14); border-radius: 8px; cursor: pointer; touch-action: manipulation; }
+.cen-pr-t { font-size: 0.82rem; line-height: 1.25; overflow-wrap: anywhere; min-width: 0; }
+.cen-pr-f { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #D2B184; }
+.cen-pr-done .cen-pr-f { color: #7fd197; }
+.cen-short { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+.cen-sbtn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem; min-height: 3.2rem; padding: 0.3rem 0.1rem; font: inherit; font-size: 1.1rem; color: #efe4c9; background: rgba(239,228,201,0.05); border: 1px solid rgba(210,177,132,0.2); border-radius: 10px; cursor: pointer; touch-action: manipulation; }
+.cen-sbtn span { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.02em; text-transform: uppercase; color: rgba(239,228,201,0.75); }
+/* sotto-navigazione missioni */
+.cen-subnav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.3rem; margin: 0 0 0.6rem; }
+.cen-stab { min-height: 44px; padding: 0.3rem 0.2rem; font: inherit; font-family: 'IBM Plex Mono', monospace; font-size: 0.64rem; letter-spacing: 0.02em; text-transform: uppercase; color: rgba(239,228,201,0.75); background: rgba(239,228,201,0.05); border: 1px solid rgba(210,177,132,0.2); border-radius: 999px; cursor: pointer; touch-action: manipulation; }
+.cen-stab.cen-on { color: #1a120c; background: #D2B184; border-color: #D2B184; }
+.cen-subpanel { display: block; }
+/* dossier */
+.cen-dbtn { margin-top: 0.4rem; min-height: 44px; padding: 0.3rem 0.8rem; font: inherit; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: #D2B184; background: transparent; border: 1px solid rgba(210,177,132,0.4); border-radius: 999px; cursor: pointer; touch-action: manipulation; }
+.cen-dos { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed rgba(210,177,132,0.25); }
+.cen-dos[hidden] { display: none; }
+.cen-dos-open { border-top: 0; }
+.cen-dl { display: grid; grid-template-columns: 1fr; gap: 0.1rem; margin: 0; }
+.cen-dl dt { margin-top: 0.4rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #D2B184; }
+.cen-dl dd { margin: 0; font-size: 0.84rem; line-height: 1.4; color: #efe4c9; overflow-wrap: anywhere; }
+.cen-works { margin-top: 0.5rem; }
+.cen-works > summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; color: #D2B184; }
+.cen-works-b { display: flex; flex-direction: column; gap: 0.25rem; max-height: 22rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.cen-work { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.5rem; width: 100%; min-height: 44px; padding: 0.3rem 0.6rem; text-align: left; font: inherit; color: #efe4c9; background: rgba(239,228,201,0.05); border: 1px solid rgba(210,177,132,0.16); border-radius: 8px; cursor: pointer; touch-action: manipulation; }
+.cen-work-n { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; color: rgba(239,228,201,0.55); }
+.cen-work-t { font-size: 0.84rem; line-height: 1.2; overflow-wrap: anywhere; }
+.cen-work-s { font-size: 0.9rem; color: #D2B184; }
+.cen-work-seen { border-color: rgba(127,209,151,0.35); }
+.cen-work-seen .cen-work-s { color: #7fd197; }
+/* il dossier mostra anche i titoli proposti dal componente esistente (.tva-mis); da chiuso la card resta compatta */
+#dashboard.cen .missione-row { display: flex; flex-direction: column; }
+#dashboard.cen .missione-row > .cen-dbtn { order: 5; align-self: flex-start; }
+#dashboard.cen .missione-row > .cen-dos { order: 6; }
+#dashboard.cen .missione-row > .tva-mis { order: 7; }
+#dashboard.cen .missione-row:not(.cen-open) > .tva-mis { display: none; }
+/* archivio */
+.cen-arch-h { display: flex; justify-content: space-between; gap: 0.6rem; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: rgba(239,228,201,0.75); }
+.cen-arch-h b { color: #D2B184; }
+.cen-arch-w { margin: 0.8rem 0 0.3rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: #D2B184; }
+.cen-arch-l { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+.cen-arch-l li { display: grid; grid-template-columns: auto 1fr auto; gap: 0.5rem; align-items: center; min-height: 40px; padding: 0.3rem 0.6rem; background: rgba(239,228,201,0.04); border: 1px solid rgba(210,177,132,0.12); border-radius: 8px; font-size: 0.82rem; }
+.cen-arch-x { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #7fd197; white-space: nowrap; }
+/* componenti esistenti spostati */
+#dashboard.cen .dash-holo-main, #dashboard.cen .dash-last-next, #dashboard.cen .stagione-tva-card, #dashboard.cen .rtd-card, #dashboard.cen .dash-missioni { margin: 0; }
+#dashboard.cen .dash-missioni { padding-top: 0; border-top: 0; }
+#dashboard.cen .dash-missioni-summary { pointer-events: none; cursor: default; }
+#dashboard.cen .dash-missioni-summary::before { display: none; }
+#dashboard.cen .dash-picker { margin: 0; padding: 0; border: 0; }
+#dashboard.cen .dash-details-all { margin: 0; }
+#dashboard.cen .missione-row { margin-bottom: 0.6rem; }
+#dashboard.cen .bollettino-box { margin: 0; max-width: none; }
+.cen-tool { padding: 0.6rem; }
+/* operazioni */
+.cen-op { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.5rem; }
+.cen-op-row { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
+.cen-op .reset-btn, .cen-grp .reset-btn { width: 100%; min-height: 48px; justify-content: center; }
+.cen-op-row .reset-btn { flex: 1 1 9rem; width: auto; }
+.cen-grp .spoiler-label, .cen-grp label[for="darkModeToggle"] { display: inline-flex; align-items: center; min-height: 44px; }
+.cen-grp .sync-wrap { margin: 0; padding: 0; border: 0; }
+.cen-grp .sync-code-row .us-input { max-width: none; flex: 1 1 100%; font-size: 16px; }
+.cen-grp .sync-code-row .reset-btn { flex: 1 1 8rem; width: auto; }
+.cen-danger { border-color: rgba(200,39,42,0.55); background: rgba(120,20,30,0.18); }
+.cen-danger h3 { color: #ff8a8f; }
+.cen-danger .reset-btn-danger, .cen-danger #resetBtn { border-color: rgba(255,138,143,0.7); }
+.cen-danger .cen-op + .cen-op { margin-top: 0.9rem; padding-top: 0.8rem; border-top: 1px dashed rgba(255,138,143,0.3); }
+/* strumenti + confronto mobile */
+#dashboard.cen .cen-cmp { max-width: none; margin: 0; padding: 0; }
+#dashboard.cen .cen-cmp .us-box { padding: 0.8rem; border-radius: 12px; }
+#dashboard.cen .cen-cmp .us-input, #dashboard.cen .cen-cmp input { font-size: 16px; min-height: 44px; }
+#dashboard.cen .cen-cmp .cmp-toggle-title { min-height: 44px; display: flex; align-items: center; margin: 0; font-size: 1rem; cursor: pointer; }
+.cmp-scroll-hint { display: none; }
+@media (max-width: 620px) {
+  .cmp-scroll-hint { display: none !important; }
+  #cmpTableWrap { overflow: visible; }
+  #cmpTableWrap .cmp-table { min-width: 0; display: block; width: 100%; border: 0; }
+  #cmpTableWrap .cmp-table thead, #cmpTableWrap .cmp-table tbody { display: block; }
+  #cmpTableWrap .cmp-table tr { display: grid; grid-template-columns: 1fr 1fr; column-gap: 0.4rem; border: 1px solid rgba(210,177,132,0.18); border-radius: 8px; margin-top: 0.4rem; overflow: hidden; }
+  #cmpTableWrap .cmp-table thead th:first-child { display: none; }
+  #cmpTableWrap .cmp-table th, #cmpTableWrap .cmp-table td { min-width: 0; width: auto; overflow-wrap: anywhere; padding: 0.45rem 0.55rem; border-bottom: 0; }
+  #cmpTableWrap .cmp-table td:first-child { grid-column: 1 / -1; padding-bottom: 0.1rem; }
+  #cmpTableWrap .cmp-table td[colspan] { grid-column: 1 / -1; }
+}
+/* Timeline: indice dei 9 checkpoint compatto (unica occorrenza, solo in Timeline) */
+#gtimeline { max-width: 900px; margin: 0.3rem auto 0; padding: 0 1rem; }
+#gtimeline .gtl-det { border: 1px solid rgba(210,177,132,0.22); border-radius: 12px; background: rgba(20,16,12,0.6); padding: 0 0.7rem; }
+#gtimeline .gtl-det > summary { min-height: 2.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: #efe4c9; list-style: none; }
+#gtimeline .gtl-det > summary::-webkit-details-marker { display: none; }
+#gtimeline .gtl-det > summary::before { content: '\25b8'; color: #D2B184; }
+#gtimeline .gtl-det[open] > summary::before { content: '\25be'; }
+#gtimeline .toc-sub { margin: 0 0 0.4rem; font-size: 0.76rem; }
+#gtimeline .tl-table { display: flex; flex-direction: column; gap: 0.2rem; padding-bottom: 0.6rem; }
+#gtimeline .tl-row { display: grid; grid-template-columns: 5.2rem 1fr auto; gap: 0.5rem; align-items: center; min-height: 44px; padding: 0.3rem 0.4rem; border-radius: 8px; }
+#gtimeline .tl-year { font-size: 0.62rem; line-height: 1.2; }
+#gtimeline .tl-title { font-size: 0.86rem; line-height: 1.2; }
+#gtimeline .tl-desc { font-size: 0.7rem; line-height: 1.25; opacity: 0.75; }
+@media (max-width: 360px) { #gtimeline .tl-row { grid-template-columns: 4.2rem 1fr auto; } }
+/* B2-TOUCH */
+#dashboard.cen :is(.cen-op,.cen-grp) .reset-btn, #dashboard.cen .cen-grp .us-input, #dashboard.cen .rtd-list-summary { min-height: 44px !important; box-sizing: border-box; }
+#dashboard.cen .rtd-list-summary { display: flex; align-items: center; }
+/* B2-CSS-END */
 </style>
 </head>
 <body>
@@ -22858,6 +23004,20 @@ function marvelInit() {
       if (stNomeEl) stNomeEl.textContent = datiStagione.nome;
       if (stFracEl) stFracEl.textContent = progressoStagione + '/10';
       if (stFillEl) stFillEl.style.width = (progressoStagione * 10) + '%';
+      try {   // B2: stato reale delle missioni esposto in sola lettura alla Centrale TVA
+        var _wk = []; try { var _d = JSON.parse(localStorage.getItem(MISSIONE_SETTIMANA_KEY) || 'null'); if (_d && _d.settimana === week && Array.isArray(_d.titoli)) _wk = _d.titoli.slice(); } catch(eWk) {}
+        var _mi = window.marvelMissioniInfo || (window.marvelMissioniInfo = {}), _bk = bankStagione.ricompensate || [];
+        var _ts = []; try { _ts = JSON.parse(localStorage.getItem('marvel-ultimate-timeline-titoli-stagione') || '[]'); } catch(eTs) {}
+        _mi.week = week; _mi.bank = bankStagione; _mi.catNomi = CAT_MISSIONE_NOMI; _mi.rtdXp = RTD_XP; _mi.titoliStagione = _ts;
+        _mi.stato = {
+          settimanale: { cur: Math.min(contatoreSett, obiettivoSett), tot: obiettivoSett, done: completa1, xp: 250, ids: _wk, rewarded: _bk.indexOf(week + '-settimanale') !== -1 },
+          tematica: { cur: Math.min(vistiCatNuovi, 1), tot: 1, done: completa2, xp: 150, cat: catScelta, rewarded: _bk.indexOf(week + '-tematica-' + catScelta) !== -1 },
+          saga: { cur: vistiSaga, tot: totaleSaga, done: completa3, xp: 300, nome: sagaScelta, rewarded: !!sagaScelta && _bk.indexOf(week + '-saga-' + sagaScelta) !== -1 },
+          segreta: { cur: completa4 ? 1 : 0, tot: 1, done: completa4, xp: 500, id: completa4 ? idSegreto : null, rewarded: !!idSegreto && _bk.indexOf(week + '-segreta-' + idSegreto) !== -1 }
+        };
+        _mi.stagione = { idx: indiceStagioneAttuale, prog: progressoStagione, nome: datiStagione.nome, titolo: datiStagione.titolo, ic: datiStagione.ic };
+        document.dispatchEvent(new CustomEvent('tva:missioni2'));
+      } catch(eMisInfo2) {}
 
       try {
         var STAGIONE_FESTEGGIATA_KEY = 'marvel-ultimate-timeline-stagione-festeggiata';
@@ -23064,6 +23224,7 @@ function marvelInit() {
   // Home, Timeline e Missioni richiedono invece assicurarsi dello stato di homeHubExited prima di
   // scorrere, altrimenti la destinazione resterebbe nascosta dietro l'Home Hub. ----
   function aggiornaTabAttiva(nomeTab) {
+    try { if (window.tvaViewForTab) window.tvaViewForTab(nomeTab); } catch(eView) {}
     try {
       var tabs = document.querySelectorAll('.app-tab');
       for (var i = 0; i < tabs.length; i++) {
@@ -29307,6 +29468,7 @@ window.addEventListener('load', function() {
       return { tg: cbs(), hh: !!(hhx && hhx.checked), db: db ? db.id : null, f: W.marvelUniFiltroStato ? W.marvelUniFiltroStato() : null,
         fl: W.marvelFiltriStato ? W.marvelFiltriStato() : null,
         y: W.pageYOffset || 0, an: anchorOf(), tab: act ? act.getAttribute('data-tab') : null,
+        cen: (W.tvaCentrale && act && act.getAttribute('data-tab') === 'missioni') ? W.tvaCentrale.getState() : null,
         a2: (W.tvaAtlas2 && $('atlas2Toggle') && $('atlas2Toggle').checked) ? W.tvaAtlas2.getState() : null };
     }
     function raf2(fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); }
@@ -29361,6 +29523,7 @@ window.addEventListener('load', function() {
         if (s.db && $(s.db)) $(s.db).checked = true;
         if (s.tab && W.marvelAggiornaTab) W.marvelAggiornaTab(s.tab);
         if (s.a2 && W.tvaAtlas2) W.tvaAtlas2.setState(s.a2);
+        if (s.cen && W.tvaCentrale) W.tvaCentrale.setState(s.cen);
       } catch (e) { if (W.console) console.error('tvaNet restore', e); }
       raf2(function () {
         W.scrollTo(0, s.y);
@@ -29394,6 +29557,7 @@ window.addEventListener('load', function() {
       if (s.tg.friendsToggle) return 'Friends';
       if (s.tg.altTimelineToggle) return 'Timeline alt.';
       if (s.tab === 'home') return 'Home';
+      if (s.tab === 'missioni') return 'Centrale TVA';
       return s.f && s.f.uid ? 'Timeline · ' + (s.f.nome || '').replace(/^Earth-(\w+) — /, 'E-$1 ') : 'Timeline';
     }
     // Cronologia del browser (gesto/tasto Indietro di iOS): ogni livello dello stack ha una voce history con un numero
@@ -34343,6 +34507,13 @@ window.addEventListener('load', function() {
   var D = document, H = D.documentElement;
   function setView(v) { if (H.getAttribute('data-tva-view') !== v) H.setAttribute('data-tva-view', v); }
   H.setAttribute('data-tva-view', 'timeline');
+  window.tvaViewForTab = function (tab) { setView(tab === 'missioni' ? 'centrale' : 'timeline'); };
+  // cambio vista indotto da uno scroll: la scheda attiva in basso segue (solo tra Timeline e Centrale)
+  function goView(v) {
+    try { var a = D.querySelector('.app-tab-active'), t = a && a.getAttribute('data-tab'); if (v === 'centrale' && window.marvelUniFiltroReset) window.marvelUniFiltroReset();
+      if (window.marvelAggiornaTab && (!t || t === 'timeline' || t === 'missioni')) window.marvelAggiornaTab(v === 'centrale' ? 'missioni' : 'timeline'); } catch (e) {}
+    setView(v);
+  }
   // la voce Centrale TVA mostra gli strumenti; ogni altra destinazione torna al percorso di visione
   var orig = window.aggiornaTabAttiva;
   D.addEventListener('click', function (e) {
@@ -34357,13 +34528,359 @@ window.addEventListener('load', function() {
   Element.prototype.scrollIntoView = function () {
     try {
       var v = H.getAttribute('data-tva-view');
-      if (v === 'centrale' && this.closest && this.closest('.part, .card-wrap, #cover, #indice')) setView('timeline');
-      else if (v === 'timeline' && this.closest && this.closest('#dashboard, #database')) setView('centrale');
+      if (v === 'centrale' && this.closest && this.closest('.part, .card-wrap, #cover, #indice, #gtimeline')) goView('timeline');
+      else if (v === 'timeline' && this.closest && this.closest('#dashboard, #database')) goView('centrale');
     } catch (e) {}
     return sv.apply(this, arguments);
   };
 })();
 /* B1-JS-END */
+</script>
+<script id="b2-js">
+/* B2-JS-BEGIN: Centrale TVA (Panoramica / Missioni / Operazioni / Strumenti). Riorganizza i componenti ESISTENTI (stessi nodi, stessi id, stessi listener): nulla viene duplicato o riscritto. */
+(function () {
+  'use strict';
+  var D = document, W = window, H = D.documentElement;
+  function $(i) { return D.getElementById(i); }
+  function el(t, c, x) { var e = D.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var dash = $('dashboard'); if (!dash || dash.__cen) return; dash.__cen = true;
+  dash.classList.add('cen');
+  function move(node, to, before) { if (node && to) { if (before) to.insertBefore(node, before); else to.appendChild(node); } return node; }
+  function titleOf(id) { var t = D.querySelector('#item-' + id + ' .title'); return t ? t.textContent.trim() : ('Scheda ' + id); }
+  function numOf(id) { try { return W.marvelNumeroVisibile ? W.marvelNumeroVisibile(id) : id; } catch (e) { return id; } }
+  function seen(id) { var c = D.querySelector('.watch-check[data-item="' + id + '"]'); return !!(c && c.checked); }
+  function info() { return W.marvelMissioniInfo || {}; }
+
+  /* ---------- guscio: intestazione, navigazione a 4 sezioni, pannelli ---------- */
+  var head = dash.querySelector('.dash-head');
+  if (head) { var h2 = head.querySelector('h2'); if (h2) h2.textContent = 'Centrale TVA'; var sub = head.querySelector('.part-sub'); if (sub) sub.textContent = 'Il centro operativo della tua Variante: stato, missioni, operazioni e strumenti.'; head.classList.add('cen-head'); }
+  var SECS = [['panoramica', '📊', 'Panoramica'], ['missioni', '🎯', 'Missioni'], ['operazioni', '🛠️', 'Operazioni'], ['strumenti', '🧰', 'Strumenti']];
+  var nav = el('div', 'cen-nav'); nav.setAttribute('role', 'tablist'); nav.setAttribute('aria-label', 'Sezioni della Centrale TVA');
+  var panels = {};
+  SECS.forEach(function (s) {
+    var b = el('button', 'cen-tab'); b.type = 'button'; b.id = 'cenTab-' + s[0]; b.setAttribute('role', 'tab'); b.setAttribute('aria-controls', 'cenPan-' + s[0]); b.setAttribute('data-sec', s[0]);
+    b.innerHTML = '<span class="cen-tab-ic" aria-hidden="true">' + s[1] + '</span><span class="cen-tab-l">' + s[2] + '</span>';
+    nav.appendChild(b);
+    var p = el('div', 'cen-panel'); p.id = 'cenPan-' + s[0]; p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', b.id); p.setAttribute('data-sec', s[0]); p.hidden = true; panels[s[0]] = p;
+  });
+  head.after(nav); var anchor = nav; SECS.forEach(function (s) { anchor.after(panels[s[0]]); anchor = panels[s[0]]; });
+
+  /* ---------- PANORAMICA ---------- */
+  var P = panels.panoramica;
+  var agent = el('section', 'cen-agent'); agent.setAttribute('aria-label', 'Agente e livello');
+  agent.innerHTML = '<div class="cen-ag-top"><div class="cen-ag-id"><span class="cen-ag-kick">AGENTE TVA</span><span class="cen-ag-name" data-f="name">Variante</span><span class="cen-ag-var" data-f="var">VAR-000000</span></div>' +
+    '<div class="cen-ag-rank"><span class="cen-ag-rk" data-f="rank">Recluta</span><span class="cen-ag-lv">LV. <b data-f="lv">1</b></span></div></div>' +
+    '<div class="cen-ag-xp"><div class="cen-bar" role="progressbar" aria-label="Progresso verso il livello successivo" aria-valuemin="0" aria-valuemax="100"><i data-f="bar"></i></div><div class="cen-ag-xpl"><span><b data-f="xp">0</b> XP</span><span data-f="xpsub">—</span></div></div>' +
+    '<div class="cen-ag-bot"><span>Distintivi <b data-f="badges">0/14</b></span><button type="button" class="cen-link" data-act="tessera">Apri la Tessera ›</button></div>';
+  P.appendChild(agent);
+  function setF(root, f, v) { var n = root.querySelector('[data-f="' + f + '"]'); if (n) n.textContent = v; }
+  function refreshAgent() {
+    var nm = $('tesseraNameInput'), g = function (i) { var e = $(i); return e ? e.textContent.trim() : ''; };
+    setF(agent, 'name', (nm && nm.value.trim()) || 'Variante'); setF(agent, 'var', g('tesseraId')); setF(agent, 'rank', g('tesseraRank')); setF(agent, 'lv', g('tesseraLivello'));
+    setF(agent, 'xp', g('tesseraXpTotale')); setF(agent, 'xpsub', g('tesseraXpSub')); setF(agent, 'badges', g('tesseraBadges'));
+    var f = $('tesseraXpFill'), w = (f && f.style.width) || '0%', bar = agent.querySelector('[data-f="bar"]'); if (bar) bar.style.width = w;
+    var pb = agent.querySelector('.cen-bar'); if (pb) pb.setAttribute('aria-valuenow', String(parseInt(w, 10) || 0));
+  }
+  move($('dashHoloFill') && dash.querySelector('.dash-holo-main'), P);
+  move($('dashLastNext'), P);
+  var mprev = el('section', 'cen-card cen-prev'); mprev.innerHTML = '<div class="cen-card-h"><h3>Missioni attive</h3><button type="button" class="cen-link" data-go-sec="missioni" data-go-sub="attive">Tutte ›</button></div><div class="cen-prev-rows" data-f="rows"></div>';
+  P.appendChild(mprev);
+  var sprev = el('section', 'cen-card cen-prev'); sprev.innerHTML = '<div class="cen-card-h"><h3>Stagione in corso</h3><button type="button" class="cen-link" data-go-sec="missioni" data-go-sub="stagioni">Dettagli ›</button></div><div class="cen-prev-rows" data-f="srows"></div>';
+  P.appendChild(sprev);
+  var short = el('section', 'cen-short'); short.setAttribute('aria-label', 'Collegamenti rapidi');
+  short.innerHTML = '<button type="button" class="cen-sbtn" data-go-sec="missioni">🎯<span>Missioni</span></button><button type="button" class="cen-sbtn" data-go-sec="operazioni">🛠️<span>Operazioni</span></button><button type="button" class="cen-sbtn" data-go-sec="strumenti">🧰<span>Strumenti</span></button><button type="button" class="cen-sbtn" data-act="atlante">🗺️<span>Atlante</span></button>';
+  P.appendChild(short);
+  move($('bollettinoBox'), P);
+  var MROWS = [['missioneSettimanale', 'settimanale'], ['missioneTematica', 'tematica'], ['missioneSaga', 'saga'], ['missioneSegreta', 'segreta']];
+  function refreshPreview() {
+    var host = mprev.querySelector('[data-f="rows"]'); host.textContent = '';
+    MROWS.forEach(function (m) {
+      var r = $(m[0]); if (!r) return;
+      var t = (r.querySelector('.missione-testo') || {}).textContent || '—', fr = (r.querySelector('.missione-frac') || {}).textContent || '', pct = (r.querySelector('.missione-fill') || { style: {} }).style.width || '0%', done = r.classList.contains('missione-completa');
+      var row = el('button', 'cen-pr' + (done ? ' cen-pr-done' : '')); row.type = 'button'; row.setAttribute('data-mission', m[1]);
+      row.innerHTML = '<span class="cen-pr-t">' + esc(t.trim()) + '</span><span class="cen-pr-f">' + (done ? '✓' : esc(fr)) + '</span><span class="cen-bar cen-bar-s"><i style="width:' + esc(done ? '100%' : pct) + '"></i></span>';
+      host.appendChild(row);
+    });
+    var sh = sprev.querySelector('[data-f="srows"]'); sh.textContent = '';
+    var num = ($('stagioneTvaNum') || {}).textContent || '', nome = ($('stagioneTvaNome') || {}).textContent || '', fr2 = ($('stagioneTvaFrac') || {}).textContent || '0/10', w2 = ($('stagioneTvaFill') || { style: {} }).style.width || '0%';
+    var sr = el('button', 'cen-pr'); sr.type = 'button'; sr.setAttribute('data-mission', 'stagione');
+    sr.innerHTML = '<span class="cen-pr-t">' + esc(num.trim()) + ' · ' + esc(nome.trim()) + '</span><span class="cen-pr-f">' + esc(fr2) + '</span><span class="cen-bar cen-bar-s"><i style="width:' + esc(w2) + '"></i></span>';
+    sh.appendChild(sr);
+  }
+
+  /* ---------- MISSIONI ---------- */
+  var M = panels.missioni;
+  var SUBS = [['attive', 'Attive'], ['stagioni', 'Stagioni'], ['speciali', 'Speciali'], ['archivio', 'Archivio']];
+  var subnav = el('div', 'cen-subnav'); subnav.setAttribute('role', 'tablist'); subnav.setAttribute('aria-label', 'Tipi di missione');
+  var subp = {};
+  SUBS.forEach(function (s) {
+    var b = el('button', 'cen-stab', s[1]); b.type = 'button'; b.id = 'cenSub-' + s[0]; b.setAttribute('role', 'tab'); b.setAttribute('data-sub', s[0]); b.setAttribute('aria-controls', 'cenSubPan-' + s[0]); subnav.appendChild(b);
+    var p = el('div', 'cen-subpanel'); p.id = 'cenSubPan-' + s[0]; p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', b.id); p.hidden = true; subp[s[0]] = p;
+  });
+  M.appendChild(subnav); SUBS.forEach(function (s) { M.appendChild(subp[s[0]]); });
+  // Attive: le quattro missioni esistenti (stessi nodi e id), sempre aperte, ciascuna con il proprio dossier
+  var dm = $('dashMissioni'); if (dm) { dm.open = true; var dsum = dm.querySelector('summary'); if (dsum) dsum.addEventListener('click', function (e) { e.preventDefault(); }); subp.attive.appendChild(dm); dm.classList.add('cen-dm'); }
+  // Stagioni
+  var stag = $('stagioneTvaCard'); if (stag) subp.stagioni.appendChild(stag);
+  var stagDos = el('div', 'cen-dos cen-dos-open'); stagDos.id = 'cenDos-stagione'; subp.stagioni.appendChild(stagDos);
+  // Speciali
+  var rtd = $('roadToDoomsday'); if (rtd) subp.speciali.appendChild(rtd);
+  var rtdDos = el('div', 'cen-dos cen-dos-open'); rtdDos.id = 'cenDos-rtd'; subp.speciali.appendChild(rtdDos);
+  // Archivio
+  var arch = el('div', 'cen-arch'); arch.id = 'cenArchive'; subp.archivio.appendChild(arch);
+
+  var MDEF = {
+    settimanale: { t: 'Completa 3 titoli questa settimana', d: 'Segna come visti 3 titoli qualsiasi della guida durante la settimana in corso (da lunedì a domenica).', req: function (s) { return 'Titoli visti questa settimana: ' + s.cur + ' su ' + s.tot + '.'; } },
+    tematica: { d: 'Segna come visto almeno un titolo della categoria indicata, non ancora visto all’inizio della settimana.', req: function (s) { return 'Almeno 1 titolo della categoria della settimana.'; } },
+    saga: { d: 'Completa tutti i titoli della saga scelta per la settimana.', req: function (s) { return 'Titoli visti: ' + s.cur + ' su ' + s.tot + '.'; } },
+    segreta: { d: 'La TVA non rivela l’obiettivo finché non lo hai raggiunto.', req: function (s) { return s.done ? 'Obiettivo raggiunto.' : 'Obiettivo nascosto.'; } }
+  };
+  function weekEnd() { var d = new Date(); d.setHours(0, 0, 0, 0); var k = (d.getDay() + 6) % 7; d.setDate(d.getDate() + (6 - k)); return d; }
+  function fmtDate(d) { return d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' }); }
+  function workChip(id, extra) {
+    var b = el('button', 'cen-work' + (seen(id) ? ' cen-work-seen' : '')); b.type = 'button'; b.setAttribute('data-cen-item', id);
+    b.setAttribute('aria-label', 'Apri la scheda N° ' + numOf(id) + ' ' + titleOf(id) + (seen(id) ? ' (visto)' : ' (da vedere)'));
+    b.innerHTML = '<span class="cen-work-n">N°' + esc(numOf(id)) + '</span><span class="cen-work-t">' + esc(titleOf(id)) + '</span><span class="cen-work-s" aria-hidden="true">' + (seen(id) ? '✓' : '›') + '</span>';
+    return b;
+  }
+  function worksBlock(label, ids) {
+    var d = el('details', 'cen-works'); var s = el('summary', '', label + ' (' + ids.length + ')'); d.appendChild(s);
+    var box = el('div', 'cen-works-b'); ids.forEach(function (id) { box.appendChild(workChip(id)); }); d.appendChild(box); return d;
+  }
+  function buildDossier(key) {
+    var mi = info(), st = (mi.stato || {})[key], box = el('div', 'cen-dos-in');
+    if (!st) { box.appendChild(el('p', 'cen-note', 'Dati della missione non ancora disponibili: aprila di nuovo tra un istante.')); return box; }
+    var def = MDEF[key], row = $({ settimanale: 'missioneSettimanale', tematica: 'missioneTematica', saga: 'missioneSaga', segreta: 'missioneSegreta' }[key]);
+    var title = row ? ((row.querySelector('.missione-testo') || {}).textContent || def.t).trim() : (def.t || '');
+    var dl = el('dl', 'cen-dl');
+    function add(k, v, html) { dl.appendChild(el('dt', '', k)); var dd = el('dd'); if (html) dd.innerHTML = v; else dd.textContent = v; dl.appendChild(dd); }
+    add('Descrizione', def.d);
+    add('Requisiti', def.req(st));
+    add('Stato', st.done ? 'Completata' + (st.rewarded ? ' · ricompensa già assegnata' : '') : 'In corso');
+    var rew = '+' + st.xp + ' XP' + (key === 'segreta' ? ' · distintivo «Cacciatore di Varianti»' : '');
+    add('Ricompensa', rew);
+    add('Scadenza', 'domenica ' + weekEnd().toLocaleDateString('it-IT', { day: 'numeric', month: 'long' }) + ' (poi la missione si rinnova)');
+    box.appendChild(dl);
+    if (key === 'segreta') {
+      if (st.done && st.id) { var h = el('p', 'cen-note', 'Titolo scoperto:'); box.appendChild(h); box.appendChild(workChip(st.id)); }
+      else box.appendChild(el('p', 'cen-note', 'Per proteggere la sorpresa, titolo e indizi restano nascosti fino al completamento.'));
+    } else {
+      // tematica/saga in corso: i titoli ancora da vedere sono quelli gia' proposti dal componente esistente (.tva-mis, mostrato sotto il dossier)
+      var ids = key === 'settimanale' ? (st.ids || []) : key === 'tematica' ? ((mi.tematica && mi.tematica.ids) || []) : ((mi.saga && mi.saga.ids) || []);
+      var lab = key === 'settimanale' ? 'Titoli registrati questa settimana' : key === 'tematica' ? 'Titoli idonei' : 'Titoli della saga';
+      if (key === 'settimanale') { if (ids.length) box.appendChild(worksBlock(lab, ids)); else box.appendChild(el('p', 'cen-note', 'Nessun titolo registrato finora: segna un titolo come visto nella Timeline.')); }
+      else if (st.done && ids.length) box.appendChild(worksBlock(lab, ids));
+    }
+    return box;
+  }
+  // dossier apribile per ciascuna missione attiva
+  MROWS.forEach(function (m) {
+    var r = $(m[0]); if (!r) return;
+    var b = el('button', 'cen-dbtn', 'Dossier'); b.type = 'button'; b.setAttribute('aria-expanded', 'false'); b.setAttribute('data-mission', m[1]);
+    var dos = el('div', 'cen-dos'); dos.hidden = true; dos.id = 'cenDos-' + m[1]; b.setAttribute('aria-controls', dos.id);
+    r.appendChild(b); r.appendChild(dos); r.setAttribute('data-cen-m', m[1]);
+    b.addEventListener('click', function () { toggleDossier(m[1]); });
+  });
+  function toggleDossier(key, force) {
+    var dos = $('cenDos-' + key), b = D.querySelector('.cen-dbtn[data-mission="' + key + '"]'); if (!dos || !b) return;
+    var open = force === undefined ? dos.hidden : force;
+    dos.hidden = !open; var rw = b.closest('.missione-row'); if (rw) rw.classList.toggle('cen-open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false'); b.textContent = open ? 'Chiudi dossier' : 'Dossier';
+    if (open) { dos.textContent = ''; dos.appendChild(buildDossier(key)); }
+  }
+  function renderStagione() {
+    var mi = info(), s = mi.stagione; stagDos.textContent = ''; var box = el('div', 'cen-dos-in');
+    if (!s) { stagDos.appendChild(box); return; }
+    var dl = el('dl', 'cen-dl');
+    function add(k, v) { dl.appendChild(el('dt', '', k)); dl.appendChild(el('dd', '', v)); }
+    add('Descrizione', 'Ogni missione completata, di qualunque tipo, conta per la stagione in corso. A quota 10 la stagione si chiude e ne parte una nuova.');
+    add('Progresso', s.prog + ' su 10 missioni (' + (s.idx + 1) + 'ª stagione)');
+    add('Ricompense', '+500 XP e il titolo Variante «' + s.titolo + '» alla chiusura della stagione');
+    add('Scadenza', 'Nessuna: la stagione avanza con le missioni completate.');
+    box.appendChild(dl);
+    var done = (mi.titoliStagione || []);
+    if (done.length) { var p = el('p', 'cen-note', 'Stagioni concluse: ' + done.join(' · ')); box.appendChild(p); }
+    stagDos.appendChild(box);
+  }
+  function renderRtd() {
+    rtdDos.textContent = ''; var box = el('div', 'cen-dos-in'); var fr = ($('rtdFrac') || {}).textContent || '0/16', stt = ($('rtdStato') || {}).textContent || '';
+    var dl = el('dl', 'cen-dl');
+    function add(k, v) { dl.appendChild(el('dt', '', k)); dl.appendChild(el('dd', '', v)); }
+    add('Requisiti', 'Vedere le 16 schede del percorso (' + fr + '). Il progresso è automatico: legge gli stessi titoli visti della Timeline.');
+    add('Stato', stt);
+    add('Ricompensa', '+300 XP e il distintivo «Sopravvissuto all’Incursione» (assegnati una sola volta)');
+    add('Scadenza', 'Nessuna.');
+    box.appendChild(dl); rtdDos.appendChild(box);
+  }
+  function parseKey(k, mi) {
+    if (k === 'road-to-doomsday-v1') return { w: 'Speciali', ic: '🌀', t: 'Road to Doomsday — Operazione Incursione', xp: (mi.rtdXp || 300) };
+    var m = /^(\d{4}-W\d{2})-(settimanale|tematica|saga|segreta)(?:-(.+))?$/.exec(k); if (!m) return { w: '', ic: '•', t: k, xp: 0 };
+    var st = (mi.stato || {})[m[2]] || {}, nomi = mi.catNomi || {}, t;
+    if (m[2] === 'settimanale') t = 'Completa 3 titoli in una settimana';
+    else if (m[2] === 'tematica') t = 'Guarda ' + (nomi[m[3]] || m[3]);
+    else if (m[2] === 'saga') t = 'Completa: ' + String(m[3]).replace(/^\d[A-Z]? · /, '');
+    else t = 'Scoperta: ' + titleOf(m[3]);
+    return { w: m[1], ic: { settimanale: '🟢', tematica: '🔵', saga: '🟣', segreta: '🔴' }[m[2]], t: t, xp: st.xp || 0 };
+  }
+  function renderArchive() {
+    var mi = info(), bank = mi.bank || { totale: 0, ricompensate: [] }; arch.textContent = '';
+    var head2 = el('div', 'cen-arch-h'); head2.innerHTML = '<span>Missioni concluse: <b>' + bank.ricompensate.length + '</b></span><span>XP da missioni: <b>' + (bank.totale || 0) + '</b></span>'; arch.appendChild(head2);
+    if (!bank.ricompensate.length) { arch.appendChild(el('p', 'cen-note', 'Nessuna missione conclusa finora. Quando ne completi una, comparirà qui; i premi restano assegnati una sola volta.')); }
+    var last = null, list = null;
+    bank.ricompensate.slice().reverse().forEach(function (k) {
+      var p = parseKey(k, mi);
+      if (p.w !== last) { last = p.w; arch.appendChild(el('h4', 'cen-arch-w', p.w ? 'Settimana ' + p.w : 'Speciali')); list = el('ul', 'cen-arch-l'); arch.appendChild(list); }
+      var li = el('li'); li.innerHTML = '<span aria-hidden="true">' + p.ic + '</span><span class="cen-arch-t">' + esc(p.t) + '</span><span class="cen-arch-x">' + (p.xp ? '+' + p.xp + ' XP' : '') + '</span>'; list.appendChild(li);
+    });
+    var ts = mi.titoliStagione || [];
+    if (ts.length) { arch.appendChild(el('h4', 'cen-arch-w', 'Stagioni concluse')); var l2 = el('ul', 'cen-arch-l'); ts.forEach(function (t, i) { var li = el('li'); li.innerHTML = '<span aria-hidden="true">🌐</span><span class="cen-arch-t">Stagione ' + String(i + 1).padStart(2, '0') + ' · titolo «' + esc(t) + '»</span><span class="cen-arch-x">+500 XP</span>'; l2.appendChild(li); }); arch.appendChild(l2); }
+    if (bank.ricompensate.length >= 200) arch.appendChild(el('p', 'cen-note', 'Lo storico conserva le ultime 200 missioni concluse.'));
+  }
+
+  /* ---------- OPERAZIONI (nodi esistenti, spostati) ---------- */
+  var O = panels.operazioni;
+  function grp(cls, title, help) { var g = el('section', 'cen-card cen-grp ' + cls); g.appendChild(el('h3', '', title)); if (help) g.appendChild(el('p', 'cen-help', help)); O.appendChild(g); return g; }
+  var gP = grp('', 'Progresso di visione', 'Azioni di massa sui titoli visti. Aggiornano progresso, XP e distintivi con le regole di sempre.');
+  var gB = grp('', 'Backup e ripristino', 'Esporta il tuo profilo in un file, importalo su un altro dispositivo o ripristina la copia di sicurezza automatica.');
+  var gS = grp('', 'Sincronizzazione cloud', null);
+  var gA = grp('', 'Aspetto', null);
+  var gD = grp('cen-danger', 'Zona pericolosa', 'Queste azioni cancellano dati. Ognuna richiede conferme esplicite e non può essere annullata.');
+  var mk = $('markAllBtn'); if (mk) { var w1 = el('div', 'cen-op'); w1.appendChild(mk); w1.appendChild(el('p', 'cen-help', 'Segna tutte le schede come viste (o, se sono già tutte viste, come non viste).')); gP.appendChild(w1); }
+  var rb = $('resetBtn');
+  if (rb) {
+    var w2 = el('div', 'cen-op'); w2.appendChild(rb); w2.appendChild(el('p', 'cen-help', 'Azzera solo i titoli segnati come visti. Voti, note e preferiti restano.')); gD.appendChild(w2);
+    ['resetConfirmOverlay', 'resetConfirmOverlay2'].forEach(function (i) { move($(i), w2); });
+  }
+  var ra = $('resetAllBtn');
+  if (ra) {
+    var w3 = el('div', 'cen-op'); w3.appendChild(ra); w3.appendChild(el('p', 'cen-help', 'Cancella titoli visti, voti, note, preferiti, XP, missioni, serie attiva e tessera (prima viene salvata una copia di sicurezza).')); gD.appendChild(w3);
+    ['resetAllConfirmOverlay', 'resetAllConfirmOverlay2'].forEach(function (i) { move($(i), w3); });
+  }
+  var ex = $('exportBtn'), im = $('importBtn'), imf = $('importFile');
+  if (ex) { var row = el('div', 'cen-op cen-op-row'); row.appendChild(ex); if (im) row.appendChild(im); if (imf) row.appendChild(imf); gB.appendChild(row); }
+  move($('autoBackupHint'), gB);
+  var sw = D.querySelector('.sync-wrap'); if (sw) { var st0 = sw.querySelector('.sync-title'); if (st0) st0.style.display = 'none'; gS.appendChild(sw); }
+  var dmLabel = D.querySelector('label[for="darkModeToggle"]'); if (dmLabel) gA.appendChild(dmLabel);
+  if (!gA.children[1]) gA.hidden = true;
+  // «Segna tutti NON visti» cancella il progresso: conferma esplicita (la semantica del comando resta invariata)
+  if (mk) mk.addEventListener('click', function (e) {
+    if (mk.__ok) { mk.__ok = false; return; }
+    if (!/NON VISTI/.test(mk.textContent)) return;
+    e.stopImmediatePropagation(); e.preventDefault();
+    var ov = el('div', 'reset-confirm-overlay'); ov.style.display = 'flex'; ov.innerHTML = '<div class="reset-confirm-box" role="alertdialog" aria-modal="true" aria-label="Conferma"><p><b>Segnare tutti i titoli come non visti?</b> Il progresso di visione verrà azzerato (voti, note e preferiti restano).</p><div class="reset-confirm-actions"><button type="button" class="reset-confirm-cancel">Annulla</button><button type="button" class="reset-confirm-ok">Sì, azzera i visti</button></div></div>';
+    D.body.appendChild(ov);
+    ov.querySelector('.reset-confirm-cancel').addEventListener('click', function () { ov.remove(); });
+    ov.querySelector('.reset-confirm-ok').addEventListener('click', function () { ov.remove(); mk.__ok = true; mk.click(); });
+  }, true);
+
+  /* ---------- STRUMENTI ---------- */
+  var S = panels.strumenti;
+  var pk = $('dashPicker'); if (pk) { var c1 = el('section', 'cen-card cen-tool'); c1.appendChild(pk); S.appendChild(c1); }
+  var dd = dash.querySelector('details.dash-details-all'); if (dd) { dd.classList.add('cen-stats'); S.appendChild(dd); }
+  var cmp = $('modalita-confronto'); if (cmp) { cmp.classList.add('cen-cmp'); S.appendChild(cmp); }
+
+  /* ---------- navigazione interna ---------- */
+  var ST = { sec: 'panoramica', sub: 'attive', y: {} };
+  function setSecUI(sec) {
+    SECS.forEach(function (s) { var on = s[0] === sec, b = $('cenTab-' + s[0]); b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; b.classList.toggle('cen-on', on); panels[s[0]].hidden = !on; });
+    H.setAttribute('data-cen-sec', sec);
+  }
+  function setSubUI(sub) {
+    SUBS.forEach(function (s) { var on = s[0] === sub, b = $('cenSub-' + s[0]); b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; b.classList.toggle('cen-on', on); subp[s[0]].hidden = !on; });
+  }
+  function refreshAll() { try { refreshAgent(); refreshPreview(); renderStagione(); renderRtd(); renderArchive(); MROWS.forEach(function (m) { var d = $('cenDos-' + m[1]); if (d && !d.hidden) { d.textContent = ''; d.appendChild(buildDossier(m[1])); } }); } catch (e) { if (W.console) console.error('Centrale TVA:', e); } }
+  function navTop() { return Math.max(0, Math.round(nav.getBoundingClientRect().top + (W.pageYOffset || 0)) - 8); }
+  function openSec(sec, opts) {
+    opts = opts || {};
+    if (!panels[sec]) sec = 'panoramica';
+    if (H.getAttribute('data-tva-view') !== 'centrale') { var t = $('appTabMissioni'); if (t && !opts.noTab) t.click(); else H.setAttribute('data-tva-view', 'centrale'); }
+    ST.y[ST.sec] = W.pageYOffset || 0;
+    var changed = sec !== ST.sec; ST.sec = sec; setSecUI(sec);
+    if (sec === 'missioni') { if (opts.sub) ST.sub = opts.sub; setSubUI(ST.sub); }
+    refreshAll();
+    if (opts.noScroll) return;
+    var y = (changed && ST.y[sec] != null && !opts.fresh) ? ST.y[sec] : navTop();
+    W.scrollTo({ top: Math.min(y, Math.max(0, D.documentElement.scrollHeight - W.innerHeight)), behavior: 'instant' });
+  }
+  function openMission(key) {
+    var sub = key === 'rtd' ? 'speciali' : key === 'stagione' ? 'stagioni' : 'attive';
+    openSec('missioni', { sub: sub, fresh: true, noScroll: true }); refreshAll();
+    var target = null;
+    if (sub === 'attive') { toggleDossier(key, true); target = $('cenDos-' + key) && $({ settimanale: 'missioneSettimanale', tematica: 'missioneTematica', saga: 'missioneSaga', segreta: 'missioneSegreta' }[key]); }
+    else target = sub === 'speciali' ? $('roadToDoomsday') : $('stagioneTvaCard');
+    if (key === 'rtd') { var rd = $('rtdDetails'); if (rd) rd.open = true; }
+    requestAnimationFrame(function () { if (target) { var y = Math.max(0, Math.round(target.getBoundingClientRect().top + (W.pageYOffset || 0)) - 70); W.scrollTo({ top: y, behavior: 'instant' }); target.classList.add('us-flash'); setTimeout(function () { target.classList.remove('us-flash'); }, 1600); } });
+    return true;
+  }
+  W.tvaCentrale = {
+    open: function (sec, sub) { openSec(sec, { sub: sub, fresh: true }); return true; },
+    openMission: openMission,
+    getState: function () { ST.y[ST.sec] = W.pageYOffset || 0; return { sec: ST.sec, sub: ST.sub, y: ST.y[ST.sec], open: MROWS.filter(function (m) { var d = $('cenDos-' + m[1]); return d && !d.hidden; }).map(function (m) { return m[1]; }) }; },
+    setState: function (s) { if (!s) return; ST.y[s.sec] = s.y; ST.sub = s.sub || ST.sub; ST.sec = s.sec; setSecUI(s.sec); if (s.sec === 'missioni') setSubUI(ST.sub); if (s.open) MROWS.forEach(function (m) { toggleDossier(m[1], s.open.indexOf(m[1]) >= 0); }); refreshAll(); },
+    sections: SECS.map(function (s) { return s[0]; })
+  };
+  // clic su schede e controlli
+  nav.addEventListener('click', function (e) { var b = e.target.closest('.cen-tab'); if (b) openSec(b.getAttribute('data-sec'), { noTab: true }); });
+  nav.addEventListener('keydown', function (e) { rove(e, '.cen-tab', function (b) { openSec(b.getAttribute('data-sec'), { noTab: true }); }); });
+  subnav.addEventListener('click', function (e) { var b = e.target.closest('.cen-stab'); if (b) { ST.sub = b.getAttribute('data-sub'); setSubUI(ST.sub); if (ST.sub === 'archivio') renderArchive(); } });
+  subnav.addEventListener('keydown', function (e) { rove(e, '.cen-stab', function (b) { ST.sub = b.getAttribute('data-sub'); setSubUI(ST.sub); }); });
+  function rove(e, sel, act) {
+    if (['ArrowRight', 'ArrowLeft', 'Home', 'End'].indexOf(e.key) < 0) return;
+    var all = Array.prototype.slice.call(e.currentTarget.querySelectorAll(sel)), i = all.indexOf(D.activeElement); if (i < 0) return;
+    e.preventDefault(); var n = e.key === 'Home' ? 0 : e.key === 'End' ? all.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + all.length) % all.length;
+    all[n].focus(); act(all[n]);
+  }
+  dash.addEventListener('click', function (e) {
+    var g = e.target.closest('[data-go-sec]'); if (g) { var sec = g.getAttribute('data-go-sec'); openSec(sec, { sub: g.getAttribute('data-go-sub') || undefined, noTab: true, fresh: true }); return; }
+    var a = e.target.closest('[data-act]'); if (a) { var t = $(a.getAttribute('data-act') === 'tessera' ? 'appTabTessera' : 'appTabAtlante'); if (t) t.click(); return; }
+    var m = e.target.closest('[data-mission]'); if (m && !m.classList.contains('cen-dbtn')) { openMission(m.getAttribute('data-mission')); return; }
+    var w = e.target.closest('[data-cen-item]'); if (w) { var id = w.getAttribute('data-cen-item'); if (W.tvaGo) W.tvaGo('item', id); }
+  });
+  // aprire un titolo dalla Centrale: la cronologia interna ricorda da dove si arriva (Indietro riporta alla stessa sezione)
+  D.addEventListener('click', function (e) {
+    var t = e.target && e.target.closest ? e.target.closest('#dashboard #nextWatchCard, #dashboard #lastWatchedCard, #dashboard #dashPickerCard, #dashboard #dashPickerWatchBtn, #dashboard .rtd-link') : null;
+    if (t && W.tvaPushNav) W.tvaPushNav('Centrale TVA');
+  }, true);
+  // ancore #cen-<sezione>[-sub] e #dashboard
+  function fromHash() {
+    var h = (W.location.hash || '').replace(/^#/, ''), m = /^cen-(panoramica|missioni|operazioni|strumenti)(?:-(attive|stagioni|speciali|archivio))?$/.exec(h);
+    if (m) { openSec(m[1], { sub: m[2], fresh: true }); return true; } return false;
+  }
+  D.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#cen-"], a[href="#dashboard"], a[href="#database"]') : null; if (!a) return;
+    var h = a.getAttribute('href');
+    if (h === '#database') { e.preventDefault(); var t = $('appTabAtlante'); if (t) t.click(); return; }
+    e.preventDefault(); if (h === '#dashboard') openSec('panoramica', { fresh: true }); else { var m = /^#cen-(\w+)(?:-(\w+))?$/.exec(h); if (m) openSec(m[1], { sub: m[2], fresh: true }); }
+  }, true);
+  W.addEventListener('hashchange', fromHash);
+
+  /* ---------- aggiornamento dei dati (sola lettura sulle fonti esistenti) ---------- */
+  var raf = 0; function later() { if (!raf) raf = requestAnimationFrame(function () { raf = 0; try { refreshAgent(); refreshPreview(); } catch (e) {} }); }
+  try {
+    var mo = new MutationObserver(later), tc = $('tesseraCard'); if (tc) mo.observe(tc, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['style', 'class'] });
+    var mo2 = new MutationObserver(later); [$('dashMissioni'), $('stagioneTvaCard')].forEach(function (n) { if (n) mo2.observe(n, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['style', 'class'] }); });
+  } catch (e) {}
+  var nmi = $('tesseraNameInput'); if (nmi) nmi.addEventListener('input', later);
+  D.addEventListener('tva:missioni2', function () { refreshAll(); });
+  D.addEventListener('change', function (e) { if (e.target && e.target.classList && e.target.classList.contains('watch-check')) setTimeout(refreshAll, 60); });
+
+  /* ---------- pulizia Timeline ---------- */
+  (function () {
+    var gt = $('gtimeline'), ind = $('indice');
+    if (gt && ind && !gt.querySelector('.gtl-det')) {
+      var tbl = gt.querySelector('.tl-table'), sb = gt.querySelector('.toc-sub'), det = el('details', 'gtl-det');
+      det.appendChild(el('summary', '', 'Timeline Riassuntiva · 9 checkpoint'));
+      if (sb) det.appendChild(sb); if (tbl) det.appendChild(tbl);
+      gt.textContent = ''; gt.appendChild(det); ind.after(gt);
+    }
+    var as = D.querySelector('.advanced-filters > summary'); if (as) as.innerHTML = '⚙️ Filtri avanzati e modalità spoiler';
+  })();
+
+  setSecUI('panoramica'); setSubUI('attive'); refreshAll();
+  if (!fromHash()) { /* resta su Panoramica */ }
+  H.setAttribute('data-cen', 'ready');
+})();
+/* B2-JS-END */
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /* B1-CSS-BEGIN: Blocco 1 (navigazione, viste Timeline/Centrale, card voti, titoli gruppi, grafi) */
 /* ---- Viste: la pagina e' unica; Timeline mostra solo il percorso di visione, Centrale TVA gli strumenti (nulla viene rimosso dal DOM) ---- */
-html[data-tva-view="timeline"] :is(#dashboard, #database, .bollettino-box, footer.closing, .foot-mark) { display: none !important; }
-html[data-tva-view="centrale"] :is(#cover, #indice, .legend-wrap, #cap0, #parte1, #parte1bis, #parte2, #parte3, #parte4, #serieanimate) { display: none !important; }
+html[data-tva-view="timeline"] :is(#dashboard, #database, .bollettino-box, footer.closing, .foot-mark, #modalita-confronto) { display: none !important; }
+html[data-tva-view="centrale"] :is(#cover, #indice, .legend-wrap, #cap0, #parte1, #parte1bis, #parte2, #parte3, #parte4, #serieanimate, .dopo-sw, #gtimeline, .controlbar, #database, footer.closing, .foot-mark, .back-top) { display: none !important; }
 html[data-tva-view="centrale"] body { padding-top: calc(var(--sat, 0px) + 3.6rem); }   /* libera l'hamburger */
 /* ---- Indice compatto, vicino all'inizio ---- */
 #indice.toc { padding: 0.5rem 1rem 0.2rem; }

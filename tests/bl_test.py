@@ -29,8 +29,8 @@ with sync_playwright() as p:
         ok('%d Timeline fondo: ultimo contenuto sopra la barra'%W,r['lastB']<=r['bt']+1,r)
         # 3 Centrale TVA
         tab(pg,'appTabMissioni'); pg.wait_for_timeout(500)
-        ok('%d Centrale: dashboard, database, bollettino visibili; capitoli nascosti'%W,all(vis(pg,s) for s in ('#dashboard','#database','.bollettino-box')) and not any(vis(pg,s) for s in ('#cap0','#parte1','#parte2','#cover','#indice')))
-        ok('%d Centrale: strumenti (progresso, filtri, backup/sync) raggiungibili'%W,vis(pg,'.controlbar') and vis(pg,'#exportBtn') or pg.evaluate("()=>{const d=document.querySelector('details.advanced-filters');d.open=true;return !!document.querySelector('#exportBtn').getClientRects().length}"))
+        ok('%d Centrale [B2: intenzionale] dashboard e bollettino (in Panoramica) visibili, database/Atlante fuori dalla Centrale; capitoli nascosti'%W,all(vis(pg,s) for s in ('#dashboard','.bollettino-box')) and not vis(pg,'#database') and not any(vis(pg,s) for s in ('#cap0','#parte1','#parte2','#cover','#indice')))
+        ok('%d Centrale [B2: intenzionale] strumenti di gestione raggiungibili in Operazioni'%W,pg.evaluate("()=>{document.getElementById('cenTab-operazioni').click();return !!document.querySelector('#exportBtn').getClientRects().length&&!!document.querySelector('#markAllBtn').getClientRects().length}"))
         ok('%d Centrale: missioni popolate'%W,pg.evaluate("()=>!!document.getElementById('dashMissioniBadge')&&/\\d+\\/\\d+/.test(document.getElementById('dashMissioniBadge').textContent)"),pg.evaluate("()=>document.getElementById('dashMissioniBadge').textContent"))
         pg.evaluate("()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'})"); pg.wait_for_timeout(300)
         # ritorno
