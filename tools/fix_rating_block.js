@@ -101,13 +101,11 @@
     widgets.forEach(function(widget) {
       var id = widget.getAttribute('data-item');
       ratingBuild(widget, id);
-      // posizione: subito sotto titolo e informazioni principali, prima della descrizione lunga (primo sotto-gruppo)
+      // posizione: primo elemento del pannello, subito sotto il titolo dell'opera
       var card = widget.closest('details.card'), panel = null;
       if (card) for (var c = card.firstElementChild; c; c = c.nextElementSibling) { if (c.classList.contains('detail-panel')) { panel = c; break; } }
       if (panel) {
-        var first = null;
-        for (var q = panel.firstElementChild; q; q = q.nextElementSibling) { if (q.classList.contains('sub-group')) { first = q; break; } }
-        panel.insertBefore(widget, first);
+        panel.insertBefore(widget, panel.firstChild);   // Blocco 1: subito sotto il titolo
       }
     });
   } catch(errRating) {

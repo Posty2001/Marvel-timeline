@@ -28,8 +28,8 @@ def state(pg,i='023'):
 with sync_playwright() as p:
     b=p.chromium.launch()
     ctx,pg,errs=fresh(b)
-    r=pg.evaluate("""()=>{const ws=[...document.querySelectorAll('.rating-widget')];let bad=[];ws.forEach(w=>{const p=w.parentElement;const first=[...p.children].find(c=>c.classList.contains('sub-group'));if(!p.classList.contains('detail-panel')||w.nextElementSibling!==first||w.querySelectorAll('.rw-s').length!==5||w.querySelector('.rw-h'))bad.push(w.dataset.item)});return {n:ws.length,bad:bad}}""")
-    ok('R1 139 schede: widget sotto titolo/info e prima della descrizione, 5 stelle, nessuna zona da 11px (due tocchi)',r['n']==139 and not r['bad'],r)
+    r=pg.evaluate("""()=>{const ws=[...document.querySelectorAll('.rating-widget')];let bad=[];ws.forEach(w=>{const p=w.parentElement;const first=[...p.children].find(c=>c.classList.contains('sub-group'));if(!p.classList.contains('detail-panel')||p.firstElementChild!==w||w.querySelectorAll('.rw-s').length!==5||w.querySelector('.rw-h'))bad.push(w.dataset.item)});return {n:ws.length,bad:bad}}""")
+    ok('R1 139 schede: widget subito sotto il titolo (primo elemento del pannello), 5 stelle, nessuna zona da 11px (due tocchi)',r['n']==139 and not r['bad'],r)
     ok('R1b nessuna vecchia stella/etichetta «Il tuo voto» rimasta',pg.evaluate("()=>!document.querySelector('.rating-star')&&!/Il tuo voto/.test(document.body.innerText)"))
     openc(pg)
     vals=[0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]
@@ -54,7 +54,7 @@ with sync_playwright() as p:
                 r,g,bb=im.getpixel((x,y))
                 if r>170 and g>130 and bb>90 and bb<170 and r-bb>40: n+=1
         return n
-    L=gold(0,w//2); R=gold(w//2,w); ok('R3 mezza stella: oro a sinistra, spento a destra (px %d vs %d)'%(L,R),L>150 and R<L*0.08,(L,R))
+    L=gold(0,w//2); R=gold(w//2+2,w);   # esclude 2px a ridosso della linea di taglio (antialias della punta della stella): con stelle piu' strette pesava ~10% ok('R3 mezza stella: oro a sinistra, spento a destra (px %d vs %d)'%(L,R),L>150 and R<L*0.08,(L,R))
     # modifica, azzera
     rate(pg,'023',2); ok('R4 modifica voto esistente 3,5 -> 2',state(pg)['ls']==2)
     tap(pg,'#item-023 .rw-reset'); s=state(pg); ok('R5 Azzera: rimosso dallo storage, 0 stelle, pulsante nascosto',s['ls'] is None and s['now']=='0' and s['vt']=='Nessun voto' and not s['reset'] and s['txt'].startswith('—'),s)

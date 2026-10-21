@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="tva-build" content="20261021-1630-pre5-rifinitura">
+<meta name="tva-build" content="20261021-1900-blocco1">
 <link rel="preload" as="image" href="assets/images/intro/living-multiverse.webp" type="image/webp" fetchpriority="high">
 <script id="rs-early">try{var __v=localStorage.getItem("marvel-skin-v2-dark");if(__v!=="0")document.documentElement.classList.add("marvel-dark-mode");}catch(e){document.documentElement.classList.add("marvel-dark-mode");}</script>
 <title>Marvel Multiverse — TVA Archive — The Definitive Watch Order</title>
@@ -4920,6 +4920,67 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
 #cap0 .detail-panel { padding-top: 0.5rem; padding-bottom: 0.6rem; }
 /* PRE5-CSS-END */
 </style>
+<style id="b1-css">
+/* B1-CSS-BEGIN: Blocco 1 (navigazione, viste Timeline/Centrale, card voti, titoli gruppi, grafi) */
+/* ---- Viste: la pagina e' unica; Timeline mostra solo il percorso di visione, Centrale TVA gli strumenti (nulla viene rimosso dal DOM) ---- */
+html[data-tva-view="timeline"] :is(#dashboard, #database, .bollettino-box, footer.closing, .foot-mark) { display: none !important; }
+html[data-tva-view="centrale"] :is(#cover, #indice, .legend-wrap, #cap0, #parte1, #parte1bis, #parte2, #parte3, #parte4, #serieanimate) { display: none !important; }
+html[data-tva-view="centrale"] body { padding-top: calc(var(--sat, 0px) + 3.6rem); }   /* libera l'hamburger */
+/* ---- Indice compatto, vicino all'inizio ---- */
+#indice.toc { padding: 0.5rem 1rem 0.2rem; }
+#indice .toc-summary { padding: 0.55rem 0.2rem; min-height: 2.75rem; display: flex; align-items: center; gap: 0.5rem; }
+#indice .toc-summary h2 { font-size: 1.05rem; letter-spacing: 0.06em; text-transform: uppercase; margin: 0; }
+#indice .toc-summary::before { font-size: 1rem; }
+#indice .toc-sub { margin-bottom: 0.8rem; font-size: 0.8rem; }
+#indice .toc-group { margin-bottom: 1rem; }
+/* ---- Capitolo 0: ancora piu' compatto ---- */
+#cap0 { padding-top: 1rem; padding-bottom: 0.6rem; }
+#cap0 .part-head h2 { font-size: 1.3rem; line-height: 1.2; }
+#cap0 .part-cat { font-size: 0.6rem; }
+#cap0 .part-sub { font-size: 0.8rem; line-height: 1.35; }
+#cap0 .cap0-tag { margin: 0 0 0.35rem 0.4rem; }
+/* ---- Titoli dei gruppi: nome universo + identificativo su righe separate solo se manca spazio ---- */
+.sec-h { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.65rem; row-gap: 0.05rem; }
+.sec-h .sec-sub { white-space: nowrap; font-size: 0.8rem; }
+/* ---- Card espansa: stelle integrate subito sotto il titolo, niente riquadro ---- */
+.rating-widget.rw2 {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: 0.55rem; row-gap: 0;
+  margin: 0 0 0.35rem; padding: 0 0 0.3rem; border: 0; border-bottom: 1px solid rgba(210,177,132,0.16); border-radius: 0; background: none; box-shadow: none;
+}
+.rw2 .rw-top, .rw2 .rw-main { display: contents; }
+.rw2 .rw-label { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.rw2 .rw-stars { grid-column: 1; grid-row: 1; }
+.rw2 .rw-val { grid-column: 2; grid-row: 1; margin-left: 0; justify-self: start; }
+.rw2 .rw-reset { grid-column: 3; grid-row: 1; justify-self: end; font-size: 0.6rem; padding: 0.05rem 0.55rem; min-height: 1.3rem; border-color: rgba(210,177,132,0.28); color: rgba(239,228,201,0.55); }
+.rw2 .rw-hint { grid-column: 1 / -1; grid-row: 2; margin-top: -0.35rem; }
+@media (max-width: 400px) {
+  .rw2 .rw-s { width: 1.65rem; }
+  .rw2 .rw-reset, .rw2 .rw-hint { grid-column: 1 / -1; grid-row: 2; justify-self: start; margin-top: -0.2rem; }
+}
+@media (max-width: 340px) {
+  .rating-widget.rw2 { grid-template-columns: 1fr auto; }
+  .rw2 .rw-stars { grid-column: 1 / -1; }
+  .rw2 .rw-val { grid-column: 1; grid-row: 2; }
+  .rw2 .rw-reset, .rw2 .rw-hint { grid-column: 2; grid-row: 2; justify-self: end; margin-top: 0; }
+}
+/* ---- Dettagli: spaziature ridotte (Universo / Ambientazione / Durata / Personaggi) ---- */
+.card-wrap .detail-panel { padding: 0.5rem 0.75rem 0.6rem; }
+.card-wrap .detail-row { padding: 0.12rem 0; margin-bottom: 0.1rem; }
+.card-wrap .detail-k { padding-top: 0; font-size: 0.62rem; }
+.card-wrap .detail-v { line-height: 1.38; }
+.card-wrap .detail-panel .sub-group { margin: 0.2rem 0 0; }
+/* ---- Barra inferiore: «CENTRALE TVA» su due righe (6 voci a 320 px) ---- */
+#appTabbar .app-tab-ic { width: 1.3rem; height: 1.3rem; }
+#appTabbar .app-tab[data-tab="missioni"] .app-tab-lbl { white-space: normal; text-align: center; line-height: 0.95; font-size: 0.56rem; letter-spacing: 0; }
+@media (min-width: 375px) { #appTabbar .app-tab[data-tab="missioni"] .app-tab-lbl { font-size: 0.6rem; } }
+/* ---- Legenda compatta ---- */
+.legend-wrap { padding-top: 0.6rem; }
+.legend-wrap .legend-summary { min-height: 2.75rem; padding-top: 0.45rem; padding-bottom: 0.45rem; }
+/* ---- Grafi: nodi piu' toccabili, etichette Kang/TVA staccate dai nodi ---- */
+.relationship-graph-overlay .rg-satellite circle { r: 24px; }
+.kang-tva-overlay .mg-node-label { transform: translateY(7px); }
+/* B1-CSS-END */
+</style>
 </head>
 <body>
 <a href="#parte1" class="skip-link">Salta al contenuto principale</a>
@@ -4957,9 +5018,9 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
     <svg class="app-tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.3"/><circle cx="12" cy="12" r="5.1"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg>
     <span class="app-tab-lbl">ATLANTE</span>
   </button>
-  <button type="button" class="app-tab" id="appTabMissioni" data-tab="missioni">
+  <button type="button" class="app-tab" id="appTabMissioni" data-tab="missioni" aria-label="Centrale TVA">
     <svg class="app-tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.6a1.5 1.5 0 0 1 1.5-1.5h4.6l1.7 1.9h6.7A1.5 1.5 0 0 1 20 8.5v9A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z"/><path d="M9 13l2 2 4-4.3"/></svg>
-    <span class="app-tab-lbl">MISSIONI</span>
+    <span class="app-tab-lbl">CENTRALE TVA</span>
   </button>
   <button type="button" class="app-tab" id="appTabTessera" data-tab="tessera">
     <svg class="app-tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.7" y="5" width="18.6" height="14" rx="2"/><circle cx="8" cy="10.6" r="1.9"/><path d="M5 15.8c0-1.7 1.4-2.7 3-2.7s3 1 3 2.7"/><line x1="13.3" y1="9.4" x2="18.3" y2="9.4"/><line x1="13.3" y1="12.1" x2="18.3" y2="12.1"/></svg>
@@ -24427,8 +24488,8 @@ function marvelInit() {
             afterRepaintHh(function() {
               var lastCard = document.getElementById('lastWatchedCard');
               if (lastCard && lastCard.onclick) { lastCard.onclick(); return; }
-              var dash = document.getElementById('dashboard');
-              if (dash && dash.scrollIntoView) dash.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              var cvb = document.getElementById('cvContinueBtn');
+              if (cvb) cvb.click();
             });
           });
         }
@@ -25949,13 +26010,11 @@ function marvelInit() {
     widgets.forEach(function(widget) {
       var id = widget.getAttribute('data-item');
       ratingBuild(widget, id);
-      // posizione: subito sotto titolo e informazioni principali, prima della descrizione lunga (primo sotto-gruppo)
+      // posizione: primo elemento del pannello, subito sotto il titolo dell'opera
       var card = widget.closest('details.card'), panel = null;
       if (card) for (var c = card.firstElementChild; c; c = c.nextElementSibling) { if (c.classList.contains('detail-panel')) { panel = c; break; } }
       if (panel) {
-        var first = null;
-        for (var q = panel.firstElementChild; q; q = q.nextElementSibling) { if (q.classList.contains('sub-group')) { first = q; break; } }
-        panel.insertBefore(widget, first);
+        panel.insertBefore(widget, panel.firstChild);   // Blocco 1: subito sotto il titolo
       }
     });
   } catch(errRating) {
@@ -28308,7 +28367,7 @@ function marvelInit() {
       if (!keepLimit && rgCurrentId !== nodeId) rgLimit[nodeId] = 0;
       rgCurrentId = nodeId;
       var active = rgActiveTypes(), merged = rgMergeConns(node.conns, active), limit = RG_PAGE + (rgLimit[nodeId] || 0), shown = merged.slice(0, limit);
-      var nL = Math.ceil(shown.length / 2), rows = Math.max(nL, shown.length - nL, 1), SP = 66, Y0 = 56, H = Math.max(360, Y0 * 2 + (rows - 1) * SP), cy = H / 2, cx = 500, DX = 215;
+      var nL = Math.ceil(shown.length / 2), rows = Math.max(nL, shown.length - nL, 1), SP = 76, Y0 = 56, H = Math.max(300, Y0 * 2 + (rows - 1) * SP), cy = H / 2, cx = 500, DX = 190;
       var P = [];
       P.push('<g class="rg-lines">');
       var pos = shown.map(function (c, i) {
@@ -28324,11 +28383,11 @@ function marvelInit() {
         '<text x="' + cx + '" y="' + (cy + 6) + '" text-anchor="middle" style="font-size:22px;">' + rgIconFor(node.type) + '</text>' +
         '<text x="' + cx + '" y="' + (cy - 62) + '" text-anchor="middle" class="mg-node-label rg-hub-label" style="font-size:19px;">' + rgEscAttr(rgWrap(node.name, 30)[0]) + '</text></g>');
       pos.forEach(function (p) {
-        var c = p.c, color = RG_NODE_COLORS[c.type] || RG_NODE_COLORS.char, tx = p.x + (p.left ? -30 : 30), anc = p.left ? 'end' : 'start', nm = rgWrap(c.name, 24), lab = c.labels.join(' · ');
-        if (lab.length > 30) lab = lab.slice(0, 29) + '…';
-        var y0 = p.y - (nm.length === 2 ? 10 : 2), t = '<text x="' + tx + '" y="' + y0 + '" text-anchor="' + anc + '" class="mg-node-label rg-nm" style="font-size:16px;">';
+        var c = p.c, color = RG_NODE_COLORS[c.type] || RG_NODE_COLORS.char, tx = p.x + (p.left ? -30 : 30), anc = p.left ? 'end' : 'start', nm = rgWrap(c.name, 17), lab = c.labels.join(' · ');
+        if (lab.length > 24) lab = lab.slice(0, 23) + '…';
+        var y0 = p.y - (nm.length === 2 ? 12 : 2), t = '<text x="' + tx + '" y="' + y0 + '" text-anchor="' + anc + '" class="mg-node-label rg-nm" style="font-size:20px;">';
         nm.forEach(function (l, k) { t += '<tspan x="' + tx + '" dy="' + (k ? '1.15em' : '0') + '">' + rgEscAttr(l) + '</tspan>'; });
-        t += '</text><text x="' + tx + '" y="' + (y0 + (nm.length === 2 ? 38 : 22)) + '" text-anchor="' + anc + '" class="rg-rl" style="font-size:12.5px;fill:' + (RG_RT_COLOR[c.rtypes[0]] || '#A8A39A') + ';">' + rgEscAttr(lab) + '</text>';
+        t += '</text><text x="' + tx + '" y="' + (y0 + (nm.length === 2 ? 44 : 27)) + '" text-anchor="' + anc + '" class="rg-rl" style="font-size:15px;fill:' + (RG_RT_COLOR[c.rtypes[0]] || '#A8A39A') + ';">' + rgEscAttr(lab) + '</text>';
         P.push('<g class="mg-node rg-satellite" data-node="' + rgEscAttr(c.id) + '" data-label="' + rgEscAttr(lab) + '" data-rt="' + c.rtypes.join(',') + '" tabindex="0" role="button" aria-label="' + rgEscAttr(c.name + ', ' + lab) + '">' +
           '<title>' + rgEscAttr(c.name + ' — ' + lab) + '</title><circle cx="' + p.x + '" cy="' + p.y + '" r="21" fill="' + color + '" stroke="' + (RG_RT_COLOR[c.rtypes[0]] || '#8D8A84') + '" stroke-width="3"></circle>' +
           '<text x="' + p.x + '" y="' + (p.y + 6) + '" text-anchor="middle" style="font-size:16px;">' + rgIconFor(c.type) + '</text>' + t + '</g>');
@@ -28339,7 +28398,7 @@ function marvelInit() {
         P.push('<text x="' + cx + '" y="' + (cy + 96) + '" text-anchor="middle" class="rg-zero" style="font-size:17px;">Nessun collegamento da mostrare</text>');
       }
       P.push('</g>');
-      rgSvg.setAttribute('data-vb', '0 0 1000 ' + H); rgSvg.setAttribute('viewBox', '0 0 1000 ' + H);
+      rgSvg.setAttribute('data-vb', '80 0 840 ' + H); rgSvg.setAttribute('viewBox', '80 0 840 ' + H);
       rgSvg.innerHTML = P.join('');
       rgUpdateFilterUi(node);
 
@@ -33190,7 +33249,7 @@ window.addEventListener('load', function() {
       if (svg.__vp) return; var o = opts || {};
       var vbs = (svg.getAttribute('data-vb') || svg.getAttribute('viewBox') || '').split(/[\s,]+/).map(num); if (vbs.length !== 4 || vbs.some(isNaN)) return;
       var sparse = o.sparse !== undefined ? !!o.sparse : !!svg.closest('.kang-tva-overlay');
-      var B = computeBase(vbs, sparse, o.aspect);
+      var B = computeBase(vbs, sparse, o.aspect || (svg.closest('.relationship-graph-overlay') ? vbs[2] / vbs[3] : 0));
       var host = svg.parentNode, wrap = mk('div', 'a2-vp'), stage = mk('div', 'a2-vp-stage');
       host.insertBefore(wrap, svg); wrap.appendChild(stage); stage.appendChild(svg); stage.style.aspectRatio = (B.w / B.h).toFixed(4);
       svg.style.width = '100%'; svg.style.height = '100%'; svg.style.maxWidth = 'none'; svg.removeAttribute('width'); svg.removeAttribute('height'); svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
@@ -33251,7 +33310,7 @@ window.addEventListener('load', function() {
       // il grafo delle relazioni viene ridisegnato a ogni ricerca: si torna alla vista intera, centrata
       function rebase() {                                                           // il disegno può cambiare altezza (es. grafo delle relazioni): nuova base e vista intera
         var nv = (svg.getAttribute('data-vb') || '').split(/[\s,]+/).map(num);
-        if (nv.length === 4 && !nv.some(isNaN)) { var nb = computeBase(nv, sparse, o.aspect); B.x = nb.x; B.y = nb.y; B.w = nb.w; B.h = nb.h; stage.style.aspectRatio = (B.w / B.h).toFixed(4); }
+        if (nv.length === 4 && !nv.some(isNaN)) { var nb = computeBase(nv, sparse, o.aspect || (svg.closest('.relationship-graph-overlay') ? nv[2] / nv[3] : 0)); B.x = nb.x; B.y = nb.y; B.w = nb.w; B.h = nb.h; stage.style.aspectRatio = (B.w / B.h).toFixed(4); }
       }
       if (svg.id) new MutationObserver(function () { rebase(); if (!o.noLabels) wrapLabels(svg, B, !sparse); fit(); }).observe(svg, { childList: true });
       svg.__vp = { fit: fit, zoomAt: zoomAt, state: v, base: B, rebase: rebase };
@@ -34277,6 +34336,34 @@ window.addEventListener('load', function() {
   });
 })();
 /* PRE5-JS-END */
+</script>
+<script id="b1-js">
+/* B1-JS-BEGIN */
+(function () {
+  var D = document, H = D.documentElement;
+  function setView(v) { if (H.getAttribute('data-tva-view') !== v) H.setAttribute('data-tva-view', v); }
+  H.setAttribute('data-tva-view', 'timeline');
+  // la voce Centrale TVA mostra gli strumenti; ogni altra destinazione torna al percorso di visione
+  var orig = window.aggiornaTabAttiva;
+  D.addEventListener('click', function (e) {
+    var t = e.target && e.target.closest ? e.target.closest('.app-tab, a[href^="#"]') : null;
+    if (!t) return;
+    if (t.classList.contains('app-tab')) { setView(t.getAttribute('data-tab') === 'missioni' ? 'centrale' : 'timeline'); return; }
+    var h = t.getAttribute('href');
+    if (h === '#dashboard' || h === '#database') setView('centrale'); else if (h && h.length > 1) setView('timeline');
+  }, true);
+  // qualsiasi scroll verso un elemento nascosto dalla vista corrente cambia vista (ricerca globale, hub, link interni)
+  var sv = Element.prototype.scrollIntoView;
+  Element.prototype.scrollIntoView = function () {
+    try {
+      var v = H.getAttribute('data-tva-view');
+      if (v === 'centrale' && this.closest && this.closest('.part, .card-wrap, #cover, #indice')) setView('timeline');
+      else if (v === 'timeline' && this.closest && this.closest('#dashboard, #database')) setView('centrale');
+    } catch (e) {}
+    return sv.apply(this, arguments);
+  };
+})();
+/* B1-JS-END */
 </script>
 </body>
 </html>
