@@ -1,4 +1,4 @@
-/* B2-JS-BEGIN: Centrale TVA (Panoramica / Missioni / Operazioni / Strumenti). Riorganizza i componenti ESISTENTI (stessi nodi, stessi id, stessi listener): nulla viene duplicato o riscritto. */
+/* B2-JS-BEGIN: Centrale TVA (Panoramica / Missioni / Osservatorio / Operazioni). Riorganizza i componenti ESISTENTI (stessi nodi, stessi id, stessi listener): nulla viene duplicato o riscritto. */
 (function () {
   'use strict';
   var D = document, W = window, H = D.documentElement;
@@ -15,8 +15,9 @@
 
   /* ---------- guscio: intestazione, navigazione a 4 sezioni, pannelli ---------- */
   var head = dash.querySelector('.dash-head');
-  if (head) { var h2 = head.querySelector('h2'); if (h2) h2.textContent = 'Centrale TVA'; var sub = head.querySelector('.part-sub'); if (sub) sub.textContent = 'Il centro operativo della tua Variante: stato, missioni, operazioni e strumenti.'; head.classList.add('cen-head'); }
-  var SECS = [['panoramica', '📊', 'Panoramica'], ['missioni', '🎯', 'Missioni'], ['operazioni', '🛠️', 'Operazioni'], ['strumenti', '🧰', 'Strumenti']];
+  if (head) { var h2 = head.querySelector('h2'); if (h2) h2.textContent = 'Centrale TVA'; var sub = head.querySelector('.part-sub'); if (sub) sub.textContent = 'Il centro operativo della tua Variante: stato, missioni, osservatorio e operazioni.'; head.classList.add('cen-head'); }
+  var RADAR = '<svg class="cen-radar" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12L18.4 5.6"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="16.5" cy="15" r="1" fill="currentColor" stroke="none"/></svg>';
+  var SECS = [['panoramica', '📊', 'Panoramica'], ['missioni', '🎯', 'Missioni'], ['strumenti', RADAR, 'Osservatorio'], ['operazioni', '🛠️', 'Operazioni']];
   var nav = el('div', 'cen-nav'); nav.setAttribute('role', 'tablist'); nav.setAttribute('aria-label', 'Sezioni della Centrale TVA');
   var panels = {};
   SECS.forEach(function (s) {
@@ -50,7 +51,7 @@
   var sprev = el('section', 'cen-card cen-prev'); sprev.innerHTML = '<div class="cen-card-h"><h3>Stagione in corso</h3><button type="button" class="cen-link" data-go-sec="missioni" data-go-sub="stagioni">Dettagli ›</button></div><div class="cen-prev-rows" data-f="srows"></div>';
   P.appendChild(sprev);
   var short = el('section', 'cen-short'); short.setAttribute('aria-label', 'Collegamenti rapidi');
-  short.innerHTML = '<button type="button" class="cen-sbtn" data-go-sec="missioni">🎯<span>Missioni</span></button><button type="button" class="cen-sbtn" data-go-sec="operazioni">🛠️<span>Operazioni</span></button><button type="button" class="cen-sbtn" data-go-sec="strumenti">🧰<span>Strumenti</span></button><button type="button" class="cen-sbtn" data-act="atlante">🗺️<span>Atlante</span></button>';
+  short.innerHTML = '<button type="button" class="cen-sbtn" data-go-sec="missioni">🎯<span>Missioni</span></button><button type="button" class="cen-sbtn" data-go-sec="strumenti">' + RADAR + '<span>Osservatorio</span></button><button type="button" class="cen-sbtn" data-go-sec="operazioni">🛠️<span>Operazioni</span></button><button type="button" class="cen-sbtn" data-act="atlante">🗺️<span>Atlante</span></button>';
   P.appendChild(short);
   move($('bollettinoBox'), P);
   var MROWS = [['missioneSettimanale', 'settimanale'], ['missioneTematica', 'tematica'], ['missioneSaga', 'saga'], ['missioneSegreta', 'segreta']];
@@ -304,8 +305,8 @@
   }, true);
   // ancore #cen-<sezione>[-sub] e #dashboard
   function fromHash() {
-    var h = (W.location.hash || '').replace(/^#/, ''), m = /^cen-(panoramica|missioni|operazioni|strumenti)(?:-(attive|stagioni|speciali|archivio))?$/.exec(h);
-    if (m) { openSec(m[1], { sub: m[2], fresh: true }); return true; } return false;
+    var h = (W.location.hash || '').replace(/^#/, ''), m = /^cen-(panoramica|missioni|operazioni|strumenti|osservatorio)(?:-(attive|stagioni|speciali|archivio))?$/.exec(h);
+    if (m) { openSec(m[1] === 'osservatorio' ? 'strumenti' : m[1], { sub: m[2], fresh: true }); return true; } return false;
   }
   D.addEventListener('click', function (e) {
     var a = e.target && e.target.closest ? e.target.closest('a[href^="#cen-"], a[href="#dashboard"], a[href="#database"]') : null; if (!a) return;

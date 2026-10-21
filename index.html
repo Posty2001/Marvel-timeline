@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="tva-build" content="20261021-2000-blocco2">
+<meta name="tva-build" content="20261021-2040-blocco2-1">
 <link rel="preload" as="image" href="assets/images/intro/living-multiverse.webp" type="image/webp" fetchpriority="high">
 <script id="rs-early">try{var __v=localStorage.getItem("marvel-skin-v2-dark");if(__v!=="0")document.documentElement.classList.add("marvel-dark-mode");}catch(e){document.documentElement.classList.add("marvel-dark-mode");}</script>
 <title>Marvel Multiverse — TVA Archive — The Definitive Watch Order</title>
@@ -4993,8 +4993,8 @@ html:not(#rs) section#dashboard.cen::before { display: none; }
 .cen-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.35rem; margin: 0 0 0.9rem; padding: 0.3rem; border: 1px solid rgba(210,177,132,0.22); border-radius: 14px; background: rgba(15,13,10,0.6); }
 .cen-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem; min-height: 3rem; padding: 0.3rem 0.1rem; min-width: 0; cursor: pointer; font: inherit; color: rgba(239,228,201,0.7); background: none; border: 0; border-radius: 10px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .cen-tab-ic { font-size: 1.05rem; line-height: 1; }
-.cen-tab-l { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0; text-transform: uppercase; line-height: 1; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
-@media (min-width: 360px) { .cen-tab-l { font-size: 0.6rem; letter-spacing: 0.03em; } }
+.cen-tab-l { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: -0.01em; text-transform: uppercase; line-height: 1; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+@media (min-width: 360px) { .cen-tab-l { font-size: 0.58rem; letter-spacing: 0.01em; } }
 .cen-tab.cen-on { background: #D2B184; color: #1a120c; }
 .cen-tab:focus-visible, .cen-stab:focus-visible, .cen-link:focus-visible, .cen-sbtn:focus-visible, .cen-dbtn:focus-visible, .cen-work:focus-visible, .cen-pr:focus-visible { outline: 2px solid #D2B184; outline-offset: 2px; }
 .cen-panel[hidden], .cen-subpanel[hidden] { display: none !important; }
@@ -5125,6 +5125,11 @@ html:not(#rs) section#dashboard.cen::before { display: none; }
 /* B2-TOUCH */
 #dashboard.cen :is(.cen-op,.cen-grp) .reset-btn, #dashboard.cen .cen-grp .us-input, #dashboard.cen .rtd-list-summary { min-height: 44px !important; box-sizing: border-box; }
 #dashboard.cen .rtd-list-summary { display: flex; align-items: center; }
+/* B2.1 icona radar (stessa dimensione/colore delle altre icone della Centrale) */
+.cen-radar { display: block; width: 1em; height: 1em; color: #D2B184; }
+.cen-tab-ic { display: inline-flex; align-items: center; justify-content: center; }
+.cen-tab.cen-on .cen-radar { color: currentColor; }
+.cen-sbtn .cen-radar { width: 1.1rem; height: 1.1rem; }
 /* B2-CSS-END */
 </style>
 </head>
@@ -34537,7 +34542,7 @@ window.addEventListener('load', function() {
 /* B1-JS-END */
 </script>
 <script id="b2-js">
-/* B2-JS-BEGIN: Centrale TVA (Panoramica / Missioni / Operazioni / Strumenti). Riorganizza i componenti ESISTENTI (stessi nodi, stessi id, stessi listener): nulla viene duplicato o riscritto. */
+/* B2-JS-BEGIN: Centrale TVA (Panoramica / Missioni / Osservatorio / Operazioni). Riorganizza i componenti ESISTENTI (stessi nodi, stessi id, stessi listener): nulla viene duplicato o riscritto. */
 (function () {
   'use strict';
   var D = document, W = window, H = D.documentElement;
@@ -34554,8 +34559,9 @@ window.addEventListener('load', function() {
 
   /* ---------- guscio: intestazione, navigazione a 4 sezioni, pannelli ---------- */
   var head = dash.querySelector('.dash-head');
-  if (head) { var h2 = head.querySelector('h2'); if (h2) h2.textContent = 'Centrale TVA'; var sub = head.querySelector('.part-sub'); if (sub) sub.textContent = 'Il centro operativo della tua Variante: stato, missioni, operazioni e strumenti.'; head.classList.add('cen-head'); }
-  var SECS = [['panoramica', '📊', 'Panoramica'], ['missioni', '🎯', 'Missioni'], ['operazioni', '🛠️', 'Operazioni'], ['strumenti', '🧰', 'Strumenti']];
+  if (head) { var h2 = head.querySelector('h2'); if (h2) h2.textContent = 'Centrale TVA'; var sub = head.querySelector('.part-sub'); if (sub) sub.textContent = 'Il centro operativo della tua Variante: stato, missioni, osservatorio e operazioni.'; head.classList.add('cen-head'); }
+  var RADAR = '<svg class="cen-radar" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12L18.4 5.6"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="16.5" cy="15" r="1" fill="currentColor" stroke="none"/></svg>';
+  var SECS = [['panoramica', '📊', 'Panoramica'], ['missioni', '🎯', 'Missioni'], ['strumenti', RADAR, 'Osservatorio'], ['operazioni', '🛠️', 'Operazioni']];
   var nav = el('div', 'cen-nav'); nav.setAttribute('role', 'tablist'); nav.setAttribute('aria-label', 'Sezioni della Centrale TVA');
   var panels = {};
   SECS.forEach(function (s) {
@@ -34589,7 +34595,7 @@ window.addEventListener('load', function() {
   var sprev = el('section', 'cen-card cen-prev'); sprev.innerHTML = '<div class="cen-card-h"><h3>Stagione in corso</h3><button type="button" class="cen-link" data-go-sec="missioni" data-go-sub="stagioni">Dettagli ›</button></div><div class="cen-prev-rows" data-f="srows"></div>';
   P.appendChild(sprev);
   var short = el('section', 'cen-short'); short.setAttribute('aria-label', 'Collegamenti rapidi');
-  short.innerHTML = '<button type="button" class="cen-sbtn" data-go-sec="missioni">🎯<span>Missioni</span></button><button type="button" class="cen-sbtn" data-go-sec="operazioni">🛠️<span>Operazioni</span></button><button type="button" class="cen-sbtn" data-go-sec="strumenti">🧰<span>Strumenti</span></button><button type="button" class="cen-sbtn" data-act="atlante">🗺️<span>Atlante</span></button>';
+  short.innerHTML = '<button type="button" class="cen-sbtn" data-go-sec="missioni">🎯<span>Missioni</span></button><button type="button" class="cen-sbtn" data-go-sec="strumenti">' + RADAR + '<span>Osservatorio</span></button><button type="button" class="cen-sbtn" data-go-sec="operazioni">🛠️<span>Operazioni</span></button><button type="button" class="cen-sbtn" data-act="atlante">🗺️<span>Atlante</span></button>';
   P.appendChild(short);
   move($('bollettinoBox'), P);
   var MROWS = [['missioneSettimanale', 'settimanale'], ['missioneTematica', 'tematica'], ['missioneSaga', 'saga'], ['missioneSegreta', 'segreta']];
@@ -34843,8 +34849,8 @@ window.addEventListener('load', function() {
   }, true);
   // ancore #cen-<sezione>[-sub] e #dashboard
   function fromHash() {
-    var h = (W.location.hash || '').replace(/^#/, ''), m = /^cen-(panoramica|missioni|operazioni|strumenti)(?:-(attive|stagioni|speciali|archivio))?$/.exec(h);
-    if (m) { openSec(m[1], { sub: m[2], fresh: true }); return true; } return false;
+    var h = (W.location.hash || '').replace(/^#/, ''), m = /^cen-(panoramica|missioni|operazioni|strumenti|osservatorio)(?:-(attive|stagioni|speciali|archivio))?$/.exec(h);
+    if (m) { openSec(m[1] === 'osservatorio' ? 'strumenti' : m[1], { sub: m[2], fresh: true }); return true; } return false;
   }
   D.addEventListener('click', function (e) {
     var a = e.target && e.target.closest ? e.target.closest('a[href^="#cen-"], a[href="#dashboard"], a[href="#database"]') : null; if (!a) return;

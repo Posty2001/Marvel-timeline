@@ -17,9 +17,11 @@ with sync_playwright() as p:
     ctx,pg,errs=boot(b,390,844,atlas=False); go(pg)
     ok('N0 barra: 6 voci invariate',pg.evaluate("()=>[...document.querySelectorAll('#appTabbar .app-tab')].map(t=>t.id).join()")=='appTabHome,appTabTimeline,appTabAtlante,appTabMissioni,appTabTessera,appTabFriends')
     tab(pg,'appTabMissioni')
-    ok('N1 Centrale: Panoramica attiva, 4 sezioni, un solo pannello visibile',pg.evaluate("()=>[...document.querySelectorAll('.cen-tab')].map(t=>t.dataset.sec).join()")=='panoramica,missioni,operazioni,strumenti' and pg.evaluate("()=>[...document.querySelectorAll('.cen-panel')].filter(p=>p.getClientRects().length).map(p=>p.dataset.sec).join()")=='panoramica')
+    ok('N1 Centrale: Panoramica attiva, 4 sezioni, un solo pannello visibile',pg.evaluate("()=>[...document.querySelectorAll('.cen-tab')].map(t=>t.dataset.sec).join()")=='panoramica,missioni,strumenti,operazioni' and pg.evaluate("()=>[...document.querySelectorAll('.cen-panel')].filter(p=>p.getClientRects().length).map(p=>p.dataset.sec).join()")=='panoramica')
     ok('N1b ARIA: tablist/tab/tabpanel e aria-selected',pg.evaluate("()=>{const t=[...document.querySelectorAll('.cen-tab')];return document.querySelector('.cen-nav').getAttribute('role')==='tablist'&&t.every(x=>x.getAttribute('role')==='tab'&&document.getElementById(x.getAttribute('aria-controls')).getAttribute('role')==='tabpanel')&&t.filter(x=>x.getAttribute('aria-selected')==='true').length===1}"))
-    for s in ('missioni','operazioni','strumenti','panoramica'):
+    ok('N1c [B2.1] ordine e etichette: PANORAMICA · MISSIONI · OSSERVATORIO · OPERAZIONI; icona radar SVG, nessuna emoji attrezzi',pg.evaluate("()=>[...document.querySelectorAll('.cen-tab-l')].map(x=>x.textContent).join()")=='Panoramica,Missioni,Osservatorio,Operazioni' and pg.evaluate("()=>!!document.querySelector('#cenTab-strumenti svg.cen-radar')&&!/🧰/.test(document.getElementById('dashboard').innerText)"))
+    ok('N1d [B2.1] panoramica: scorciatoie nell\'ordine Missioni, Osservatorio, Operazioni',pg.evaluate("()=>[...document.querySelectorAll('.cen-sbtn[data-go-sec]')].map(x=>x.dataset.goSec).join()")=='missioni,strumenti,operazioni')
+    for s in ('missioni','strumenti','operazioni','panoramica'):
         sec(pg,s); okk=pg.evaluate("(s)=>[...document.querySelectorAll('.cen-panel')].filter(p=>p.getClientRects().length).map(p=>p.dataset.sec).join()==s&&document.getElementById('cenTab-'+s).getAttribute('aria-selected')==='true'",s); ok('N2 sezione %s'%s,okk)
     pg.focus('#cenTab-panoramica'); pg.keyboard.press('ArrowRight'); pg.wait_for_timeout(200)
     ok('N3 tastiera: freccia destra attiva la sezione successiva',pg.evaluate("()=>document.getElementById('cenTab-missioni').getAttribute('aria-selected')==='true'"))
@@ -53,6 +55,8 @@ with sync_playwright() as p:
     pg.evaluate("()=>tvaCentrale.openMission('saga')"); pg.wait_for_timeout(600)
     ok('M7b openMission(saga): Attive, dossier aperto',pg.evaluate("()=>document.getElementById('cenSub-attive').getAttribute('aria-selected')==='true'&&!document.getElementById('cenDos-saga').hidden"))
     pg.evaluate("()=>{location.hash='#cen-operazioni'}"); pg.wait_for_timeout(500)
+    pg.evaluate("()=>{location.hash='#cen-osservatorio'}"); pg.wait_for_timeout(500); ok('M8a [B2.1] ancora #cen-osservatorio (alias) apre Osservatorio',pg.evaluate("()=>document.getElementById('cenTab-strumenti').getAttribute('aria-selected')==='true'"))
+    pg.evaluate("()=>{location.hash='#cen-strumenti'}"); pg.wait_for_timeout(300); pg.evaluate("()=>{location.hash='#cen-operazioni'}"); pg.wait_for_timeout(500)
     ok('M8 ancora #cen-operazioni',pg.evaluate("()=>document.getElementById('cenTab-operazioni').getAttribute('aria-selected')==='true'"))
     # ============ anteprima in Panoramica ============
     sec(pg,'panoramica')
@@ -187,7 +191,7 @@ with sync_playwright() as p:
     # ============ layout multi-viewport ============
     for W,Hh in [(320,568),(375,812),(390,844),(393,852)]:
         ctx,pg,errs=boot(b,W,Hh,atlas=False); go(pg); tab(pg,'appTabMissioni')
-        for s in ('panoramica','missioni','operazioni','strumenti'):
+        for s in ('panoramica','missioni','strumenti','operazioni'):
             sec(pg,s)
             subs=['attive','stagioni','speciali','archivio'] if s=='missioni' else [None]
             for sb in subs:
@@ -204,7 +208,7 @@ with sync_playwright() as p:
         pg.evaluate("()=>document.querySelector('.variant-cmp-btn').click()"); pg.wait_for_timeout(500)
         cm=pg.evaluate("""()=>{const w=document.getElementById('cmpTableWrap'),t=w.querySelector('table');if(!t)return null;const r=t.getBoundingClientRect();const inp=[...document.querySelectorAll('#cmpInputA,#cmpInputB')].map(i=>[parseFloat(getComputedStyle(i).fontSize),i.getBoundingClientRect().height,i.getBoundingClientRect().width]);return {scroll:w.scrollWidth-w.clientWidth,right:r.right,iw:innerWidth,inp,rows:t.querySelectorAll('tbody tr').length,ov:document.documentElement.scrollWidth-innerWidth,hint:[...w.querySelectorAll('.cmp-scroll-hint')].some(h=>h.getClientRects().length>0)}}""")
         ok('V%d confronto: tabella senza scroll orizzontale, selettori leggibili (>=16px, >=44px), nessun overflow'%W,cm and cm['scroll']<=1 and cm['right']<=cm['iw']+1 and all(i[0]>=16 and i[1]>=43 for i in cm['inp']) and cm['ov']<=1 and not cm['hint'] and cm['rows']>=8,cm)
-        if W in (320,390): pg.screenshot(path='/home/claude/outputs/sprint_blocco2/dopo_confronto_%d.png'%W)
+        if W in (320,390): pg.screenshot(path='/home/claude/outputs/sprint_blocco2_1/dopo_confronto_%d.png'%W)
         ok('V%d nessun errore JS'%W,not errs,errs[:2]); ctx.close()
     b.close()
 done()
