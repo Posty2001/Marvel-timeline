@@ -39,13 +39,15 @@
     top.appendChild(lab); top.appendChild(reset);
     var main = ratingEl('div', 'rw-main'), stars = ratingEl('div', 'rw-stars');
     stars.setAttribute('role', 'slider'); stars.tabIndex = 0; stars.setAttribute('aria-labelledby', lid);
-    stars.setAttribute('aria-valuemin', '0'); stars.setAttribute('aria-valuemax', '5');
+    stars.setAttribute('aria-valuemin', '0'); stars.setAttribute('aria-valuemax', '5'); stars.setAttribute('aria-valuestep', '0.5');
+    stars.setAttribute('aria-description', 'Frecce destra e sinistra: mezzo voto. Toccando una stella si sceglie il voto intero, toccandola di nuovo il mezzo voto.');
     var sp = [];
     for (var i = 1; i <= 5; i++) {
-      var s = ratingEl('span', 'rw-s');
-      [i - 0.5, i].forEach(function(v) { var h = ratingEl('span', 'rw-h'); h.setAttribute('data-v', String(v)); h.setAttribute('aria-hidden', 'true'); s.appendChild(h); });
+      var s = ratingEl('span', 'rw-s'); s.setAttribute('data-k', String(i)); s.setAttribute('aria-hidden', 'true');
       stars.appendChild(s); sp.push(s);
     }
+    // Interazione a due passaggi (nessuna zona di tocco stretta): 1° tocco su una stella = voto intero; 2° tocco sulla stessa stella = mezzo voto (k - 0,5); 3° = di nuovo intero.
+    var hint = ratingEl('span', 'rw-hint', 'Tocca 2 volte per \u00bd'); hint.setAttribute('aria-hidden', 'true'); top.appendChild(hint);
     var val = ratingEl('span', 'rw-val'); val.setAttribute('aria-hidden', 'true');
     var vb = ratingEl('b', '', '—'), vs = ratingEl('span', 'rw-of', ' / 5'); val.appendChild(vb); val.appendChild(vs);
     main.appendChild(stars); main.appendChild(val);
@@ -56,7 +58,7 @@
       cur = v;
       sp.forEach(function(s, k) { s.style.setProperty('--f', v >= k + 1 ? '1' : (v >= k + 0.5 ? '0.5' : '0')); });
       vb.textContent = v ? ratingFmt(v) : '—'; val.classList.toggle('rw-empty', !v);
-      reset.hidden = !v;
+      reset.hidden = !v; hint.hidden = !!v;
       stars.setAttribute('aria-valuenow', String(v));
       stars.setAttribute('aria-valuetext', v ? ratingFmt(v) + ' su 5' : 'Nessun voto');
       if (animIdx != null && sp[animIdx]) { var s = sp[animIdx]; s.classList.remove('rw-pop'); void s.offsetWidth; s.classList.add('rw-pop'); }
@@ -74,8 +76,10 @@
       try { updateProgress(); } catch(eRatingProgress) {}
     }
     stars.addEventListener('click', function(e) {
-      var h = e.target && e.target.closest ? e.target.closest('.rw-h') : null;
-      if (h) commit(parseFloat(h.getAttribute('data-v')));
+      var st = e.target && e.target.closest ? e.target.closest('.rw-s') : null;
+      if (!st) return;
+      var k = parseInt(st.getAttribute('data-k'), 10);
+      commit(cur === k ? k - 0.5 : k);   // stessa stella gia' piena -> mezzo voto; altrimenti voto intero
     });
     stars.addEventListener('keydown', function(e) {
       var k = e.key, v = null;

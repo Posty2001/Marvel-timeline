@@ -30,7 +30,7 @@ with sync_playwright() as p:
     #  (c) le 13 schede Fox (ID in tools/xmen_order.json: note editoriali e N°) e le 7 schede personaggio con PRIMA/ULTIMA ricalcolate.
     # Ogni altra variazione resta un fallimento.
     _cfg=json.load(open('/home/claude/work/tools/xmen_order.json')); ALLOW={'item-'+i for i in _cfg['order']}|{'char-'+c for c in ('ciclope','jean-grey-fenice','magneto','sabretooth','william-stryker','wolverine','xavier')}
-    _n=lambda t:re.sub(r'La tua valutazione|Il tuo voto:|[\u2605\u2606]|\u2014 / 5|Azzera','',re.sub(r'N(?:°|&deg;)\d{3}','N°#',t))   # fix-iOS: il widget del voto cambia testo e posizione (autorizzato)
+    _n=lambda t:re.sub(r'La tua valutazione|Il tuo voto:|[\u2605\u2606]|\u2014 / 5|Azzera|Tocca 2 volte per \u00bd','',re.sub(r'N(?:°|&deg;)\d{3}','N°#',t))   # fix-iOS: il widget del voto cambia testo e posizione (autorizzato)
     def _ok(i):
         a,b2=old[i],new[i]
         return a[0]==b2[0] and (_n(NORM(a[1]))==_n(b2[1]) or sorted(_n(NORM(a[1])).split())==sorted(_n(b2[1]).split()) or i in ALLOW)

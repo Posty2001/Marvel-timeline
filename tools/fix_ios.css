@@ -44,9 +44,9 @@
 }
 .rw-s::before { background: rgba(210,177,132,0.2); }
 .rw-s::after { background: #D2B184; clip-path: inset(0 calc((1 - var(--f)) * 100%) 0 0); }
-.rw-h { position: absolute; top: 0; bottom: 0; width: 50%; cursor: pointer; z-index: 1; }
-.rw-h[data-v$=".5"] { left: 0; }
-.rw-h:not([data-v$=".5"]) { right: 0; }
+.rw2 .rw-s { cursor: pointer; }
+.rw2 .rw-hint { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.04em; color: rgba(239,228,201,0.5); white-space: nowrap; }
+.rw2 .rw-hint[hidden] { display: none; }
 .rw2 .rw-val { margin-left: auto; font-family: 'Special Elite', 'IBM Plex Mono', monospace; font-size: 1.1rem; color: #efe4c9; white-space: nowrap; letter-spacing: 0.02em; }
 .rw2 .rw-val b { font-weight: 700; color: #D2B184; font-variant-numeric: tabular-nums; }
 .rw2 .rw-val .rw-of { font-size: 0.8rem; color: rgba(239,228,201,0.55); }

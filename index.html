@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="tva-build" content="20261019-1130-fix-ios-voti">
+<meta name="tva-build" content="20261021-1630-pre5-rifinitura">
 <link rel="preload" as="image" href="assets/images/intro/living-multiverse.webp" type="image/webp" fetchpriority="high">
 <script id="rs-early">try{var __v=localStorage.getItem("marvel-skin-v2-dark");if(__v!=="0")document.documentElement.classList.add("marvel-dark-mode");}catch(e){document.documentElement.classList.add("marvel-dark-mode");}</script>
 <title>Marvel Multiverse — TVA Archive — The Definitive Watch Order</title>
@@ -4831,9 +4831,9 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
 }
 .rw-s::before { background: rgba(210,177,132,0.2); }
 .rw-s::after { background: #D2B184; clip-path: inset(0 calc((1 - var(--f)) * 100%) 0 0); }
-.rw-h { position: absolute; top: 0; bottom: 0; width: 50%; cursor: pointer; z-index: 1; }
-.rw-h[data-v$=".5"] { left: 0; }
-.rw-h:not([data-v$=".5"]) { right: 0; }
+.rw2 .rw-s { cursor: pointer; }
+.rw2 .rw-hint { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.04em; color: rgba(239,228,201,0.5); white-space: nowrap; }
+.rw2 .rw-hint[hidden] { display: none; }
 .rw2 .rw-val { margin-left: auto; font-family: 'Special Elite', 'IBM Plex Mono', monospace; font-size: 1.1rem; color: #efe4c9; white-space: nowrap; letter-spacing: 0.02em; }
 .rw2 .rw-val b { font-weight: 700; color: #D2B184; font-variant-numeric: tabular-nums; }
 .rw2 .rw-val .rw-of { font-size: 0.8rem; color: rgba(239,228,201,0.55); }
@@ -4851,6 +4851,74 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
 @media (max-width: 400px) { .rw-s { width: 1.7rem; } .rw2 .rw-val { font-size: 1rem; } }
 @media (max-width: 340px) { .rw-s { width: 1.4rem; } .rw2 .rw-val .rw-of { font-size: 0.62rem; } .rw2 .rw-label { letter-spacing: 0.05em; font-size: 0.55rem; white-space: normal; min-width: 0; } .rw2 .rw-val { font-size: 0.95rem; } .rating-widget.rw2 { padding-left: 0.6rem; padding-right: 0.6rem; } }
 /* FX-CSS-END */
+</style>
+<style id="pre5-css">
+/* PRE5-CSS-BEGIN: sprint di rifinitura pre-Fase 5 (Timeline compatta, Capitolo 0, overlay iOS) */
+/* ---- 3) Overlay iOS: stesso rimedio del Grafo classico per Kang/TVA, Relazioni, Timeline degli Universi, Timeline alternativa ---- */
+@media screen {
+  .kang-tva-overlay, .relationship-graph-overlay, .universe-timeline-overlay, .alt-timeline-overlay {
+    position: static; height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible;
+    transform: none; -webkit-transform: none; will-change: auto; z-index: auto; background: #101014;
+  }
+  @supports selector(:has(*)) {
+    body:has(#kangTvaGraphToggle:checked), body:has(#relationshipGraphToggle:checked),
+    body:has(#universeTimelineToggle:checked), body:has(#altTimelineToggle:checked) { padding-bottom: 0; }
+  }
+}
+/* ---- 2) Intestazione Timeline compatta ---- */
+#cover.cover {
+  min-height: 0; padding: calc(var(--sat) + 0.75rem) 1.1rem 0.8rem; align-items: stretch; justify-content: flex-start; text-align: left;
+  border-bottom: 1px solid rgba(210,177,132,0.28);
+}
+#cover .cv-top { display: flex; align-items: center; min-height: 3.1rem; padding-left: 3.6rem; }
+#cover .kicker { margin: 0; font-size: 0.56rem; letter-spacing: 0.14em; line-height: 1.35; color: rgba(210,177,132,0.9); }
+#cover h1.maintitle {
+  margin: 0.3rem 0 0; font-size: clamp(1.4rem, 6.6vw, 2rem); line-height: 1.08; letter-spacing: 0.01em; text-shadow: none; color: #f2e8d8;
+}
+#cover .subtitle {
+  margin: 0.3rem 0 0.65rem; padding: 0; border: 0; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: none; color: rgba(239,228,201,0.72);
+}
+#cover .cover-grid {
+  display: grid; grid-template-columns: 1fr 0.8fr 0.8fr 1.5fr; gap: 0; margin: 0 0 0.65rem; max-width: none; width: 100%;
+  border: 1px solid rgba(168,52,70,0.4); border-radius: 12px; background: rgba(15,13,10,0.55);
+}
+#cover .cover-grid > div { padding: 0.5rem 0.2rem; text-align: center; font-size: 0.6rem; letter-spacing: 0.04em; line-height: 1.2; color: rgba(239,228,201,0.65); min-width: 0; }
+#cover .cover-grid > div:not(:first-child)::before { display: block; top: 0.55rem; bottom: 0.55rem; background: rgba(210,177,132,0.2); }
+#cover .cover-grid > div:nth-child(odd)::before { display: block; }
+#cover .cover-grid b { display: block; font-size: 0.98rem; line-height: 1.15; color: #D2B184; margin-bottom: 0.1rem; white-space: nowrap; }
+#cover .cv-continue {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; width: 100%; min-height: 2.9rem; padding: 0.5rem 0.9rem; box-sizing: border-box; cursor: pointer;
+  font: inherit; text-align: left; color: #f2e8d8; border: 1px solid rgba(210,177,132,0.6); border-radius: 12px; touch-action: manipulation;
+  background: linear-gradient(180deg, rgba(168,52,70,0.55), rgba(110,28,42,0.55));
+}
+#cover .cv-c-lbl { font-family: 'Special Elite', 'IBM Plex Mono', monospace; font-size: 0.95rem; letter-spacing: 0.02em; white-space: nowrap; }
+#cover .cv-c-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.04em; color: rgba(239,228,201,0.75); text-align: right; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#cover .cv-continue:focus-visible { outline: 2px solid #D2B184; outline-offset: 2px; }
+#cover .cover-note { margin: 0.45rem 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.03em; line-height: 1.4; color: rgba(239,228,201,0.5); }
+.cv-flash { animation: cv-flash 1.4s ease-out 1; }
+@keyframes cv-flash { 0% { box-shadow: 0 0 0 3px rgba(210,177,132,0.85); } 100% { box-shadow: 0 0 0 3px rgba(210,177,132,0); } }
+@media (prefers-reduced-motion: reduce) { .cv-flash { animation: none; outline: 2px solid rgba(210,177,132,0.7); outline-offset: 2px; } }
+@media (max-width: 340px) { #cover .cv-c-sub { display: none; } #cover .cover-grid > div { font-size: 0.56rem; } #cover .cover-grid b { font-size: 0.95rem; } }
+/* ---- Capitolo 0: contenuto editoriale, piu' compatto e distinto dai titoli da guardare ---- */
+#cap0 .part-tab { margin-bottom: 0.35rem; }
+#cap0 .cap0-tag {
+  display: inline-block; margin: 0 0 0.5rem 0.5rem; padding: 0.12rem 0.55rem; border-radius: 999px; vertical-align: middle;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(210,177,132,0.9); border: 1px dashed rgba(210,177,132,0.45);
+}
+#cap0 .part-head { margin-bottom: 0.45rem; padding-bottom: 0.5rem; }
+#cap0 .part-head h2 { margin-top: 0.15rem; margin-bottom: 0.25rem; }
+#cap0 .part-sub { margin: 0.2rem 0 0; }
+#cap0 ul.items { gap: 0; }
+#cap0 .card-wrap { margin: 0 0 0.3rem; padding-left: 0; }
+#cap0 .card { border: 1px solid rgba(210,177,132,0.14); border-left: 2px solid rgba(210,177,132,0.5); border-radius: 8px; background: rgba(20,16,12,0.55); box-shadow: none; }
+#cap0 .card summary { min-height: 2.75rem; padding: 0.4rem 0.7rem; gap: 0.55rem; align-items: center; }
+#cap0 .card .rec { font-size: 0.64rem; min-width: 1.7rem; opacity: 0.7; letter-spacing: 0.06em; align-self: center; }
+#cap0 .card .ic { width: 1.75rem; height: 1.75rem; min-width: 1.75rem; font-size: 0.9rem; opacity: 0.85; }
+#cap0 .card .title { font-size: 0.98rem; line-height: 1.25; }
+#cap0 .card .chev { font-size: 0.8rem; opacity: 0.7; }
+#cap0 .detail-panel { padding-top: 0.5rem; padding-bottom: 0.6rem; }
+/* PRE5-CSS-END */
 </style>
 </head>
 <body>
@@ -12878,17 +12946,17 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
 </div>
 
 <div class="cover" id="cover">
-  <div class="kicker">Fascicolo Ufficiale &middot; Time Variance Archive</div>
-  <h1 class="maintitle">MARVEL<br>ULTIMATE<br>TIMELINE</h1>
-  <div class="subtitle">The Definitive Watch Order</div>
+  <div class="cv-top"><div class="kicker">Fascicolo Ufficiale &middot; Time Variance Archive</div></div>
+  <h1 class="maintitle">Marvel Ultimate Timeline</h1>
+  <div class="subtitle">Ordine di visione definitivo &middot; film, serie e speciali</div>
   <div class="cover-grid">
-    <div><span class="cg-ic">&#127909;</span><b>138</b>titoli autonomi (+1 variante)</div>
-    <div><span class="cg-ic">&#127919;</span><b>4</b>livelli di priorit&agrave;</div>
-    <div><span class="cg-ic">&#128194;</span><b>3</b>categorie di canone</div>
-    <div><span class="cg-ic">&#128336;</span><b>1943&ndash;2027</b>arco temporale</div>
+    <div><b>138</b>titoli</div>
+    <div><b>4</b>livelli</div>
+    <div><b>3</b>canoni</div>
+    <div><b>1943&ndash;2027</b>arco</div>
   </div>
-  <div class="scrolldown">&darr; scorri per iniziare &darr;</div>
-  <div class="cover-seal">EDIZIONE<br>AGGIORNATA<br>A<br>SECRET WARS</div>
+  <button type="button" class="cv-continue" id="cvContinueBtn"><span class="cv-c-lbl">Continua il percorso</span><span class="cv-c-sub"></span></button>
+  <p class="cover-note">Include titoli annunciati fino a Secret Wars (dic 2027): le opere non ancora uscite sono indicate come tali.</p>
 </div>
 <div class="bollettino-box" id="bollettinoBox">
   <div class="bollettino-head">
@@ -13077,7 +13145,7 @@ body.d4-skin-mis .a2-arc-hero::after, .d4-skin-mis .a2-arc-hero::after { content
 </div>
 
 <section class="part cat-ch0" id="cap0">
-      <div class="part-tab">CAPITOLO 0</div>
+      <div class="part-tab">CAPITOLO 0</div><span class="cap0-tag">Lettura editoriale &middot; nessun titolo da guardare</span>
       <div class="part-head">
         <span class="part-cat">Prima ancora di Steve Rogers</span>
         <h2>Le Ere dell'Universo Marvel &#10024;</h2>
@@ -23078,7 +23146,7 @@ function marvelInit() {
           cb.checked = true;
           aggiornaTabAttiva(terzetto[2]);
           mvUltimoFocusPrimaOverlay = document.activeElement;
-          if (terzetto[1] === 'atlas2Toggle' && window.tvaAtlas2) { try { window.tvaAtlas2.onOpen(); } catch(eA2o) {} }
+          if (terzetto[1] === 'atlas2Toggle' && window.tvaAtlas2) { try { (window.tvaAtlas2.openHome || window.tvaAtlas2.onOpen)(); } catch(eA2o) {} }
           if (overlayEl && overlayEl.focus) { overlayEl.focus({ preventScroll: true }); }
           if (terzetto[1] !== 'atlas2Toggle') window.scrollTo(0, 0);
         });
@@ -25819,13 +25887,15 @@ function marvelInit() {
     top.appendChild(lab); top.appendChild(reset);
     var main = ratingEl('div', 'rw-main'), stars = ratingEl('div', 'rw-stars');
     stars.setAttribute('role', 'slider'); stars.tabIndex = 0; stars.setAttribute('aria-labelledby', lid);
-    stars.setAttribute('aria-valuemin', '0'); stars.setAttribute('aria-valuemax', '5');
+    stars.setAttribute('aria-valuemin', '0'); stars.setAttribute('aria-valuemax', '5'); stars.setAttribute('aria-valuestep', '0.5');
+    stars.setAttribute('aria-description', 'Frecce destra e sinistra: mezzo voto. Toccando una stella si sceglie il voto intero, toccandola di nuovo il mezzo voto.');
     var sp = [];
     for (var i = 1; i <= 5; i++) {
-      var s = ratingEl('span', 'rw-s');
-      [i - 0.5, i].forEach(function(v) { var h = ratingEl('span', 'rw-h'); h.setAttribute('data-v', String(v)); h.setAttribute('aria-hidden', 'true'); s.appendChild(h); });
+      var s = ratingEl('span', 'rw-s'); s.setAttribute('data-k', String(i)); s.setAttribute('aria-hidden', 'true');
       stars.appendChild(s); sp.push(s);
     }
+    // Interazione a due passaggi (nessuna zona di tocco stretta): 1° tocco su una stella = voto intero; 2° tocco sulla stessa stella = mezzo voto (k - 0,5); 3° = di nuovo intero.
+    var hint = ratingEl('span', 'rw-hint', 'Tocca 2 volte per \u00bd'); hint.setAttribute('aria-hidden', 'true'); top.appendChild(hint);
     var val = ratingEl('span', 'rw-val'); val.setAttribute('aria-hidden', 'true');
     var vb = ratingEl('b', '', '—'), vs = ratingEl('span', 'rw-of', ' / 5'); val.appendChild(vb); val.appendChild(vs);
     main.appendChild(stars); main.appendChild(val);
@@ -25836,7 +25906,7 @@ function marvelInit() {
       cur = v;
       sp.forEach(function(s, k) { s.style.setProperty('--f', v >= k + 1 ? '1' : (v >= k + 0.5 ? '0.5' : '0')); });
       vb.textContent = v ? ratingFmt(v) : '—'; val.classList.toggle('rw-empty', !v);
-      reset.hidden = !v;
+      reset.hidden = !v; hint.hidden = !!v;
       stars.setAttribute('aria-valuenow', String(v));
       stars.setAttribute('aria-valuetext', v ? ratingFmt(v) + ' su 5' : 'Nessun voto');
       if (animIdx != null && sp[animIdx]) { var s = sp[animIdx]; s.classList.remove('rw-pop'); void s.offsetWidth; s.classList.add('rw-pop'); }
@@ -25854,8 +25924,10 @@ function marvelInit() {
       try { updateProgress(); } catch(eRatingProgress) {}
     }
     stars.addEventListener('click', function(e) {
-      var h = e.target && e.target.closest ? e.target.closest('.rw-h') : null;
-      if (h) commit(parseFloat(h.getAttribute('data-v')));
+      var st = e.target && e.target.closest ? e.target.closest('.rw-s') : null;
+      if (!st) return;
+      var k = parseInt(st.getAttribute('data-k'), 10);
+      commit(cur === k ? k - 0.5 : k);   // stessa stella gia' piena -> mezzo voto; altrimenti voto intero
     });
     stars.addEventListener('keydown', function(e) {
       var k = e.key, v = null;
@@ -34151,6 +34223,60 @@ window.addEventListener('load', function() {
   }
   ['homeHubMapBtn','guideMapBtn'].forEach(function(id){ var b=document.getElementById(id); if(b) b.addEventListener('click',apri); });
 })();
+</script>
+<script id="pre5-js">
+/* PRE5-JS-BEGIN */
+(function(){
+  'use strict';
+  var KEY = 'marvel-ultimate-timeline-last-watched';
+  function lastId(){ try { var r = JSON.parse(localStorage.getItem(KEY) || 'null'); return r && r.id ? String(r.id) : null; } catch(e){ return null; } }
+  function checks(){ return Array.prototype.slice.call(document.querySelectorAll('li.card-wrap input.watch-check[data-item]')); }
+  function visible(el){ var w = el.closest('li.card-wrap'); return !!(w && w.getClientRects().length); }
+  function pick(){
+    var all = checks(); if (!all.length) return null;
+    var lid = lastId(), idx = -1, i;
+    if (lid) for (i = 0; i < all.length; i++) if (all[i].getAttribute('data-item') === lid) { idx = i; break; }
+    var order = idx >= 0 ? all.slice(idx + 1).concat(all.slice(0, idx + 1)) : all;
+    for (i = 0; i < order.length; i++) if (!order[i].checked && visible(order[i])) return { cb: order[i], first: idx < 0 && !all.some(function(c){ return c.checked; }) };
+    for (i = 0; i < all.length; i++) if (visible(all[i])) return { cb: all[i], first: false };
+    return null;
+  }
+  function titleOf(cb){ var w = cb.closest('li.card-wrap'), t = w && w.querySelector('.title'); return t ? t.textContent.trim() : ''; }
+  function label(){
+    var btn = document.getElementById('cvContinueBtn'); if (!btn) return;
+    var p = pick(), sub = btn.querySelector('.cv-c-sub'), lbl = btn.querySelector('.cv-c-lbl');
+    if (!p) { sub.textContent = ''; return; }
+    lbl.textContent = p.first ? 'Inizia il percorso' : 'Continua il percorso';
+    sub.textContent = 'N°' + p.cb.getAttribute('data-item') + ' · ' + titleOf(p.cb);
+  }
+  function go(){
+    var p = pick(); if (!p) return;
+    var hx = document.getElementById('homeHubExited'), jc = document.getElementById('journeyStarted');
+    if (jc && !jc.checked) jc.checked = true;
+    if (hx && !hx.checked) hx.checked = true;
+    var w = p.cb.closest('li.card-wrap'); if (!w) return;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try { w.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); } catch(e){ w.scrollIntoView(); }
+    var c = w.querySelector('details.card') || w;
+    c.classList.remove('cv-flash'); void c.offsetWidth; c.classList.add('cv-flash');
+    setTimeout(function(){ c.classList.remove('cv-flash'); }, 1600);
+  }
+  function init(){
+    var btn = document.getElementById('cvContinueBtn'); if (!btn || btn.__pre5) return; btn.__pre5 = 1;
+    btn.addEventListener('click', go);
+    document.addEventListener('change', function(e){ if (e.target && e.target.classList && e.target.classList.contains('watch-check')) label(); });
+    window.addEventListener('storage', label);
+    label();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  setTimeout(label, 600);
+  /* overlay iOS: ora sono contenuto di pagina; all'apertura si riparte dall'alto */
+  ['kangTvaGraphToggle','relationshipGraphToggle','universeTimelineToggle','altTimelineToggle'].forEach(function(id){
+    var t = document.getElementById(id); if (!t) return;
+    t.addEventListener('change', function(){ try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch(e){ window.scrollTo(0, 0); } });
+  });
+})();
+/* PRE5-JS-END */
 </script>
 </body>
 </html>

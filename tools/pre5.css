@@ -1,0 +1,66 @@
+/* PRE5-CSS-BEGIN: sprint di rifinitura pre-Fase 5 (Timeline compatta, Capitolo 0, overlay iOS) */
+/* ---- 3) Overlay iOS: stesso rimedio del Grafo classico per Kang/TVA, Relazioni, Timeline degli Universi, Timeline alternativa ---- */
+@media screen {
+  .kang-tva-overlay, .relationship-graph-overlay, .universe-timeline-overlay, .alt-timeline-overlay {
+    position: static; height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible;
+    transform: none; -webkit-transform: none; will-change: auto; z-index: auto; background: #101014;
+  }
+  @supports selector(:has(*)) {
+    body:has(#kangTvaGraphToggle:checked), body:has(#relationshipGraphToggle:checked),
+    body:has(#universeTimelineToggle:checked), body:has(#altTimelineToggle:checked) { padding-bottom: 0; }
+  }
+}
+/* ---- 2) Intestazione Timeline compatta ---- */
+#cover.cover {
+  min-height: 0; padding: calc(var(--sat) + 0.75rem) 1.1rem 0.8rem; align-items: stretch; justify-content: flex-start; text-align: left;
+  border-bottom: 1px solid rgba(210,177,132,0.28);
+}
+#cover .cv-top { display: flex; align-items: center; min-height: 3.1rem; padding-left: 3.6rem; }
+#cover .kicker { margin: 0; font-size: 0.56rem; letter-spacing: 0.14em; line-height: 1.35; color: rgba(210,177,132,0.9); }
+#cover h1.maintitle {
+  margin: 0.3rem 0 0; font-size: clamp(1.4rem, 6.6vw, 2rem); line-height: 1.08; letter-spacing: 0.01em; text-shadow: none; color: #f2e8d8;
+}
+#cover .subtitle {
+  margin: 0.3rem 0 0.65rem; padding: 0; border: 0; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: none; color: rgba(239,228,201,0.72);
+}
+#cover .cover-grid {
+  display: grid; grid-template-columns: 1fr 0.8fr 0.8fr 1.5fr; gap: 0; margin: 0 0 0.65rem; max-width: none; width: 100%;
+  border: 1px solid rgba(168,52,70,0.4); border-radius: 12px; background: rgba(15,13,10,0.55);
+}
+#cover .cover-grid > div { padding: 0.5rem 0.2rem; text-align: center; font-size: 0.6rem; letter-spacing: 0.04em; line-height: 1.2; color: rgba(239,228,201,0.65); min-width: 0; }
+#cover .cover-grid > div:not(:first-child)::before { display: block; top: 0.55rem; bottom: 0.55rem; background: rgba(210,177,132,0.2); }
+#cover .cover-grid > div:nth-child(odd)::before { display: block; }
+#cover .cover-grid b { display: block; font-size: 0.98rem; line-height: 1.15; color: #D2B184; margin-bottom: 0.1rem; white-space: nowrap; }
+#cover .cv-continue {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; width: 100%; min-height: 2.9rem; padding: 0.5rem 0.9rem; box-sizing: border-box; cursor: pointer;
+  font: inherit; text-align: left; color: #f2e8d8; border: 1px solid rgba(210,177,132,0.6); border-radius: 12px; touch-action: manipulation;
+  background: linear-gradient(180deg, rgba(168,52,70,0.55), rgba(110,28,42,0.55));
+}
+#cover .cv-c-lbl { font-family: 'Special Elite', 'IBM Plex Mono', monospace; font-size: 0.95rem; letter-spacing: 0.02em; white-space: nowrap; }
+#cover .cv-c-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.04em; color: rgba(239,228,201,0.75); text-align: right; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#cover .cv-continue:focus-visible { outline: 2px solid #D2B184; outline-offset: 2px; }
+#cover .cover-note { margin: 0.45rem 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.03em; line-height: 1.4; color: rgba(239,228,201,0.5); }
+.cv-flash { animation: cv-flash 1.4s ease-out 1; }
+@keyframes cv-flash { 0% { box-shadow: 0 0 0 3px rgba(210,177,132,0.85); } 100% { box-shadow: 0 0 0 3px rgba(210,177,132,0); } }
+@media (prefers-reduced-motion: reduce) { .cv-flash { animation: none; outline: 2px solid rgba(210,177,132,0.7); outline-offset: 2px; } }
+@media (max-width: 340px) { #cover .cv-c-sub { display: none; } #cover .cover-grid > div { font-size: 0.56rem; } #cover .cover-grid b { font-size: 0.95rem; } }
+/* ---- Capitolo 0: contenuto editoriale, piu' compatto e distinto dai titoli da guardare ---- */
+#cap0 .part-tab { margin-bottom: 0.35rem; }
+#cap0 .cap0-tag {
+  display: inline-block; margin: 0 0 0.5rem 0.5rem; padding: 0.12rem 0.55rem; border-radius: 999px; vertical-align: middle;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(210,177,132,0.9); border: 1px dashed rgba(210,177,132,0.45);
+}
+#cap0 .part-head { margin-bottom: 0.45rem; padding-bottom: 0.5rem; }
+#cap0 .part-head h2 { margin-top: 0.15rem; margin-bottom: 0.25rem; }
+#cap0 .part-sub { margin: 0.2rem 0 0; }
+#cap0 ul.items { gap: 0; }
+#cap0 .card-wrap { margin: 0 0 0.3rem; padding-left: 0; }
+#cap0 .card { border: 1px solid rgba(210,177,132,0.14); border-left: 2px solid rgba(210,177,132,0.5); border-radius: 8px; background: rgba(20,16,12,0.55); box-shadow: none; }
+#cap0 .card summary { min-height: 2.75rem; padding: 0.4rem 0.7rem; gap: 0.55rem; align-items: center; }
+#cap0 .card .rec { font-size: 0.64rem; min-width: 1.7rem; opacity: 0.7; letter-spacing: 0.06em; align-self: center; }
+#cap0 .card .ic { width: 1.75rem; height: 1.75rem; min-width: 1.75rem; font-size: 0.9rem; opacity: 0.85; }
+#cap0 .card .title { font-size: 0.98rem; line-height: 1.25; }
+#cap0 .card .chev { font-size: 0.8rem; opacity: 0.7; }
+#cap0 .detail-panel { padding-top: 0.5rem; padding-bottom: 0.6rem; }
+/* PRE5-CSS-END */
