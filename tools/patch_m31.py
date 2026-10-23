@@ -49,5 +49,5 @@ s=s.replace('</body>',TL+'</body>',1) if s.count('</body>')==1 else s
 CSS="/* M31-CSS */\n.m3-tmdb{font-size:.6875rem;line-height:1.4;opacity:.75;margin:.5rem 0 0}.m3-tmdb a{color:inherit;text-decoration:underline}\n.m3-tl{display:block;width:92px;height:138px;object-fit:contain;border-radius:6px;margin:0 0 .5rem}\n"
 if '/* M31-CSS */' not in s:
     k=s.index('</style>'); s=s[:k]+CSS+s[k:]
-s=s.replace('20261023-1100-m31','20261023-1140-m31b').replace('20261023-1000-m3"','20261023-1140-m31b"')
+s=re.sub(r'(name="tva-build" content=")[^"]*',lambda m:m.group(1)+'20261023-1200-m31c',s)
 open(P,'w',encoding='utf-8').write(s)

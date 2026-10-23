@@ -16,55 +16,6 @@
   ]
  },
  {
-  "id": "041",
-  "titolo": "Captain America: The First Avenger",
-  "anno": "1943",
-  "tipo": "film",
-  "candidati": []
- },
- {
-  "id": "042",
-  "titolo": "Marvel One-Shot: Agent Carter",
-  "anno": "1946",
-  "tipo": "speciale",
-  "candidati": []
- },
- {
-  "id": "045",
-  "titolo": "Iron Man",
-  "anno": "2010",
-  "tipo": "film",
-  "candidati": []
- },
- {
-  "id": "046",
-  "titolo": "Marvel One-Shot: The Consultant",
-  "anno": "2010",
-  "tipo": "speciale",
-  "candidati": []
- },
- {
-  "id": "047",
-  "titolo": "Iron Man 2",
-  "anno": "2011",
-  "tipo": "film",
-  "candidati": []
- },
- {
-  "id": "059",
-  "titolo": "Guardians of the Galaxy Vol. 2",
-  "anno": "2014",
-  "tipo": "film",
-  "candidati": []
- },
- {
-  "id": "069",
-  "titolo": "Black Widow",
-  "anno": "2016",
-  "tipo": "film",
-  "candidati": []
- },
- {
   "id": "073",
   "titolo": "The Defenders",
   "anno": "2017",
@@ -90,15 +41,8 @@
  {
   "id": "077",
   "titolo": "Team Thor / Team Darryl shorts",
-  "anno": "2017",
+  "anno": "2016",
   "tipo": "speciale",
-  "candidati": []
- },
- {
-  "id": "078",
-  "titolo": "Black Panther",
-  "anno": "2017",
-  "tipo": "film",
   "candidati": []
  },
  {
@@ -107,13 +51,6 @@
   "anno": "2019",
   "tipo": "serie",
   "motivo": "poster assente"
- },
- {
-  "id": "088",
-  "titolo": "Captain Marvel",
-  "anno": "1995",
-  "tipo": "film",
-  "candidati": []
  },
  {
   "id": "096",
@@ -244,7 +181,7 @@
  {
   "id": "125",
   "titolo": "Fantastic Four: First Steps",
-  "anno": "Earth-828, anni '60 stilizzati",
+  "anno": "2025",
   "tipo": "film",
   "candidati": []
  },
@@ -263,13 +200,6 @@
     335578
    ]
   ]
- },
- {
-  "id": "135",
-  "titolo": "Vision Quest",
-  "anno": "13 ott 2026 (USA), già uscita",
-  "tipo": "serie",
-  "candidati": []
  },
  {
   "id": "137",

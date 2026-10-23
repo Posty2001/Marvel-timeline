@@ -41,13 +41,15 @@ def risolvi(num,titolo,yr,tipo):
     for k in kinds:
         q={'query':base}
         if k=='movie' and yr.isdigit(): q['year']=yr
-        for r in api('/search/'+k,**q).get('results',[]):
+        res=api('/search/'+k,**q).get('results',[])
+        if not res: res=api('/search/'+k,**dict(q,language='en-US')).get('results',[])
+        for r in res:
             nm=r.get('title') or r.get('name') or ''; on=r.get('original_title') or r.get('original_name') or ''
             if norm(base) in (norm(nm),norm(on)):
                 y=(r.get('release_date') or r.get('first_air_date') or '')[:4]
                 if k=='movie' and yr.isdigit() and y.isdigit() and abs(int(y)-int(yr))>1: continue
-                cand.append((k,r['id']))
-    return (cand[0]+(season,)) if len(cand)==1 else (None,cand,season)
+                cand.append((k,r['id'],nm,y,(r.get('overview') or '')[:90]))
+    return (cand[0][:2]+(season,)) if len(cand)==1 else (None,cand,season)
 def poster(t,i,s):
     if t=='tv' and s:
         p=api('/tv/%d/season/%d'%(i,s)).get('poster_path')
