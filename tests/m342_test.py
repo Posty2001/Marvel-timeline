@@ -1,0 +1,28 @@
+from playwright.sync_api import sync_playwright
+import json
+exec(open('m341_test.py').read().split("with sync_playwright() as p:")[0])
+card=lambda pg:pg.evaluate("()=>{const t=document.querySelector('#nextWatchCard .next-watch-title');return t?t.textContent.trim():null}")
+cblk=lambda pg:pg.evaluate("()=>getComputedStyle(nextWatchBlock).display")
+def same(pg,n,why=None):
+    h=shown(pg); c=card(pg); ck(n+': card Timeline == Home ('+str(h)+')',c==h,(c,h))
+with sync_playwright() as p:
+    b=p.chromium.launch()
+    cx,pg=ctx(b); start(pg); same(pg,'standard'); ck('standard invariato (Spider-Man)',card(pg)=='Spider-Man')
+    pg.evaluate("()=>{altTimelineToggle.checked=true;altTimelineToggle.dispatchEvent(new Event('change',{bubbles:true}))}"); pg.wait_for_timeout(500)
+    pg.evaluate("()=>localStorage.setItem('%s',JSON.stringify([4,2,1,3,5]))"%ORD)
+    pg.evaluate("()=>document.querySelector('.at-mode-btn[data-mode=custom]').click()"); pg.wait_for_timeout(400)
+    same(pg,'cambio modalità -> custom (aggiornamento immediato)'); ck('custom: The Amazing Spider-Man',card(pg)==title(pg,'004'),card(pg))
+    pg.evaluate("()=>document.querySelector('#atList .at-move-btn[data-move=up][data-num=\"2\"]').click()"); pg.wait_for_timeout(400)
+    same(pg,'riordino (prerequisito 001)')
+    pg.evaluate("()=>document.querySelector('.at-mode-btn[data-mode=release]').click()"); pg.wait_for_timeout(300)
+    same(pg,'ritorno standard'); ck('standard: Spider-Man',card(pg)=='Spider-Man'); cx.close()
+    cx,pg=ctx(b,{MODE:'custom',ORD:[4,2,1,3,5]}); start(pg); same(pg,'custom da storage')
+    watch(pg,'004'); same(pg,'dopo completamento'); ck('prerequisito: 001',card(pg)==title(pg,'001'),card(pg))
+    pg.reload(); pg.wait_for_timeout(1000); pg.evaluate("()=>{journeyStarted.checked=true; journeyStarted.dispatchEvent(new Event('change',{bubbles:true}))}"); pg.wait_for_timeout(600)
+    same(pg,'persistenza dopo ricarica')
+    ids=pg.evaluate("()=>[...document.querySelectorAll('.card-wrap[id^=item-]:not(.card-variant)')].map(e=>e.getAttribute('data-item'))")
+    pg.evaluate("(ids)=>{const o={};ids.forEach(i=>o[i]=true);localStorage.setItem('marvel-ultimate-timeline-watched',JSON.stringify(o))}",ids); pg.reload(); pg.wait_for_timeout(1000)
+    pg.evaluate("()=>{journeyStarted.checked=true; journeyStarted.dispatchEvent(new Event('change',{bubbles:true}))}"); pg.wait_for_timeout(600)
+    ck('percorso concluso: Home «Tutto visto!» e card nascosta',shown(pg)=='Tutto visto!' and cblk(pg)=='none',(shown(pg),cblk(pg))); ck('nessun errore JS',not pg.errs,pg.errs); cx.close()
+    cx,pg=ctx(b,{MODE:'custom',ORD:[]}); start(pg); same(pg,'sequenza vuota -> standard'); ck('vuota: Spider-Man',card(pg)=='Spider-Man'); cx.close()
+    print(sum(R),'/',len(R))
