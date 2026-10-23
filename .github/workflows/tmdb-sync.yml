@@ -1,0 +1,49 @@
+name: TMDB sync (manuale)
+
+# Solo avvio manuale. Non modifica il repository, non fa deploy, non tocca Firebase.
+# Risultati: artifact scaricabile "tmdb-sync" (tmdb_map.json + tmdb_review.json).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verifica presenza del secret (senza stamparlo)
+        env:
+          TMDB_READ_TOKEN: ${{ secrets.TMDB_READ_TOKEN }}
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          if [ -z "$TMDB_READ_TOKEN" ] && [ -z "$TMDB_API_KEY" ]; then
+            echo "::error::Nessun secret trovato. Aggiungi TMDB_READ_TOKEN (consigliato) o TMDB_API_KEY in Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+          echo "Secret presente."
+
+      - name: Sincronizza con TMDB
+        env:
+          TMDB_READ_TOKEN: ${{ secrets.TMDB_READ_TOKEN }}
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: python3 tools/tmdb_sync.py
+
+      - name: Salva i risultati
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmdb-sync
+          path: |
+            assets/images/catalog/tmdb_map.json
+            assets/images/catalog/tmdb_review.json
+          if-no-files-found: error
+          retention-days: 30

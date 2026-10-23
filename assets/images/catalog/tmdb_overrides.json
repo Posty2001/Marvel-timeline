@@ -1,0 +1,1 @@
+{ "nota": "Correzioni manuali per i titoli non riconosciuti da tmdb_sync.py. Esempio: \"075\": {\"t\": \"movie\", \"id\": 0}  (sostituire 0 con l'ID TMDB verificato). Serie con stagione: {\"t\":\"tv\",\"id\":0,\"s\":2}. Per escludere un titolo: {\"skip\": true}.", "voci": {} }
