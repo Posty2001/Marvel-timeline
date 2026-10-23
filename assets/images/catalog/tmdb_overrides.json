@@ -1,1 +1,39 @@
-{ "nota": "Correzioni manuali per i titoli non riconosciuti da tmdb_sync.py. Esempio: \"075\": {\"t\": \"movie\", \"id\": 0}  (sostituire 0 con l'ID TMDB verificato). Serie con stagione: {\"t\":\"tv\",\"id\":0,\"s\":2}. Per escludere un titolo: {\"skip\": true}.", "voci": {} }
+{
+ "nota": "Correzioni manuali per i titoli non riconosciuti da tmdb_sync.py. Esempio: \"075\": {\"t\": \"movie\", \"id\": 0}  (sostituire 0 con l'ID TMDB verificato). Serie con stagione: {\"t\":\"tv\",\"id\":0,\"s\":2}. Per escludere un titolo: {\"skip\": true}.",
+ "voci": {
+  "036": {
+   "t": "movie",
+   "id": 9947
+  },
+  "096": {
+   "t": "tv",
+   "id": 91363,
+   "s": 1
+  },
+  "114": {
+   "t": "tv",
+   "id": 91363,
+   "s": 2
+  },
+  "119": {
+   "t": "tv",
+   "id": 91363,
+   "s": 3
+  },
+  "122": {
+   "t": "tv",
+   "id": 202555,
+   "s": 1
+  },
+  "128": {
+   "t": "tv",
+   "id": 202555,
+   "s": 2
+  },
+  "137": {
+   "t": "tv",
+   "id": 202555,
+   "s": 3
+  }
+ }
+}
