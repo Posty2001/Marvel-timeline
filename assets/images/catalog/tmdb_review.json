@@ -1,21 +1,5 @@
 [
  {
-  "id": "036",
-  "titolo": "Elektra",
-  "anno": "2005",
-  "tipo": "film",
-  "candidati": [
-   [
-    "movie",
-    9947
-   ],
-   [
-    "movie",
-    142297
-   ]
-  ]
- },
- {
   "id": "073",
   "titolo": "The Defenders",
   "anno": "2017",
@@ -23,11 +7,17 @@
   "candidati": [
    [
     "tv",
-    11515
+    11515,
+    "La parola alla difesa",
+    "1961",
+    "Lawrence e Kenneth Preston, rispettivamente padre e figlio, sono due avvocati difensori sp"
    ],
    [
     "tv",
-    32736
+    32736,
+    "The Defenders",
+    "2010",
+    "La serie \"dramedy\" (misto di commedia e dramma) di genere \"legal\" e ambientata a Las Vegas"
    ]
   ]
  },
@@ -53,75 +43,11 @@
   "motivo": "poster assente"
  },
  {
-  "id": "096",
-  "titolo": "What If...? S1",
-  "anno": "2021, fuori dal tempo",
-  "tipo": "serie",
-  "candidati": [
-   [
-    "tv",
-    91363
-   ],
-   [
-    "tv",
-    81940
-   ],
-   [
-    "tv",
-    155386
-   ],
-   [
-    "tv",
-    203255
-   ],
-   [
-    "tv",
-    94655
-   ],
-   [
-    "tv",
-    332530
-   ]
-  ]
- },
- {
   "id": "107",
   "titolo": "Guardians of the Galaxy Holiday Special",
   "anno": "2022",
   "tipo": "speciale",
   "candidati": []
- },
- {
-  "id": "114",
-  "titolo": "What If...? S2",
-  "anno": "2023",
-  "tipo": "serie",
-  "candidati": [
-   [
-    "tv",
-    91363
-   ],
-   [
-    "tv",
-    81940
-   ],
-   [
-    "tv",
-    155386
-   ],
-   [
-    "tv",
-    203255
-   ],
-   [
-    "tv",
-    94655
-   ],
-   [
-    "tv",
-    332530
-   ]
-  ]
  },
  {
   "id": "115",
@@ -131,90 +57,10 @@
   "candidati": []
  },
  {
-  "id": "119",
-  "titolo": "What If...? S3",
-  "anno": "2024",
-  "tipo": "serie",
-  "candidati": [
-   [
-    "tv",
-    91363
-   ],
-   [
-    "tv",
-    81940
-   ],
-   [
-    "tv",
-    155386
-   ],
-   [
-    "tv",
-    203255
-   ],
-   [
-    "tv",
-    94655
-   ],
-   [
-    "tv",
-    332530
-   ]
-  ]
- },
- {
-  "id": "122",
-  "titolo": "Daredevil: Born Again S1",
-  "anno": "2025",
-  "tipo": "serie",
-  "candidati": [
-   [
-    "tv",
-    202555
-   ],
-   [
-    "tv",
-    335578
-   ]
-  ]
- },
- {
   "id": "125",
   "titolo": "Fantastic Four: First Steps",
   "anno": "2025",
   "tipo": "film",
   "candidati": []
- },
- {
-  "id": "128",
-  "titolo": "Daredevil: Born Again S2",
-  "anno": "mar-mag 2026",
-  "tipo": "serie",
-  "candidati": [
-   [
-    "tv",
-    202555
-   ],
-   [
-    "tv",
-    335578
-   ]
-  ]
- },
- {
-  "id": "137",
-  "titolo": "Daredevil: Born Again S3",
-  "anno": "2027",
-  "tipo": "serie",
-  "candidati": [
-   [
-    "tv",
-    202555
-   ],
-   [
-    "tv",
-    335578
-   ]
-  ]
  }
 ]
