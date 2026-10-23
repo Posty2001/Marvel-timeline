@@ -61,6 +61,7 @@ with sync_playwright() as p:
     pg.evaluate("()=>document.querySelector('.relationship-graph-overlay .a2-vp').scrollIntoView()")
     pg.click('.relationship-graph-overlay .a2-vp-b >> nth=0'); pg.wait_for_timeout(200)
     vb1=pg.evaluate("()=>document.querySelector('#rgSvg').getAttribute('viewBox')"); ck(vb1!=vb0,'zoom + cambia il viewBox',(vb0,vb1))
+    pg.evaluate("()=>document.querySelector('.relationship-graph-overlay .a2-vp-stage').scrollIntoView({block:'center',behavior:'instant'})"); pg.wait_for_function("""()=>{const e=document.querySelector('.relationship-graph-overlay .a2-vp-stage');const r=e.getBoundingClientRect(),k=JSON.stringify([r.top,r.left,r.width,r.height]);const ok=window.__stk===k;window.__stk=k;return ok}""",polling=150)  # M1: geometria stabile prima di calcolare il punto di trascinamento
     bx=pg.evaluate("()=>{const r=document.querySelector('.relationship-graph-overlay .a2-vp-stage').getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]}")
     pg.mouse.move(bx[0],bx[1]); pg.mouse.down(); pg.mouse.move(bx[0]-60,bx[1]-30,steps=6); pg.mouse.up(); pg.wait_for_timeout(200)
     vb2=pg.evaluate("()=>document.querySelector('#rgSvg').getAttribute('viewBox')"); ck(vb2!=vb1,'trascinamento sposta il grafo',(vb1,vb2))

@@ -1,0 +1,76 @@
+{
+ "tva_test": {
+  "checks": [],
+  "why": "nessun FAIL atteso: i selettori obsoleti sono stati aggiornati (C5)"
+ },
+ "fy_test": {
+  "checks": [
+   "cap0 tag"
+  ],
+  "why": "FAIL storico, identico sulla build pre-M3.4 (tag Capitolo 0 cambiato)"
+ },
+ "bl_test": {
+  "checks": [
+   "card: stelle subito sotto il titolo"
+  ],
+  "why": "FAIL storico, identico pre-M3.4 (posizione del widget voto cambiata)"
+ },
+ "fx_test4": {
+  "checks": [
+   "R1 139 schede",
+   "R2 tocco",
+   "R6 persistenza",
+   "R15 ["
+  ],
+  "why": "18 FAIL identici sulla build pre-M3.4: il test descrive il widget voto precedente a M3.2 (stelle nella riga principale); da riscrivere con la specifica attuale"
+ },
+ "b32_test": {
+  "checks": [
+   "K2a Carriera"
+  ],
+  "why": "FAIL storico, identico pre-M3.4 (avviso Carriera)"
+ },
+ "cons_test": {
+  "checks": [
+   "Back 2: posizione di scorrimento"
+  ],
+  "why": "FAIL storico, identico pre-M3.4 (tolleranza 8px)"
+ },
+ "m2_test": {
+  "checks": [
+   "ambientazione conservata",
+   "altre schede invariate"
+  ],
+  "why": "FAIL storico, identico pre-M3.4 (modifiche deliberate di M2.1)"
+ },
+ "xm_test": {
+  "checks": [
+   "T6 atlasData.opere",
+   "T8 schede item NON-Fox"
+  ],
+  "why": "FAIL storico, identico pre-M3.4 (contenuto X-Men cambiato dopo il test)"
+ },
+ "cron3c_test": {
+  "checks": [
+   "MCU: 64 con anno",
+   "MCU ordine ambientazione monotono"
+  ],
+  "why": "FAIL storico: conteggi fissi su tools/cron3c.js (indipendenti dalla build)"
+ },
+ "ui_audit": {
+  "checks": [
+   "contrasto testo >= 4.5:1"
+  ],
+  "why": "il modello di composizione dello sfondo di ui_audit stima 4.40 su .ud-st-ok; la misura reale sui pixel (c4_contrast) e' 4.97: falso positivo del modello, non un difetto"
+ },
+ "_blocked": {
+  "cons_test": "flusso obsoleto: dopo tvaGo(item) la barra .app-tab non e' visibile (shell immersiva); identico pre-M3.4",
+  "net_test": "selettore obsoleto: il link #char-peter-parker a.tva-lk[data-go=item:item-089] non e' piu' visibile/stabile nel Dossier personaggio (Fase 4)",
+  "nav_test": "selettore obsoleto: label[for=multiverseGraphToggle].home-hub-btn rimosso dalla Home (M3.4: la Mappa e' raggiungibile da Atlante); 28 controlli precedenti PASS",
+  "fx_test2": "selettore obsoleto: #homeHubMapBtn rimosso dalla Home (M3.4)",
+  "cop_test": "selettore obsoleto: .a2-tiles (Home Atlante ridisegnata con .hm-p)",
+  "f3_test": "selettore obsoleto: .a2-all (Home Atlante ridisegnata)",
+  "uf_test": "selettore obsoleto/flusso: #mvUniversoBannerChiudi non cliccabile (banner non presente nel flusso)",
+  "uf_test_3b": "idem uf_test"
+ }
+}

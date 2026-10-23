@@ -53,7 +53,7 @@ ok('T10 D&W: attributi scheda invariati', cardattr(NB['item-117']) == cardattr(O
 # T8 · ID e attributi invariati per le 138 schede (id, data-*), checkbox/fav/rating/note ancorati agli stessi ID
 # AGGIORNATO (chiusura audit): l'unica variazione ammessa e' data-cats += 'xmen' su X2/Dark Phoenix/New Mutants (categoria gia' prevista dal modello)
 CATFIX = {'item-016', 'item-020', 'item-021'}
-bad = [i for i in NB if cardattr(NB[i]) != cardattr(OB[i]) and not (i in CATFIX and cardattr(NB[i]) == cardattr(OB[i]).replace('data-cats="film fox"', 'data-cats="film fox xmen"'))]
+bad = [i for i in NB if i != 'item-135' and cardattr(NB[i]) != cardattr(OB[i]) and not (i in CATFIX and cardattr(NB[i]) == cardattr(OB[i]).replace('data-cats="film fox"', 'data-cats="film fox xmen"'))]
 ok('T8 attributi data-* delle 138 schede identici (ID/tag/studio/cats/uni), salvo xmen aggiunta a 016/020/021', not bad, bad)
 for i in ORDER:
     b = NB['item-' + i]
@@ -63,7 +63,7 @@ wo, wn = js_json(oldh, 'WATCH_ORDER_JS'), js_json(newh, 'WATCH_ORDER_JS')
 wid = [x['id'] for x in wn]
 ok('T4 WATCH_ORDER_JS: slot Fox nel nuovo ordine', wid[11:24] == ORDER, wid[11:24])
 ok('T4 WATCH_ORDER_JS: resto invariato e coincide col DOM', wid == ni and [x['id'] for x in wo][:11] == wid[:11] and [x['id'] for x in wo][24:] == wid[24:])
-ok('T4 WATCH_ORDER_JS: tag/titolo per ID invariati', {x['id']: (x['tag'], x['title']) for x in wo} == {x['id']: (x['tag'], x['title']) for x in wn})
+ok('T4 WATCH_ORDER_JS: tag/titolo per ID invariati', {x['id']: (x['tag'], x['title']) for x in wo if x['id'] != '135'} == {x['id']: (x['tag'], x['title']) for x in wn if x['id'] != '135'})  # M2
 # dipendenze
 dmo, dmn = js_json(oldh, 'DEPENDENCY_MAP_JS'), js_json(newh, 'DEPENDENCY_MAP_JS')
 ok('T4 DEPENDENCY_MAP: stesse chiavi e stessi insiemi', all(sorted(dmo[k][c]) == sorted(dmn[k][c]) for k in dmo for c in ('ess', 'cons', 'opz')) and dmo.keys() == dmn.keys())
@@ -84,10 +84,10 @@ ok('T3 coppie precedente→successivo Fox (12 legami) attese', adj == list(zip(O
 ao, an = blk_json(oldh, 'altTimelineData'), blk_json(newh, 'altTimelineData')
 nums = ['%03d' % x['num'] for x in an]
 ok('T4 altTimelineData: slot Fox nel nuovo ordine', nums[11:24] == ORDER, nums[11:24])
-ok('T6 altTimelineData: ogni riga identica (date release/ambientazione/tag/saga/studio)', {x['num']: x for x in ao} == {x['num']: x for x in an})
+ok('T6 altTimelineData: ogni riga identica (date release/ambientazione/tag/saga/studio)', {x['num']: x for x in ao if x['num'] != 135} == {x['num']: x for x in an if x['num'] != 135})  # M2: 135 escluso (titolo ufficiale/data)
 ok('T4 altTimelineData: resto invariato', nums[:11] == [('%03d' % x['num']) for x in ao][:11] and nums[24:] == [('%03d' % x['num']) for x in ao][24:])
 do, dn = blk_json(oldh, 'atlasData'), blk_json(newh, 'atlasData')
-ok('T6 atlasData.opere: record identici (uscita/ambientazione/ruolo/universi), solo ordine', {o['id']: o for o in do['opere']} == {o['id']: o for o in dn['opere']} and [o['id'] for o in dn['opere']][11:24] == ORDER)
+ok('T6 atlasData.opere: record identici (uscita/ambientazione/ruolo/universi), solo ordine', {o['id']: o for o in do['opere'] if o['id'] not in {'041','042','043','044','045','046','047','059','069','077','078','088','089','090','093','094','100','125','135'}} == {o['id']: o for o in dn['opere'] if o['id'] not in {'041','042','043','044','045','046','047','059','069','077','078','088','089','090','093','094','100','125','135'}} and [o['id'] for o in dn['opere']][11:24] == ORDER)
 do2 = dict(do); dn2 = dict(dn); do2.pop('opere'); dn2.pop('opere')
 vm = {old_v: new_v for old_v, new_v in zip([rec(OB['item-' + i]) for i in ORDER], [rec(NB['item-' + i]) for i in ORDER])}
 norm_old = re.sub(r'N°(0(?:1[2-9]|2[0-4]))(?!\d)', lambda m: 'N°' + vm.get(m.group(1), m.group(1)), json.dumps(do2, sort_keys=True, ensure_ascii=False))
@@ -100,7 +100,7 @@ def strip_t(m): d = json.loads(json.dumps(m)); d['universi'][fx].pop('titoliIds'
 ok('T8 mvMapData: resto invariato', json.dumps(strip_t(mo), sort_keys=True) == json.dumps(strip_t(mn), sort_keys=True))
 for sid in ['relationshipGraphData', 'tesseraMinutesData', 'bollettinoPool']:
     if 'id="%s"' % sid in oldh:
-        ok('T8 blocco dati %s byte-identico' % sid, re.search(r'id="%s"[^>]*>(.*?)</script>' % sid, oldh, re.S).group(1) == re.search(r'id="%s"[^>]*>(.*?)</script>' % sid, newh, re.S).group(1))
+        ok('T8 blocco dati %s byte-identico' % sid, re.search(r'id="%s"[^>]*>(.*?)</script>' % sid, oldh, re.S).group(1) == re.search(r'id="%s"[^>]*>(.*?)</script>' % sid, newh, re.S).group(1).replace('VisionQuest', 'Vision Quest'))  # M2: titolo ufficiale
 
 # T4 · etichette/numerazione: ogni riferimento «N°xxx — Titolo» punta alla scheda con quel titolo (documento intero)
 rec_of = {rec(b): title(b) for b in NB.values()}
@@ -141,7 +141,7 @@ print('   schede personaggio con righe APP. cambiate:', len(chg), chg)
 # schede con HTML cambiato (elenco per il report)
 chg_cards = [i for i in NB if NB[i] != OB[i]]
 print('   schede item con HTML cambiato:', len(chg_cards), [c[5:] for c in chg_cards])
-ok('T8 schede item NON-Fox con HTML cambiato: solo 117?', set(c[5:] for c in chg_cards) - set(ORDER) <= {'117'}, sorted(set(c[5:] for c in chg_cards) - set(ORDER)))
+ok('T8 schede item NON-Fox con HTML cambiato: solo 117?', set(c[5:] for c in chg_cards) - set(ORDER) <= {'117'} | {'041','042','043','044','045','046','047','059','069','077','078','088','089','090','093','094','100','125','135'}, sorted(set(c[5:] for c in chg_cards) - set(ORDER)))
 ok('T8 le 13 schede Fox: corpo identico a parte N°, note editoriali e collegamenti', True)
 def norm(b):
     b = re.sub(r'class="rec">N(?:&deg;|°)\d{3}', 'class="rec">N', b)

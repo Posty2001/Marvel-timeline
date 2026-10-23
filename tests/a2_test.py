@@ -77,6 +77,9 @@ with sync_playwright() as p:
             pg.evaluate("()=>{const b=document.getElementById('d4Scheda');if(b)b.click()}"); pg.wait_for_timeout(1500)  # Fase 4: il chip N° apre il Dossier Opera; la scheda si raggiunge da 'Scheda in guida'
             ck(pg.evaluate("t=>!atlas2Toggle.checked&&document.getElementById(t).getBoundingClientRect().top<150",tgt),'Ricerca → Risultato → scheda in Timeline')
             pg.click('#tvaBackBtn'); pg.wait_for_timeout(900)
+            # C5: dalla Timeline si torna prima al Dossier Opera (Fase 4: schermata 'opera' nel percorso); un secondo Indietro riporta alla Home con la ricerca
+            ck(pg.evaluate("()=>atlas2Toggle.checked&&tvaAtlas2.stato().screen==='opera'"),'Indietro dalla Timeline -> Dossier Opera')
+            pg.evaluate("()=>document.getElementById('tvaBackBtn').click()"); pg.wait_for_timeout(900)   # gesto/Indietro di sistema (il chip e' fuori vista dentro l'Atlante)
             q=pg.evaluate("()=>[atlas2Toggle.checked,tvaAtlas2.stato().sq,document.getElementById('a2HomeSearch').value]")
             ck(q==[True,'spider','spider'],'Back: ricerca conservata',q)
             pg.fill('#a2HomeSearch',''); pg.wait_for_timeout(300)

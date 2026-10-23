@@ -5,7 +5,7 @@ def ck(n,c,d=''): R.append(c); print(('PASS ' if c else 'FAIL ')+n+(' '+str(d) i
 with sync_playwright() as p:
     b=p.chromium.launch(); pg=b.new_page(viewport={'width':390,'height':844}); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
     pg.goto('http://localhost:8124/index.html'); pg.wait_for_timeout(1500)
-    ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1400-m32')
+    ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1730-m342')
     h=pg.evaluate("()=>document.querySelector('#item-075').innerText")
     ck('075 niente "otto anni" come riferimento',('otto anni dopo la battaglia' not in h) and 'incongruenza di continuità' in h,h[:200])
     a=pg.evaluate("()=>JSON.parse(document.getElementById('atlasData').textContent).opere.find(o=>o.id==='075')")

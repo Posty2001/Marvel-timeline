@@ -31,6 +31,8 @@ with sync_playwright() as p:
     # Ogni altra variazione resta un fallimento.
     _cfg=json.load(open('/home/claude/work/tools/xmen_order.json')); ALLOW={'item-'+i for i in _cfg['order']}|{'char-'+c for c in ('ciclope','jean-grey-fenice','magneto','sabretooth','william-stryker','wolverine','xavier')}
     _n=lambda t:re.sub(r'La tua valutazione|Il tuo voto:|[\u2605\u2606]|\u2014 / 5|Azzera|Tocca 2 volte per \u00bd','',re.sub(r'N(?:°|&deg;)\d{3}','N°#',t))   # fix-iOS: il widget del voto cambia testo e posizione (autorizzato)
+    # M2 (intenzionale, dichiarato da tools/patch_m2.py): anno scheda = anno di uscita per 18 schede; VisionQuest (titolo ufficiale e data 14 ott)
+    ALLOW|={'item-'+n for n in ('041','042','043','044','045','046','047','059','069','077','078','088','089','090','093','094','100','125','135')}|{'char-visione'}|{'item-'+n for n in ('075','090','093','094','095','096','097','098','099','100','101','102','103','104','105','106','107','108','109','110','111')}  # M2.1: periodo narrativo + posizione Disney+
     def _ok(i):
         a,b2=old[i],new[i]
         return a[0]==b2[0] and (_n(NORM(a[1]))==_n(b2[1]) or sorted(_n(NORM(a[1])).split())==sorted(_n(b2[1]).split()) or i in ALLOW)

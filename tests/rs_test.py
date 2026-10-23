@@ -19,14 +19,13 @@ with sync_playwright() as p:
     ok('sfondo body #101014', pg.evaluate("()=>getComputedStyle(document.body).backgroundColor")=='rgb(16, 16, 20)')
     ok('theme-color #101014', pg.evaluate("()=>document.querySelector('meta[name=theme-color]').content")=='#101014')
     # 2 home
-    ok('build id', pg.evaluate("()=>document.querySelector('meta[name=tva-build]').content")=='20261021-2040-blocco2-1')
+    ok('build id', pg.evaluate("()=>document.querySelector('meta[name=tva-build]').content")=='20261023-1730-m342')
     ok('home visibile', pg.evaluate("()=>getComputedStyle(document.getElementById('homeHub')).display!=='none'"))
-    ord=pg.evaluate("""()=>{const y=s=>{const e=document.querySelector(s);return e?e.getBoundingClientRect().top:-1};return {g:y('.home-hub-greeting'),h:y('#hhsNextRow'),n:y('.home-hub-nav'),s:y('.hhs-grid'),a:y('#a2Entry, .a2-entry'),m:y('#rsHomeMis')}}""")
-    ok('gerarchia home: saluto<prossimo<continua<statistiche<TVA<missioni', 0<ord['g']<ord['h']<ord['n']<ord['s']<ord['a']<ord['m'], ord)
+    ord=pg.evaluate("""()=>{const y=s=>{const e=document.querySelector(s);return e?e.getBoundingClientRect().top:-1};return {g:y('.home-hub-greeting'),h:y('#hhsNextRow'),n:y('.home-hub-nav'),s:y('.m34-stats'),a:y('#m34Atl'),m:y('#m34Mis')}}""")
+    ok('gerarchia home M3.4: saluto<prossimo<statistiche<accessi<missione', 0<ord['g']<ord['h']<ord['s']<ord['a']<ord['m'], ord)
     ok('progress bar home', pg.evaluate("()=>!!document.querySelector('.home-hub-greeting .rs-prog')"))
-    ok('stat ids presenti', pg.evaluate("()=>['hhsRating','hhsRank','hhsBadgeValue','hhsHours','hhsStreak','hhsNextValue','hhgPct'].every(i=>document.getElementById(i))"))
-    ok('testo hhsRank invariato (solo testo)', pg.evaluate("()=>document.getElementById('hhsRank').textContent.trim().length>0"))
-    pg.evaluate("()=>document.getElementById('rsHomeMis').click()"); pg.wait_for_timeout(700)
+    ok('stat ids presenti', pg.evaluate("()=>['hhsRating','hhsDone','hhsHours','hhsNextValue','hhgPct'].every(i=>document.getElementById(i))"))
+    pg.evaluate("()=>document.getElementById('m34MGo').click()"); pg.wait_for_timeout(700)
     ok('card missioni apre tab Missioni', pg.evaluate("()=>document.getElementById('appTabMissioni').classList.contains('app-tab-active')"))
     # 3 navigazione
     for t in ['Home','Timeline','Atlante','Missioni','Tessera','Friends']:
@@ -58,7 +57,7 @@ with sync_playwright() as p:
     # 6 tessera / friends elementi intatti
     pg.evaluate("()=>document.getElementById('appTabTessera').click()"); pg.wait_for_timeout(700)
     ids=pg.evaluate("()=>['tesseraId','tesseraRank','tesseraXp','tesseraLv'].map(i=>!!document.getElementById(i))")
-    cls=pg.evaluate("()=>['.tessera-name-input','.tessera-id','.tessera-rank','.tessera-xp-lv','.tessera-xp-num','.tessera-stats .tessera-stat','.tessera-condividi-btn'].map(s=>!!document.querySelector(s))")
+    cls=pg.evaluate("()=>['.tessera-name-input','.tessera-id','.tessera-rank','.tessera-xp-lv','.tessera-xp-num','.tessera-stats .tessera-stat','#tesseraCondividiBtn'].map(s=>!!document.querySelector(s))")
     ok('tessera: nome, ID, rango, livello, XP, statistiche, condividi', all(cls), cls)
     pg.evaluate("()=>document.getElementById('appTabFriends').click()"); pg.wait_for_timeout(700)
     cls=pg.evaluate("()=>['.live-room-create-btn','.sync-code-row','.friends-group-create-row','.friends-lb-box','.friends-group-box'].map(s=>!!document.querySelector(s))")

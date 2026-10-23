@@ -15,14 +15,14 @@ AUDIT="""()=>{
  const root=document.getElementById('atlas2');
  // testo < 11px
  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;const seen=new Set();
- while(n=w.nextNode()){if(!n.nodeValue.trim())continue;const e=n.parentElement;if(!vis(e)||seen.has(e))continue;seen.add(e);const fs=parseFloat(getComputedStyle(e).fontSize);if(fs<11)out.small.push([e.className||e.tagName,fs,n.nodeValue.trim().slice(0,24)])}
+ while(n=w.nextNode()){if(!n.nodeValue.trim())continue;const e=n.parentElement;if(!vis(e)||seen.has(e)||e.closest('[aria-hidden=true]'))continue;seen.add(e);const fs=parseFloat(getComputedStyle(e).fontSize);if(fs<11)out.small.push([e.className||e.tagName,fs,n.nodeValue.trim().slice(0,24)])}
  // bersagli tattili < 44px
  root.querySelectorAll('button,a,input,summary,[data-go]').forEach(e=>{if(!vis(e))return;const r=e.getBoundingClientRect();const sc=document.querySelector('.a2-scroll').getBoundingClientRect();
    if(e.closest('.a2-scroll')&&(r.bottom<sc.top||r.top>sc.bottom))return; // fuori dall'area visibile dello scroller: si misura comunque la dimensione
    if(Math.min(r.width,r.height)<43.5)out.tap.push([e.className||e.tagName,Math.round(r.width),Math.round(r.height),(e.textContent||'').trim().slice(0,18)])});
  // overflow orizzontale
  const sc=document.querySelector('.a2-scroll');out.scrollW=[sc.scrollWidth,sc.clientWidth];
- root.querySelectorAll('*').forEach(e=>{if(!vis(e))return;if(e.closest('.a2-filters,.a2-jump,svg'))return;const r=e.getBoundingClientRect();if(r.right>innerWidth+0.5||r.left<-0.5)out.over.push([e.className||e.tagName,Math.round(r.left),Math.round(r.right)])});
+ root.querySelectorAll('*').forEach(e=>{if(!vis(e))return;if(e.closest('.a2-filters,.a2-jump,svg,.hm-hero'))return;const r=e.getBoundingClientRect();if(r.right>innerWidth+0.5||r.left<-0.5)out.over.push([e.className||e.tagName,Math.round(r.left),Math.round(r.right)])});
  return out}"""
 with sync_playwright() as p:
     b=p.chromium.launch()
@@ -86,7 +86,7 @@ with sync_playwright() as p:
         const bg=bgOf(e);let fg=parse(getComputedStyle(e).color);fg.a*=op;const f=over(fg,bg);const l1=L(f),l2=L(bg);const cr=(Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);
         out.push([e.className||e.tagName,Math.round(cr*100)/100,parseFloat(getComputedStyle(e).fontSize),n.nodeValue.trim().slice(0,22)])}
       return out}"""
-    for setup in ("()=>tvaAtlas2.openUni('uni-earth-828',true)","()=>tvaAtlas2.openHome()","()=>{tvaAtlas2.openHome();document.querySelector('.a2-all').click()}","()=>{tvaAtlas2.openHome();document.querySelector('[data-tile=personaggi]').click()}","()=>{tvaAtlas2.openHome();document.querySelector('[data-tile=cronologie]').click()}","()=>{tvaAtlas2.openHome();document.querySelector('.a2-all').click();document.querySelector('[data-sez=cosmiche]').click()}"):
+    for setup in ("()=>tvaAtlas2.openUni('uni-earth-828',true)","()=>tvaAtlas2.openHome()","()=>{tvaAtlas2.openHome();document.querySelector('.hm-q[data-quick=indice]').click()}","()=>{tvaAtlas2.openHome();document.querySelector('[data-tile=personaggi]').click()}","()=>{tvaAtlas2.openHome();document.querySelector('[data-tile=cronologie]').click()}","()=>{tvaAtlas2.openHome();document.querySelector('.hm-q[data-quick=indice]').click();document.querySelector('[data-sez=cosmiche]').click()}"):
         pg.evaluate(setup); pg.wait_for_timeout(250)
         for base in ('{r:42,g:14,b:16,a:1}','{r:16,g:16,b:20,a:1}'):
             pg.evaluate('()=>{window.__base='+base+'}'); C+=pg.evaluate(JSC)

@@ -15,7 +15,7 @@ with sync_playwright() as p:
     for w in (390,360,320):
         pg=start(b,w)
         if w==390:
-            ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1600-m34')
+            ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1730-m342')
             ck('una sola card prologo, chiusa',pg.evaluate("()=>{const d=document.querySelectorAll('#cap0 details.cap0-pro');return d.length===1&&!d[0].open}"))
             t=pg.evaluate("()=>{const s=document.querySelector('#cap0 summary');return s.textContent.replace(/\\s+/g,' ')}")
             ck('titolo/sottotitolo/5 letture',all(x in t for x in ['Prologo','Prima del Tempo','5 letture']),t)

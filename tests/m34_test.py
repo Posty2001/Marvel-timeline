@@ -18,7 +18,7 @@ g=lambda pg,e:pg.evaluate("(e)=>document.querySelector(e)&&document.querySelecto
 with sync_playwright() as p:
     b=p.chromium.launch()
     cx,pg=ctx(b); start(pg)
-    ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1600-m34')
+    ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1730-m342')
     ck('1 header: Bentornato, Variante + % + barra',g(pg,'#homeHubHello')=='Bentornato, Variante' and pg.evaluate("()=>!!document.querySelector('#homeHub .home-hub-greeting .rs-prog > i')") and g(pg,'#hhgPct')=='0')
     ck('2 card Prossimo titolo: titolo/anno-universo/CTA',g(pg,'#hhsNextValue')=='Spider-Man' and '2002' in g(pg,'#m34NextMeta') and 'Inizia' in g(pg,'#m34NextCta'),(g(pg,'#hhsNextValue'),g(pg,'#m34NextMeta')))
     ck('2b locandina TMDB a sinistra del titolo',pg.evaluate("()=>{const i=document.querySelector('#m34Poster img');const t=document.querySelector('#hhsNextValue');return !!i&&i.getAttribute('data-src')==='tmdb'&&i.src.includes('image.tmdb.org')&&i.getBoundingClientRect().right<=t.getBoundingClientRect().left+1}"))

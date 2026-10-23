@@ -13,14 +13,29 @@
 // URL dei file .woff2 referenziati, e li mette in cache esplicitamente — indipendentemente da
 // quando/come la pagina stessa li carica.
 
-const SW_BUILD = '20261022-sw9';
-const CACHE_NAME = 'marvel-timeline-cache-v9';
+const SW_BUILD = '20261023-1520-c26';
+const CACHE_PREFIX = 'marvel-timeline-cache-';   // C26: si cancellano solo le cache di questa app
+const CACHE_NAME = 'marvel-timeline-cache-20261023-1520-c26';
 const FONT_CSS_URL = 'https://fonts.googleapis.com/css2?family=Special+Elite&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap';
 
 /* 3.2.4: ritratti avatar approvati, precaricati per l'uso offline (Tessera, editor, esportazione PNG). */
 const AVATAR_ASSETS = ['agente', 'variante', 'esploratore', 'tecnologico', 'mistico', 'astratto', 'cronista', 'sentinella'].map(function (n) { return 'assets/avatars/' + n + '.webp'; });
 function precacheAvatars(cache) {
   return Promise.all(AVATAR_ASSETS.map(function (u) { return cache.add(u).catch(function () { /* un asset mancante non blocca l'installazione */ }); }));
+}
+
+/* C26: la pagina della build corrente entra subito in cache: dopo un aggiornamento la guida resta apribile offline anche prima della prima navigazione. */
+function precacheShell(cache) {
+  return Promise.all(['./', './index.html'].map(function (u) {
+    return fetch(new Request(u, { cache: 'no-cache' })).then(function (r) {
+      if (!r || r.status !== 200) return;
+      // C26b: non si salva HTML di una build diversa da SW_BUILD (es. deploy a meta': sw.js nuovo, index.html ancora vecchio)
+      return r.clone().text().then(function (t) {
+        var m = /name="tva-build"\s+content="([^"]+)"/.exec(t.slice(0, 8192));
+        if (m && m[1] === SW_BUILD) return cache.put(u, r);
+      });
+    }).catch(function () { /* offline: nessun errore fatale */ });
+  }));
 }
 
 function precacheFonts(cache) {
@@ -47,7 +62,7 @@ function precacheFonts(cache) {
 self.addEventListener('install', function (event) {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) { return Promise.all([precacheFonts(cache), precacheAvatars(cache)]); })
+    caches.open(CACHE_NAME).then(function (cache) { return Promise.all([precacheFonts(cache), precacheAvatars(cache), precacheShell(cache)]); })
   );
 });
 
@@ -56,7 +71,7 @@ self.addEventListener('activate', function (event) {
     caches.keys()
       .then(function (keys) {
         return Promise.all(
-          keys.filter(function (k) { return k !== CACHE_NAME; })
+          keys.filter(function (k) { return k.indexOf(CACHE_PREFIX) === 0 && k !== CACHE_NAME; })
             .map(function (k) { return caches.delete(k); })
         );
       })
@@ -97,7 +112,7 @@ self.addEventListener('fetch', function (event) {
         return networkResponse;
       })
       .catch(function () {
-        return caches.match(req).then(function (cached) {
+        return caches.match(req, { ignoreSearch: req.mode === 'navigate' }).then(function (cached) {   // C26: la navigazione ignora la query
           if (cached) return cached;
           return new Response(
             'Contenuto non disponibile offline. Apri la guida almeno una volta con connessione attiva.',

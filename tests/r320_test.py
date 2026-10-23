@@ -40,7 +40,7 @@ with sync_playwright() as p:
         q=E("()=>{const s=document.querySelector('.a2-scroll');const c=[...document.querySelectorAll('.a2-prow .a2-cov')];return [s.scrollWidth-s.clientWidth,c.length,c.filter(x=>{const r=x.getBoundingClientRect();return r.width&&Math.abs(r.width-r.height)>0.6}).length]}")
         chk(q[0]<=0 and q[1]>200 and q[2]==0,f'{vw} personaggi cover {q}')
         E("()=>tvaAtlas2.openHome()"); pg.wait_for_timeout(150)
-        q=E("()=>{const s=document.querySelector('.a2-scroll');return [s.scrollWidth-s.clientWidth,document.querySelectorAll('.a2-tile-bg svg,.a2-tile > .a2-bgimg').length]}"); chk(q[0]<=0 and q[1]==4,f'{vw} home decor {q}')
+        q=E("()=>{const s=document.querySelector('.a2-scroll');return [s.scrollWidth-s.clientWidth,document.querySelectorAll('.hm-p .hm-p-bg img,.hm-p .hm-p-bg svg').length]}"); chk(q[0]<=0 and q[1]==15,f'{vw} home decor {q}')
         chk(errs==[],f'{vw} JS {errs}'); ctx.close()
     b.close()
 print('FAILS',len(fails),fails)

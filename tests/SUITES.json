@@ -1,0 +1,233 @@
+{
+ "note": "Elenco delle suite eseguite da run_suites.py. Le suite c2/c3/c4 sono nuove (C2-C6); le altre sono storiche.",
+ "suites": [
+  {
+   "name": "c2_test",
+   "area": "C2 Timeline/backup"
+  },
+  {
+   "name": "c3_test",
+   "area": "C3 PWA/offline/aggiornamento"
+  },
+  {
+   "name": "c4_test",
+   "area": "C4 CSP/accessibilita"
+  },
+  {
+   "name": "c4_contrast",
+   "area": "C4 contrasto"
+  },
+  {
+   "name": "tva_test",
+   "area": "Atlante/Cronologie (storico)"
+  },
+  {
+   "name": "a2_test",
+   "area": ""
+  },
+  {
+   "name": "assets_test",
+   "area": "immagini e fallback"
+  },
+  {
+   "name": "b2_test",
+   "area": ""
+  },
+  {
+   "name": "b31_test",
+   "area": ""
+  },
+  {
+   "name": "b321_test",
+   "area": "Tessera"
+  },
+  {
+   "name": "b322_test",
+   "area": "prestazioni SVG"
+  },
+  {
+   "name": "b324_test",
+   "area": "avatar"
+  },
+  {
+   "name": "b32_test",
+   "area": "Tessera/editor"
+  },
+  {
+   "name": "b40c_test",
+   "area": ""
+  },
+  {
+   "name": "b40e_test",
+   "area": ""
+  },
+  {
+   "name": "bl_test",
+   "area": ""
+  },
+  {
+   "name": "cap0_test",
+   "area": "Capitolo 0"
+  },
+  {
+   "name": "cons_test",
+   "area": ""
+  },
+  {
+   "name": "cop_test",
+   "area": ""
+  },
+  {
+   "name": "cron3c_test",
+   "area": ""
+  },
+  {
+   "name": "d3a_img_test",
+   "area": ""
+  },
+  {
+   "name": "d3a_test",
+   "area": ""
+  },
+  {
+   "name": "data_test",
+   "area": "dati catalogo"
+  },
+  {
+   "name": "f2_test",
+   "area": ""
+  },
+  {
+   "name": "f3_test",
+   "area": ""
+  },
+  {
+   "name": "f4b_test",
+   "area": ""
+  },
+  {
+   "name": "f4e_test",
+   "area": ""
+  },
+  {
+   "name": "fx_test1",
+   "area": ""
+  },
+  {
+   "name": "fx_test2",
+   "area": ""
+  },
+  {
+   "name": "fx_test3",
+   "area": ""
+  },
+  {
+   "name": "fx_test4",
+   "area": ""
+  },
+  {
+   "name": "fy_test",
+   "area": ""
+  },
+  {
+   "name": "home2_test",
+   "area": ""
+  },
+  {
+   "name": "leg_test",
+   "area": ""
+  },
+  {
+   "name": "lm_test",
+   "area": ""
+  },
+  {
+   "name": "m1_test",
+   "area": "M1"
+  },
+  {
+   "name": "m21_test",
+   "area": "M2.1"
+  },
+  {
+   "name": "m2_test",
+   "area": "M2"
+  },
+  {
+   "name": "m31_test",
+   "area": "M3.1"
+  },
+  {
+   "name": "m32_test",
+   "area": "M3.2"
+  },
+  {
+   "name": "m341_test",
+   "area": "M3.4.1"
+  },
+  {
+   "name": "m342_test",
+   "area": "M3.4.2"
+  },
+  {
+   "name": "m34_test",
+   "area": "M3.4 Home"
+  },
+  {
+   "name": "m3_test",
+   "area": "M3"
+  },
+  {
+   "name": "map3b_test",
+   "area": ""
+  },
+  {
+   "name": "nav_test",
+   "area": ""
+  },
+  {
+   "name": "net_test",
+   "area": ""
+  },
+  {
+   "name": "r320_test",
+   "area": ""
+  },
+  {
+   "name": "rel_test",
+   "area": ""
+  },
+  {
+   "name": "rs_test",
+   "area": ""
+  },
+  {
+   "name": "stats_fix_test",
+   "area": ""
+  },
+  {
+   "name": "tree_arti_test",
+   "area": ""
+  },
+  {
+   "name": "uf_test",
+   "area": ""
+  },
+  {
+   "name": "uf_test_3b",
+   "area": ""
+  },
+  {
+   "name": "ui_audit",
+   "area": "UI Atlante 2.0 (mobile)"
+  },
+  {
+   "name": "xm_close_test",
+   "area": ""
+  },
+  {
+   "name": "xm_test",
+   "area": ""
+  }
+ ]
+}

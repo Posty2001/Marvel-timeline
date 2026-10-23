@@ -1,5 +1,5 @@
 # TVA Archives — Registro Master (ricognizione, sola lettura) · 22/10/2026
-> **Aggiornato il 23/10/2026** con i blocchi M3.2 → M3.4.2 (sezione D, in fondo). Le sezioni A–C restano la ricognizione del 22/10 (build 4.0E) e non sono state riscritte: dove la sezione D contraddice A–C, vale la D.
+> **Aggiornato il 23/10/2026** con i blocchi M3.2 → M3.4.2 (sezione D) e con il consolidamento C2–C6 (sezione E, in fondo). Le sezioni A–C restano la ricognizione del 22/10 (build 4.0E) e non sono state riscritte: dove D o E contraddicono A–C, vale la più recente (E > D > A–C). Le righe di A che sono state superate portano la nota «→ E».
 Build di riferimento: `20261022-2100-blocco4-0e` · Nessuna modifica a codice/Firebase/database · nessun commit/push/deploy.
 **Stati:** COMPLETATA = implementata + test automatici passati (Chromium/Playwright; *nessun test su iPhone/Safari reale è registrato in nessun rapporto*, salvo dove indicato) · PARZIALE · DA SVILUPPARE · DA VERIFICARE · SOLO PROPOSTA · ESCLUSA.
 
@@ -18,15 +18,15 @@ Fonti: **P**=prompt/brief · **R**=rapporto · **C**=codice (file/funzione) · *
 | Home «Living Multiverse» con 15 portali e 8 asset definitivi | F2 (P 4f448229) | COMPLETATA | R home_assets; T home2_test 49/49 (15 portali → destinazione→ritorno) | Home: ui_audit ×14 e r320 ×3 falliscono (preesistenti) |
 | Introduzione cinematografica a vista singola + statistiche reali (27/300/138/176) | F2 | COMPLETATA | R intro_vista_singola, stats_fix; T stats_fix 12/12, lm_test 87/87 | «~527 ore» sorgente non verificata |
 | Barra a 6 voci, ATLANTE → home, Timeline compatta, overlay iOS | pre-F5, B1 | COMPLETATA | R SPRINT_PRE_FASE5, BLOCCO1; T fy_test 133/133, b2_test 121/121 | iPhone reale (rapporto stesso lo chiede); SW cache v9 deciso |
-| Pubblicazione GitHub Pages | — | DA VERIFICARE | Repo locale 7 commit; remoto/online non raggiungibile da qui; nulla pubblicato in questa sessione | Versione online probabilmente ≤ pre-4.0C |
-| PWA: manifest inline, service worker v9 (font/avatar), tema | — | PARZIALE | C index.html `rel=manifest` (data-URI), `sw.js` v9 | Offline reale e installazione iOS mai verificati |
+| Pubblicazione GitHub Pages | — | DA VERIFICARE (→ E: verificata, deploy riuscito per `65617fc` e `32a570b`) | Repo locale 7 commit; remoto/online non raggiungibile da qui; nulla pubblicato in questa sessione | Versione online probabilmente ≤ pre-4.0C |
+| PWA: manifest inline, service worker v9 (font/avatar), tema | — | PARZIALE (→ E/C3: SW versionato per build, aggiornamento e offline provati in Chromium) | C index.html `rel=manifest` (data-URI), `sw.js` v9 | Offline reale e installazione iOS mai verificati |
 
 ### A2. Timeline, ordine di visione, filtri
 | Funzionalità | Fase | Stato | Evidenza | Residuo |
 |---|---|---|---|---|
 | Timeline Marvel 138 schede (+1 variante, 37 animate), ID stabili | base | COMPLETATA | T data_test 5/5, b2_test | — |
 | Ordine di visione X-Men (Fox) + audit chiusura (categoria `xmen`) | X-Men (P 6d14d126) | COMPLETATA | R XMEN_ORDINE/CHIUSURA; T xm_test 53/53, xm_close 134/134 | — |
-| Filtri, modalità spoiler (soglia), ordine personalizzato (5 viste timeline) | base | PARZIALE | C `spoilerCutoffInput`; memoria utente | **Ordine personalizzato escluso da export/backup/sync** (audit §8; C: assente da PROFILE keys) |
+| Filtri, modalità spoiler (soglia), ordine personalizzato (5 viste timeline) | base | PARZIALE | C `spoilerCutoffInput`; memoria utente | ~~Ordine personalizzato escluso da export/backup/sync~~ **superato (→ E/C2):** `customOrder` è in export/import/sync dal blocco M1; la modalità Timeline attiva resta solo locale |
 | Prerequisiti/Dependency Map, suggerimenti rispettano dipendenze | audit 15/10 | DA VERIFICARE | C `initDependencyMaps` ("una sola volta"); nessun rapporto/test dedicato letto | Verificare duplicazione pannelli e suggerimenti |
 | Road to Doomsday (16 titoli, +300 XP) e distinzione watchlist ufficiale / editoriale | audit, B2 | COMPLETATA | R BLOCCO2; C `roadToDoomsday`, `DEP_FONTI_HTML` | Peso contestuale N°069/073/094 non deciso |
 | «Modalità Prima di Doomsday» come funzione autonoma | citata dall'utente | DA VERIFICARE | Nel codice 0 occorrenze di «Prima di Doomsday»; esistono Road to Doomsday e countdown | **Chiedi: coincide con Road to Doomsday o è una modalità a sé?** |
@@ -93,7 +93,7 @@ Fonti: **P**=prompt/brief · **R**=rapporto · **C**=codice (file/funzione) · *
 | Accessibilità (ARIA 320 occorrenze, reduced-motion ×21, target 44 px) | PARZIALE | C; test mirati nei blocchi | Nessun audit VoiceOver/contrasto globale; ui_audit Home ×14 |
 | Responsive 320–430 | COMPLETATA (Chromium) | fy_test, home2_test | Landscape basso |
 | Test su iPhone reale | DA VERIFICARE | Tutti i rapporti: «non verificato su Safari reale» | Checklist da eseguire dall'utente |
-| Baseline test pulita | PARZIALE | Falliscono da sempre: tva_test A8/A9, ui_audit Home ×14, r320 ×3; map3b/cron3c 0/0; leg_test instabile (causa ignota) | Aggiornare/riscrivere test obsoleti |
+| Baseline test pulita | PARZIALE (→ E/C5: runner riproducibile `tests/run_suites.py`, `tva_test` 0 FAIL con J–Q, riepilogo PASS/FAIL/BLOCKED/NOT RUN in `tests/RESULTS_C26.md`) | Falliscono da sempre: tva_test A8/A9, ui_audit Home ×14, r320 ×3; map3b/cron3c 0/0; leg_test instabile (causa ignota) | Aggiornare/riscrivere test obsoleti |
 | ESCLUSA | — | **Nessuna funzionalità risulta esplicitamente esclusa** nei documenti disponibili | — |
 
 **Riepilogo:** COMPLETATA ≈ 32 · PARZIALE ≈ 9 · DA VERIFICARE ≈ 9 · DA SVILUPPARE ≈ 7 · SOLO PROPOSTA ≈ 2 · ESCLUSA 0.
@@ -147,15 +147,81 @@ Fonti: **P**=prompt/brief · **R**=rapporto · **C**=codice (file/funzione) · *
 6. `H cronologie[1] apre sezione`
 7. `H cronologie[2] apre sezione`
 8. `H cronologie[6] ritorno`
-Inoltre `tva_test` si interrompe con un'eccezione al blocco J (`.a2-feat` assente: `Cannot read properties of undefined (reading 'click')`), anch'essa identica sulla build precedente: i controlli oltre quel punto **non vengono eseguiti**. Dettagli in `docs/PROBLEMI_PREESISTENTI.md`. Noto anche il falso positivo di contrasto `.ud-st` in `ui_audit`.
+*(Superato in E/C5: i controlli sono stati classificati e i selettori obsoleti aggiornati; `tva_test` ora ha 0 FAIL e i blocchi J–Q vengono eseguiti.)* Inoltre, fino a M3.4.2, `tva_test` si interrompeva con un'eccezione al blocco J (`.a2-feat` assente: `Cannot read properties of undefined (reading 'click')`), anch'essa identica sulla build precedente: i controlli oltre quel punto **non vengono eseguiti**. Dettagli in `docs/PROBLEMI_PREESISTENTI.md`. Noto anche il falso positivo di contrasto `.ud-st` in `ui_audit`.
 
 ### D2. Altri aperti / decisioni
 | Voce | Stato |
 |---|---|
 | Logo TMDB ufficiale per i Crediti | Mancante: va fornito come `assets/images/tmdb-logo.svg` (compare da solo); testo+link già presenti |
 | 7 titoli senza locandina TMDB | 073 The Defenders, 074/086 Punisher S1/S2 (poster mancante), 077 Team Thor, 107 Holiday Special, 115 I Am Groot, 125 Fantastic Four: First Steps → fallback emblema |
-| Modalità Timeline attiva | Solo locale (non in profilo/export/sync/Firebase), come concordato fino alla fase Firebase; l'ordine personalizzato resta escluso da backup/sync (aperto da A2) |
+| Modalità Timeline attiva | Solo locale (non in profilo/export/sync/Firebase), come concordato fino alla fase Firebase; l'ordine personalizzato è invece in backup/sync (→ E/C2; il «resta escluso» di questa riga è superato) |
 | Missioni: effetto collaterale del fix | Ora il rendering iniziale delle missioni esiste al caricamento; la prima scrittura dello snapshot settimanale resta al primo tocco (come prima) |
 | Testo voto medio | «Ancora nessun voto» → «Nessun voto» (3 colonne) |
 | Verifica iPhone | Tutti i blocchi M3.2–M3.4.2 + PWA/offline: da eseguire sul dispositivo reale |
 | Dati Marvel, ordini di visione, progressi, XP, ricompense, Firebase, TVA Friends | Non modificati in nessun blocco M3.x; nessuna credenziale nel repository (scansione ripetuta) |
+
+## E. Aggiornamento 23/10/2026 — Consolidamento C2–C6 (build `20261023-1520-c26`, base `32a570b`)
+**Stato di pubblicazione:** modifiche **solo locali** (nessun commit, push o deploy; in attesa di approvazione). **Nessuna modifica** a Firebase, regole, credenziali, dati remoti, catalogo Marvel, ordini di visione, progressi, voti, XP, ricompense; nessuna funzionalità TVA Friends; nessun refactoring generale di `index.html`.
+
+**Verifica su iPhone reale — M3.4.2 (build `20261023-1730-m342`): 6/6 PASS, dichiarata dall'utente** (esito riferito dall'utente il 23/10/2026; l'elenco dei sei controlli non è stato fornito e non è registrato qui). La verifica **non** copre la build c26 (CSP, SW per build, menu da tastiera, contrasto): da ripetere sul dispositivo prima della pubblicazione. Per M3.2, M3.3, M3.4 e M3.4.1 non è registrata una verifica separata.
+
+### E1. C2 — Timeline e backup
+| Elemento | Stato |
+|---|---|
+| `customOrder` (`marvelGuideCustomTimelineOrder`) | In profilo, export, import (validato, transazionale), sync, copia di sicurezza automatica del Reset totale. Immutato |
+| `marvelGuideActiveTimelineMode` (`custom`/`standard`) | Solo locale, mai in profilo/export/sync (come concordato fino alla fase Firebase). Immutato |
+| `preferredMode` (`marvel-ultimate-timeline-preferred-mode`, `uscita`/`cronologico`) | Preferenza **dichiarata** nel quiz d'ingresso; resta nel profilo e nei backup per compatibilità; non è mai letta. **Non fusa** con la modalità attiva: domini diversi (ordine uscita/cronologico ≠ personalizzato/standard); una fusione richiederebbe una migrazione o un cambio di comportamento → **non applicata, serve decisione** |
+| Difetto 1 (corretto) | «Cancella tutto» rimuoveva l'ordine ma lasciava la modalità `custom`; ora rimuove anche la modalità locale |
+| Difetto 2 (corretto) | `custom` con ordine vuoto (Reset totale, import con `customOrder: []`) riapriva «Personalizzato» mentre la Home usava il percorso standard; ora la Timeline riparte da «Consigliato» (stessa regola della Home) |
+| Test | `c2_test` 29/29: export, import (vecchio backup senza i campi, completo, ordine vuoto, 4 casi invalidi senza scritture), cambio modalità, ricarica, reset progresso (ordine/modalità intatti), Reset totale |
+
+### E2. C3 — PWA e cache
+| Elemento | Stato |
+|---|---|
+| `sw.js` | `SW_BUILD` e nome cache legati alla build (`marvel-timeline-cache-<build>`, impostati da `tools/patch_c26.py`); `activate` elimina **solo** le cache `marvel-timeline-cache-*` diverse dalla corrente (prima: tutte le cache dell'origine); `install` mette in cache anche `./` e `./index.html` (offline subito dopo un aggiornamento); la navigazione offline ignora la query; **(C3b)** la pagina entra nella cache solo se il suo `tva-build` coincide con `SW_BUILD` (deploy a metà con `sw.js` nuovo e `index.html` vecchio: nessun HTML di altra build sotto una cache nuova) |
+| Aggiornamento in pagina | Meccanismo esistente invariato (confronto build via Range + una sola ricarica per build). Nessun avviso nuovo, nessun cambio di interfaccia |
+| Dati utente | `localStorage` non viene mai toccato dal SW; verificati ordine, modalità, voti e progressi dopo installazione, offline, aggiornamento |
+| Test | `c3_test` 22/22 con service worker reale in Chromium: installazione, cache obsoleta `v9` rimossa, cache di un'altra app preservata, precache pagina, offline, aggiornamento a una nuova build, offline dopo l'aggiornamento (serve la build nuova), ritorno online, **deploy a metà** (index vecchio + sw nuovo: non salvato; a deploy completo la build coerente entra in cache alla navigazione online) |
+| Non verificato | Safari/iOS reale; installazione da «Aggiungi a Home» |
+
+### E3. C4 — Sicurezza e accessibilità
+| Elemento | Protezione | Stato |
+|---|---|---|
+| Contrasto `.ud-st` | Misura sui **pixel** (testo reso trasparente, sfondo reale) su 27 universi: `ok` 4,97 (PASS), `lg` 11,98 (PASS), `vf` 4,10 (**insufficiente**). Corretto solo `.ud-st-vf` (testo `#EA9195`, 5,31). `ui_audit` stima 4,40 su `ok`: falso positivo del suo modello di composizione (documentato). Le misure «5,4/6,7» citate in precedenza non sono riproducibili e sono **superate** | IMPLEMENTATA |
+| CSP (meta) | `default-src 'self'`; `script-src 'self' 'unsafe-inline' https://www.gstatic.com`; `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`; `font-src` fonts.gstatic.com; `img-src 'self' data: blob: https://image.tmdb.org`; `connect-src` `'self'`, Firebase (`*.firebaseio.com`, `*.firebasedatabase.app`, https/wss), fonts, TMDB; `manifest-src 'self' data:`; `worker-src 'self'`; `object-src 'none'`; `base-uri 'self'`; `form-action 'self'`. Nessuna violazione nei flussi principali (`c4_test`); uno script da origine esterna viene bloccato | IMPLEMENTATA (limitata) |
+| Limiti della CSP | `'unsafe-inline'` resta (app a file singolo con script inline): la CSP **non** protegge da XSS inline. `frame-ancestors` non è impostabile con `<meta>` (serve header HTTP, non disponibile su GitHub Pages). **La connessione Firebase reale non è verificabile dalla sandbox** → da provare con una sync vera prima della pubblicazione | RACCOMANDATA: nonce/hash (refactoring), header HTTP |
+| SRI | I due script `firebase-*-compat.js` 10.13.0 su gstatic non sono scaricabili da qui (403): un hash non calcolato sui byte reali bloccherebbe l'app. CSS Google Fonts non è soggetto a SRI | NON IMPLEMENTATA, **raccomandata** (calcolare `sha384` da una macchina con rete) |
+| Tastiera | Il menu laterale chiuso era nell'ordine Tab (link fuori schermo): ora `visibility:hidden` finché chiuso; pulsanti apri/chiudi raggiungibili con Tab, Invio/Spazio, Esc chiude, `aria-expanded` aggiornato; la funzione al tocco è invariata | IMPLEMENTATA |
+| Etichette/focus | 0 controlli visibili senza nome accessibile; 0 immagini visibili senza `alt`; indicatore di focus presente sui controlli attraversati; skip-link presente | VERIFICATA (Chromium) |
+| Non verificato | VoiceOver reale, Dynamic Type, navigazione da tastiera in ogni overlay | APERTO |
+
+### E4. C5 — Test automatici
+- **Runner riproducibile:** `tests/run_suites.py` (+ `SUITES.json`, `KNOWN_FAILS.json`). Avvia un server per suite sulla radice del progetto, sostituisce percorsi/porte/build-id solo nelle copie temporanee, classifica PASS / FAIL / BLOCKED / NOT RUN e confronta i FAIL con quelli documentati. Un FAIL non diventa PASS.
+- **Esito (`tests/RESULTS_C26.md`):** 57 suite — **PASS 33, FAIL 6, BLOCKED 8, NOT RUN 10**; 1511 asserzioni PASS, 32 FAIL, **tutti documentati e identici alla build pre-M3.4 (nessun FAIL nuovo)**. Le suite sensibili ai tempi (`f4b`, `map3b`) hanno mostrato falsi FAIL con 3 processi paralleli e PASS in isolamento (`--jobs 1` è il default).
+- **`tva_test`:** blocchi J–Q ripristinati (J usava `.a2-feat`, rimosso: ora i portali `.hm-p[data-tile=reliquiario|poteri]`); 0 FAIL su 390×844, 320×568, 844×390. Otto FAIL storici e tre FAIL K/L classificati **tutti come aspettative/selettori obsoleti, nessun difetto applicativo** (il comportamento reale è stato riprodotto e verificato):
+  | Controllo | Causa | Aggiornamento |
+  |---|---|---|
+  | `G multiverso/reliquiario atlante chiuso` | ora schermate native `mappa`/`reliquiario` dentro l'Atlante | aspettativa: resta nell'Atlante, Indietro → catalogo |
+  | `G arti n schede` | Arti Mistiche = 3 schede (Stregoneria, Magia oscura, Magia del caos; `docs/REPORT_relazioni_alberi_arti.md`, `tree_arti_test`) | atteso 3 (era 1) |
+  | `H cronologie righe 15!=10` | il catalogo ha 15 voci | atteso 15 |
+  | `H cronologie[0..2] apre sezione` | aprono schermate native (`cron`), non overlay | «overlay chiuso **oppure** schermata diversa» |
+  | `H cronologie[6] ritorno` | a cascata: le voci 3–5 aprono overlay classici ma il test le trattava come «Varianti» e saltava il Back, lasciando overlay e stack sporchi | il salto vale solo se resta nella stessa schermata **e** nell'Atlante |
+  | `K ricerca gemme -> archivi` | i risultati sono chip `.a2-chip`, non righe `.a2-lrow` | selettore |
+  | `K char apre scheda`, `L scheda personaggio` | il dossier personaggio è la schermata nativa `char` | `sc=='char' && on` |
+  | `Q localStorage modificato` | `tvaHomeMiss:<build>` = cache di locandine non caricate (non dato utente) | escluso dal confronto |
+- **Altri aggiornamenti:** `a2_test` (il percorso passa dal Dossier Opera: due Indietro) → 40/40; `b324_test` (nome cache dinamico invece di `v9`) → 27/27.
+- **BLOCKED (8):** `cons_test`, `net_test`, `nav_test`, `fx_test2`, `cop_test`, `f3_test`, `uf_test`, `uf_test_3b`: selettori/flussi obsoleti (elementi rimossi da Fase 4/M3.4); non riscritti perché richiedono una specifica attuale. **NOT RUN (10):** richiedono build di riferimento (`index.3c.frozen.html`, `index.pre_*.html`, `backups/N*.html`) o server aggiuntivi (8125–8128) non inclusi nel repository.
+
+### E5. Problemi ancora aperti e rischi residui
+| Voce | Nota |
+|---|---|
+| Verifica iPhone della build c26 | Da eseguire (CSP, SW per build, menu da tastiera, contrasto) |
+| Firebase live con la CSP | Non verificabile dalla sandbox; verificare sync reale prima del push |
+| SRI Firebase; CSP senza `unsafe-inline` | Raccomandate, non implementate |
+| `preferredMode` | Mantenuto per compatibilità; decisione di prodotto richiesta se deve diventare il default iniziale |
+| Attribuzione TMDB | Testo e link presenti nei Crediti; **logo ufficiale mancante** (`assets/images/tmdb-logo.svg`, va fornito) |
+| Locandine TMDB | **7 titoli senza locandina** (073, 074, 077, 086, 107, 115, 125) → fallback emblema |
+| Test BLOCKED/NOT RUN | 8 + 10 (vedi E4) |
+| `fx_test4`, `bl_test`, `fy_test`, `b32_test`, `cron3c_test`, `ui_audit` | FAIL documentati, preesistenti, non corretti per ottenere PASS |
+| Metadati catalogo `multiverso` (`st:'cls'`, azione `map`) | Segnalato, non modificato (contenuto) |
+| Cache SW: gli utenti con la vecchia `v9` la perdono all'attivazione della nuova | Intenzionale; la pagina della nuova build entra in cache già all'installazione del SW |

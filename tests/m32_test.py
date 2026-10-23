@@ -14,7 +14,7 @@ def start(b,w=390,h=844,tmdb=True):
     return pg
 with sync_playwright() as p:
     b=p.chromium.launch(); pg=start(b)
-    ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1400-m32')
+    ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1730-m342')
     n=pg.evaluate("()=>document.querySelectorAll('.card-wrap[id^=item-]').length"); ck('139 schede (138 + variante)',n==139,n)
     # 1/3 un solo widget voto per scheda, dentro summary, nessuno nel pannello
     r=pg.evaluate("()=>({tot:document.querySelectorAll('.rating-widget').length,inSum:document.querySelectorAll('details.card > summary .rating-widget').length,inPanel:document.querySelectorAll('.detail-panel .rating-widget').length,dup:[...document.querySelectorAll('.card-wrap[id^=item-]')].filter(c=>c.querySelectorAll('.rating-widget').length!==1).length})")

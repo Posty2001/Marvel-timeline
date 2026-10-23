@@ -16,7 +16,7 @@ def run(vw=(390,844)):
         def click(sel): ev("(s)=>document.querySelector(s).click()".replace('(s)=>','()=>')[:0] or "()=>document.querySelector(%s).click()"%json.dumps(sel)); pg.wait_for_timeout(350)
         def backchip(): ev("()=>document.getElementById('tvaBackBtn').click()"); pg.wait_for_timeout(700)
         fresh()
-        ls0=ev("()=>{const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!/backup/i.test(k))o[k]=localStorage.getItem(k)}return o}")
+        ls0=ev("()=>{const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!/backup|tvaHomeMiss/i.test(k))o[k]=localStorage.getItem(k)}return o}")
         # A ingresso
         ck(ev("()=>!!document.getElementById('a2Entry')"),'A entry card assente')
         click('#a2Entry'); s=st()
@@ -27,8 +27,8 @@ def run(vw=(390,844)):
         ck(ev("()=>{const s=document.querySelector('.a2-scroll');return s.scrollWidth<=s.clientWidth+1}"),'A5 overflow orizzontale home')
         ck(ev("()=>{const t=document.querySelector('.a2-top').getBoundingClientRect();return t.top>=0&&t.height>=44}"),'A6 header')
         ck(ev("()=>[...document.querySelectorAll('.a2-top button')].every(b=>{const r=b.getBoundingClientRect();return r.width>=43.5&&r.height>=43.5})"),'A7 bersagli header >=44')
-        ck(ev("()=>document.querySelectorAll('.a2-tile').length")==4,'A8 quattro ingressi')
-        ck(ev("()=>document.querySelectorAll('.a2-feat').length")==2,'A9 collegamenti speciali')
+        ck(ev("()=>document.querySelectorAll('.hm-p[data-tile]').length")==15,'A8 quindici portali')
+        ck(ev("()=>document.querySelectorAll('.hm-q[data-quick]').length")==2,'A9 collegamenti rapidi')
         # B/C universi, dossier, Indietro con stato
         click('[data-tile=universi]'); s=st(); ck(s['sc']=='universi' and s['d']==2,'B1 %s'%s)
         ck(ev("()=>document.querySelectorAll('.a2-card[data-uid]').length")==27,'B2 27 universi')
@@ -59,8 +59,8 @@ def run(vw=(390,844)):
         click('#a2Entry'); click('.a2-back'); pg.wait_for_timeout(600); s=st()
         ck((not s['on']) and s['d']==0 and s['tab']!='none','F1 %s'%s)
         # G catalogo
-        click('#a2Entry'); click('.a2-all'); cat=ev("()=>tvaAtlas2.catalogo().map(g=>g.items.map(i=>[i.k,i.st,i.act?i.act[0]:'prep',i.act?i.act[1]:null,(i.subs||[]).map(x=>x.act)]))")
-        ck(ev("()=>document.querySelectorAll('.a2-lrow[data-sez]').length")==13,'G1 13 voci')
+        click('#a2Entry'); click('.hm-q[data-quick=indice]'); cat=ev("()=>tvaAtlas2.catalogo().map(g=>g.items.map(i=>[i.k,i.st,i.act?i.act[0]:'prep',i.act?i.act[1]:null,(i.subs||[]).map(x=>x.act)]))")
+        ck(ev("()=>document.querySelectorAll('.a2-lrow[data-sez]').length")==15,'G1 15 voci (Reliquiario incluso)')
         def verify(act,label):
             t=act[0]
             if t=='tog': return ev("()=>document.getElementById(%s).checked"%json.dumps(act[1]))
@@ -92,7 +92,8 @@ def run(vw=(390,844)):
                 elif a0=='arc':
                     ck(s['sc']=='arch' and s['on'],'G %s -> arch (%s)'%(k,s))
                     ck(ev("()=>tvaAtlas2.getState().arc")==a1,'G %s arc=%s'%(k,a1))
-                    ck(ev("()=>document.querySelectorAll('.a2-arcard').length")==dict(org=17,art=16,evt=7,luo=16,cos=26,spe=8,mis=1)[a1],'G %s n schede'%k)
+                    # C5: mis=3 (Stregoneria, Magia oscura, Magia del caos; docs/REPORT_relazioni_alberi_arti.md, tree_arti_test)
+                    ck(ev("()=>document.querySelectorAll('.a2-arcard').length")==dict(org=17,art=16,evt=7,luo=16,cos=26,spe=8,mis=3)[a1],'G %s n schede'%k)
                     ev("()=>document.querySelector('.a2-arcard').click()"); pg.wait_for_timeout(200)
                     ck(st()['sc']=='dossier' and st()['on'],'G %s dossier'%k)
                     click('.a2-back'); ck(st()['sc']=='arch','G %s back dossier->arch'%k)
@@ -100,10 +101,13 @@ def run(vw=(390,844)):
                 elif a0=='scr':
                     ck(s['sc']==a1,'G %s -> %s (%s)'%(k,a1,s['sc']))
                     click('.a2-back'); ck(st()['sc']=='catalogo','G %s back'%k)
+                elif a0 in ('map','rel'):   # C5: schermate native dell'Atlante (Mappa 3b / Reliquiario): restano nell'Atlante, il tasto indietro torna al catalogo
+                    ck(s['on'] and s['sc']==('mappa' if a0=='map' else 'reliquiario'),'G %s -> schermata nativa (%s)'%(k,s['sc']))
+                    click('.a2-back'); ck(st()['sc']=='catalogo','G %s back'%k)
                 else:
                     tryact([a0,a1],k,'catalogo')
         # H cronologie e relazioni
-        for scr,n in (('cronologie',10),('relazioni',4)):
+        for scr,n in (('cronologie',15),('relazioni',4)):   # C5: Cronologie ha 15 voci
             click('.a2-back') if st()['sc']!='home' else None
             click('#a2Entry') if not st()['on'] else None
             ev("()=>tvaAtlas2.enter()"); pg.wait_for_timeout(200)
@@ -113,19 +117,19 @@ def run(vw=(390,844)):
                 if st()['sc']!=scr: break
                 ev("()=>document.querySelectorAll('.a2-lrow')[%d].click()"%i); pg.wait_for_timeout(800)
                 s=st()
-                if s['sc']==scr:  # Varianti -> personaggi
+                if s['sc']==scr and s['on']:  # Varianti -> personaggi (C5: resta nella stessa schermata E nell'Atlante; le voci che aprono overlay classici hanno on=False)
                     continue
                 if s['sc']=='personaggi':
                     ck(ev("()=>document.querySelector('.a2-f.on').textContent.startsWith('Varianti')"),'H varianti filtro')
                     click('.a2-back'); continue
-                ck(not s['on'],'H %s[%d] apre sezione'%(scr,i))
+                ck((not s['on']) or s['sc']!=scr,'H %s[%d] apre sezione'%(scr,i))   # C5: overlay classico (Atlante chiuso) OPPURE schermata nativa diversa
                 backchip(); s=st(); ck(s['on'] and s['sc']==scr,'H %s[%d] ritorno %s'%(scr,i,s))
         # J speciali home
         ev("()=>tvaAtlas2.enter()"); pg.wait_for_timeout(300)
         for i in (0,1):
             if not st()['on']: click('#a2Entry')
             ev("()=>tvaAtlas2.openHome()"); pg.wait_for_timeout(200)
-            ev("()=>document.querySelectorAll('.a2-feat')[%d].click()"%i); pg.wait_for_timeout(900)
+            ev("()=>document.querySelector('.hm-p[data-tile=%s]').click()"%('reliquiario' if i==0 else 'poteri')); pg.wait_for_timeout(900)   # C5: .a2-feat (rimosso) -> portali Home Atlante
             if i==1:
                 ck(st()['sc']=='potenza' and st()['on'],'J feat 1 apre la Potenza TVA'); click('.a2-back'); ck(st()['sc']=='home' and st()['on'],'J feat 1 ritorno'); continue
             if i==0:
@@ -135,17 +139,17 @@ def run(vw=(390,844)):
         # K ricerca
         ev("()=>tvaAtlas2.openHome()"); pg.wait_for_timeout(200)
         pg.fill('#a2HomeSearch','gemme'); pg.wait_for_timeout(400)
-        ck(ev("()=>document.querySelectorAll('.a2-resbox .a2-lrow').length")>=1,'K ricerca gemme -> archivi')
+        ck(ev("()=>document.querySelectorAll('.a2-resbox .a2-chip').length")>=1,'K ricerca gemme -> archivi')   # C5: risultati a chip (.a2-chip), non piu' righe .a2-lrow
         pg.fill('#a2HomeSearch','Loki'); pg.wait_for_timeout(400)
         ck(ev("()=>document.querySelectorAll('.a2-resbox [data-go^=char]').length")>=1 and ev("()=>document.querySelectorAll('.a2-resbox [data-go^=item]').length")>=1,'K ricerca Loki')
         ev("()=>document.querySelector('.a2-resbox [data-go^=char]').click()"); pg.wait_for_timeout(900)
-        ck(not st()['on'],'K char apre scheda'); backchip(); s=st()
+        ck(st()['sc']=='char' and st()['on'],'K char apre scheda'); backchip(); s=st()
         ck(s['on'] and s['sc']=='home' and ev("()=>document.getElementById('a2HomeSearch').value")=='Loki','K ricerca ripristinata %s'%s)
         pg.fill('#a2HomeSearch','616'); pg.wait_for_timeout(400); ck(ev("()=>!!document.querySelector('.a2-res .a2-info')"),'K nota 616')
         pg.fill('#a2HomeSearch','zzzzqq'); pg.wait_for_timeout(400); ck(ev("()=>!!document.querySelector('.a2-res .a2-empty')"),'K nessun risultato')
         pg.fill('#a2HomeSearch','')
         click('.a2-srch'); ck(ev("()=>document.activeElement.id")=='a2HomeSearch','K lente su Home mette a fuoco')
-        click('.a2-all'); click('.a2-srch'); ck(st()['sc']=='search','K lente altrove -> ricerca'); click('.a2-back')
+        click('.hm-q[data-quick=indice]'); click('.a2-srch'); ck(st()['sc']=='search','K lente altrove -> ricerca'); click('.a2-back')
         # L personaggi
         ev("()=>tvaAtlas2.openHome()"); click('[data-tile=personaggi]')
         n=ev("()=>document.querySelectorAll('.a2-prow').length"); ck(n==300,'L 300 personaggi %d'%n)
@@ -156,7 +160,8 @@ def run(vw=(390,844)):
         ym=ev("()=>document.querySelector('.a2-scroll').scrollTop"); ck(ym>1000,'L salto lettera %d'%ym)
         ev("()=>document.querySelector('.a2-prow').click()") if False else None
         ev("()=>{const r=[...document.querySelectorAll('.a2-prow')].find(x=>x.getBoundingClientRect().top>200);r.click()}"); pg.wait_for_timeout(900)
-        ck(not st()['on'],'L scheda personaggio'); backchip(); s=st()
+        # C5: il dossier personaggio (K/L) e' una schermata nativa dell'Atlante (sc=='char'), non piu' un overlay esterno
+        ck(st()['sc']=='char' and st()['on'],'L scheda personaggio'); backchip(); s=st()
         ck(s['on'] and s['sc']=='personaggi' and abs(ev("()=>document.querySelector('.a2-scroll').scrollTop")-ym)<=4,'L posizione ripristinata %s'%s)
         # M menu generale
         ev("()=>tvaAtlas2.exit()"); pg.wait_for_timeout(500)
@@ -178,7 +183,7 @@ def run(vw=(390,844)):
         for i in range(25):
             click('#a2Entry'); click('[data-tile=personaggi]'); click('.a2-back'); click('.a2-exit')
         ck(st()['d']==0 and not st()['on'],'P cicli: stack pulito')
-        ls1=ev("()=>{const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!/backup/i.test(k))o[k]=localStorage.getItem(k)}return o}")
+        ls1=ev("()=>{const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!/backup|tvaHomeMiss/i.test(k))o[k]=localStorage.getItem(k)}return o}")
         ck(ls0==ls1,'Q localStorage modificato: %s'%[k for k in set(ls0)|set(ls1) if ls0.get(k)!=ls1.get(k)])
         ck(not errs,'errori JS %s'%errs)
         b.close()
