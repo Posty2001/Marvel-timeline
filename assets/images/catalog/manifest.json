@@ -1,0 +1,5 @@
+{
+  "versione": 1,
+  "convenzione": "File in assets/images/catalog/<kind>__<id>.webp (es. item__075.webp, chr__char-thanos.webp). kind: item|anim|chr|uni|evt|luo|org|art|cos|spe|mis. Registrare con: python3 tools/img_catalog.py register <kind>:<id> --licence '...' --credit '...' (verified resta false finche' non si usa --verify).",
+  "voci": {}
+}

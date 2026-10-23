@@ -13,9 +13,15 @@
 // URL dei file .woff2 referenziati, e li mette in cache esplicitamente — indipendentemente da
 // quando/come la pagina stessa li carica.
 
-const SW_BUILD = '20261017-sw8';
-const CACHE_NAME = 'marvel-timeline-cache-v8';
+const SW_BUILD = '20261022-sw9';
+const CACHE_NAME = 'marvel-timeline-cache-v9';
 const FONT_CSS_URL = 'https://fonts.googleapis.com/css2?family=Special+Elite&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap';
+
+/* 3.2.4: ritratti avatar approvati, precaricati per l'uso offline (Tessera, editor, esportazione PNG). */
+const AVATAR_ASSETS = ['agente', 'variante', 'esploratore', 'tecnologico', 'mistico', 'astratto', 'cronista', 'sentinella'].map(function (n) { return 'assets/avatars/' + n + '.webp'; });
+function precacheAvatars(cache) {
+  return Promise.all(AVATAR_ASSETS.map(function (u) { return cache.add(u).catch(function () { /* un asset mancante non blocca l'installazione */ }); }));
+}
 
 function precacheFonts(cache) {
   return fetch(FONT_CSS_URL, { mode: 'cors' })
@@ -41,7 +47,7 @@ function precacheFonts(cache) {
 self.addEventListener('install', function (event) {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) { return precacheFonts(cache); })
+    caches.open(CACHE_NAME).then(function (cache) { return Promise.all([precacheFonts(cache), precacheAvatars(cache)]); })
   );
 });
 

@@ -1,0 +1,601 @@
+{
+ "versione": 1,
+ "voci": {
+  "001": {
+   "t": "movie",
+   "id": 557,
+   "p": "/A391726gbRaD1aqjLxkdKjjAtwu.jpg"
+  },
+  "002": {
+   "t": "movie",
+   "id": 558,
+   "p": "/aGuvNAaaZuWXYQQ6N2v7DeuP6mB.jpg"
+  },
+  "003": {
+   "t": "movie",
+   "id": 559,
+   "p": "/qMbJaYKpMwWX621micQWiAYAGdi.jpg"
+  },
+  "004": {
+   "t": "movie",
+   "id": 1930,
+   "p": "/qpFixHC2d0Zs11fDFIkyTXhF4Ww.jpg"
+  },
+  "005": {
+   "t": "movie",
+   "id": 102382,
+   "p": "/nIQG9UpoNSZXbOXSGwBTKuQp3wv.jpg"
+  },
+  "006": {
+   "t": "movie",
+   "id": 335983,
+   "p": "/94MPrXYfTetvILpmwVyZ0Ispjte.jpg"
+  },
+  "007": {
+   "t": "movie",
+   "id": 580489,
+   "p": "/jLmVm6O1Yz2cIKh9UqAYRGnN0C.jpg"
+  },
+  "008": {
+   "t": "movie",
+   "id": 526896,
+   "p": "/ec6mrBpf7X5FFUVQ3bbJawXtFFz.jpg"
+  },
+  "009": {
+   "t": "movie",
+   "id": 634492,
+   "p": "/rQY8odxqYBmCvrLWA4Vwy66WjWd.jpg"
+  },
+  "010": {
+   "t": "movie",
+   "id": 539972,
+   "p": "/vQZ11oQtuapB6xYgBTkM8VFAu86.jpg"
+  },
+  "011": {
+   "t": "movie",
+   "id": 912649,
+   "p": "/u1WtJvvqNbN2AwUW1xdQU08MerE.jpg"
+  },
+  "012": {
+   "t": "movie",
+   "id": 49538,
+   "p": "/q5S6MiDJ1ZZzkrCho4OsXUSH9Nl.jpg"
+  },
+  "013": {
+   "t": "movie",
+   "id": 127585,
+   "p": "/rqXB6fgPqUPInS2H88q1eRWmCq6.jpg"
+  },
+  "014": {
+   "t": "movie",
+   "id": 246655,
+   "p": "/idOhvxysA9rLlZlKCnPi2Cbu1aA.jpg"
+  },
+  "015": {
+   "t": "movie",
+   "id": 36657,
+   "p": "/qLviQfeOaPysjLoYknc73teh5G1.jpg"
+  },
+  "016": {
+   "t": "movie",
+   "id": 36658,
+   "p": "/mYguailJki5YgMymhBIID6MuzG1.jpg"
+  },
+  "017": {
+   "t": "movie",
+   "id": 36668,
+   "p": "/rYCDK0EaELAhncTKNdDAFFQPy7O.jpg"
+  },
+  "018": {
+   "t": "movie",
+   "id": 2080,
+   "p": "/m4JjaSz2GG7UQJQF4YY9ghuj9rU.jpg"
+  },
+  "019": {
+   "t": "movie",
+   "id": 76170,
+   "p": "/rz5NIc10BCjQATvTNwfeiRaTng5.jpg"
+  },
+  "020": {
+   "t": "movie",
+   "id": 320288,
+   "p": "/8S26XNWJXtOBWIOmUGTF87U0AqN.jpg"
+  },
+  "021": {
+   "t": "movie",
+   "id": 340102,
+   "p": "/vtcTDwhmv4JoVqO2zRLkzOKUwBG.jpg"
+  },
+  "022": {
+   "t": "movie",
+   "id": 293660,
+   "p": "/zoSiiUUzg2ny6uzuil7PbP13z53.jpg"
+  },
+  "023": {
+   "t": "movie",
+   "id": 383498,
+   "p": "/xF3ACRWTYqrfF488JJRc4tWItnW.jpg"
+  },
+  "024": {
+   "t": "movie",
+   "id": 263115,
+   "p": "/ksAxLbKb6e9K6kN4xfvvpbEyIDl.jpg"
+  },
+  "025": {
+   "t": "movie",
+   "id": 324857,
+   "p": "/ps86PNqw9qCEA9eJD53t6RuiCkW.jpg"
+  },
+  "026": {
+   "t": "movie",
+   "id": 569094,
+   "p": "/7pgJHduD3OVwF3EGFnGBq0nOUYv.jpg"
+  },
+  "027": {
+   "t": "movie",
+   "id": 911916,
+   "p": "/9KAe39xqyZnv9J4W3DRGdQqX82h.jpg"
+  },
+  "028": {
+   "t": "movie",
+   "id": 22059,
+   "p": "/avJpIDOjyfdoOLINYficKvW9dEa.jpg"
+  },
+  "029": {
+   "t": "movie",
+   "id": 9738,
+   "p": "/yhzUjPzdVlbur8FWfgSe2QGvo6o.jpg"
+  },
+  "030": {
+   "t": "movie",
+   "id": 1979,
+   "p": "/4p5TwnsS0cNeroCz4b3XTB6zkV3.jpg"
+  },
+  "031": {
+   "t": "movie",
+   "id": 166424,
+   "p": "/vCchyMyYbAJIj6CLaMSSBSXZuhX.jpg"
+  },
+  "032": {
+   "t": "movie",
+   "id": 36647,
+   "p": "/8dS58RlYSrszonsMWTqNNwiGWY8.jpg"
+  },
+  "033": {
+   "t": "movie",
+   "id": 36586,
+   "p": "/wTm3GeVrdA3IcEelqjCH7rsSCmV.jpg"
+  },
+  "034": {
+   "t": "movie",
+   "id": 36648,
+   "p": "/a4gKWlmCauYu9EskgDepYAzycy9.jpg"
+  },
+  "035": {
+   "t": "movie",
+   "id": 9480,
+   "p": "/mtZuruaJssrLleI53VogSve44D9.jpg"
+  },
+  "037": {
+   "t": "movie",
+   "id": 1250,
+   "p": "/9s2RG61wmVangExXXHbmvhzzIiw.jpg"
+  },
+  "038": {
+   "t": "movie",
+   "id": 71676,
+   "p": "/z6lj1ztYLjP36W6sUifkbAJu7lp.jpg"
+  },
+  "039": {
+   "t": "tv",
+   "id": 220102,
+   "p": "/oD8WSVqz84ZRfelkr7JPeJwR9Iv.jpg"
+  },
+  "040": {
+   "t": "movie",
+   "id": 1927,
+   "p": "/UllIft2jLSBaay3zQyMV4GNdfy.jpg"
+  },
+  "043": {
+   "t": "tv",
+   "id": 61550,
+   "p": "/j38ED9TcUuPYfziCBAkfpDA8ko0.jpg",
+   "s": 1
+  },
+  "044": {
+   "t": "tv",
+   "id": 61550,
+   "p": "/zQd2bq5nP4cRdN2YQMj57tDfsqr.jpg",
+   "s": 2
+  },
+  "048": {
+   "t": "movie",
+   "id": 76535,
+   "p": "/uS1EFSMCZH6g7nDaKxLejJcDR9v.jpg"
+  },
+  "049": {
+   "t": "movie",
+   "id": 1724,
+   "p": "/xaegYELleYoOMH0a8SMQ4nQnhSm.jpg"
+  },
+  "050": {
+   "t": "movie",
+   "id": 10195,
+   "p": "/vW6R9uQuuFaPyasAPlXTy7H202G.jpg"
+  },
+  "051": {
+   "t": "movie",
+   "id": 24428,
+   "p": "/o6IvnjWsAjPja21JA1EHo0XcYTy.jpg"
+  },
+  "052": {
+   "t": "movie",
+   "id": 119569,
+   "p": "/hnSxG8clwLuAXEkp9emc8HCUcHD.jpg"
+  },
+  "053": {
+   "t": "movie",
+   "id": 68721,
+   "p": "/zJ1ET3yE9SIkiZLTY6r9BjCvt1i.jpg"
+  },
+  "054": {
+   "t": "movie",
+   "id": 253980,
+   "p": "/kADpbRYAB5z50vDROaE4sendWCI.jpg"
+  },
+  "055": {
+   "t": "movie",
+   "id": 76338,
+   "p": "/6jHwW0zavzqJssGbAW451nk2qPq.jpg"
+  },
+  "056": {
+   "t": "movie",
+   "id": 100402,
+   "p": "/t8i8kRBQbRHapK317bEYr8F3lpQ.jpg"
+  },
+  "057": {
+   "t": "tv",
+   "id": 1403,
+   "p": "/7KvpgcLThkrwDo2U8pDEkxOOw4d.jpg",
+   "s": 1
+  },
+  "058": {
+   "t": "movie",
+   "id": 118340,
+   "p": "/km1QPJeX93KCp6fqAcBf4Urijtc.jpg"
+  },
+  "060": {
+   "t": "tv",
+   "id": 61889,
+   "p": "/sJs6uumzcIoi5foIG10qxGMf2rn.jpg",
+   "s": 1
+  },
+  "061": {
+   "t": "tv",
+   "id": 38472,
+   "p": "/z7PzYcA7jTgwrnKl3eNrcHWJVyw.jpg",
+   "s": 1
+  },
+  "062": {
+   "t": "movie",
+   "id": 99861,
+   "p": "/pYEHarIwyYSM1bXs5FtpL2GZELy.jpg"
+  },
+  "063": {
+   "t": "movie",
+   "id": 102899,
+   "p": "/c9QcbZHv0DZ2nm2sS2akqqrir8y.jpg"
+  },
+  "064": {
+   "t": "tv",
+   "id": 1403,
+   "p": "/hBoeP0q7BcgBbYueT4ZOJJuOKCM.jpg",
+   "s": 2
+  },
+  "065": {
+   "t": "tv",
+   "id": 61889,
+   "p": "/qcvSJNBvKXufdwKDfek0bIf4SLf.jpg",
+   "s": 2
+  },
+  "066": {
+   "t": "tv",
+   "id": 1403,
+   "p": "/joa9HrzpmdrN8gxQUNUyRyPrmx9.jpg",
+   "s": 3
+  },
+  "067": {
+   "t": "movie",
+   "id": 271110,
+   "p": "/zV6uLEHFFjrGBAogwU9CoHSmPPY.jpg"
+  },
+  "068": {
+   "t": "tv",
+   "id": 62126,
+   "p": "/1BZhKZ4YQofTqCTDgfNKLYgz3aJ.jpg",
+   "s": 1
+  },
+  "070": {
+   "t": "movie",
+   "id": 284052,
+   "p": "/uH0dFlOQI6V613yTiGTvg3PMJum.jpg"
+  },
+  "071": {
+   "t": "tv",
+   "id": 1403,
+   "p": "/nZv6j3ytVBvASFVlmA1lRwtJUlr.jpg",
+   "s": 4
+  },
+  "072": {
+   "t": "tv",
+   "id": 62127,
+   "p": "/A2p9dhFMjMf0O5jl9N585IuiHKU.jpg",
+   "s": 1
+  },
+  "075": {
+   "t": "movie",
+   "id": 315635,
+   "p": "/9OYK3q83z0LmFOx3xZXfdaVck2d.jpg"
+  },
+  "076": {
+   "t": "movie",
+   "id": 284053,
+   "p": "/iunkSeLonYKVmp89zCJuJVptUTU.jpg"
+  },
+  "079": {
+   "t": "tv",
+   "id": 38472,
+   "p": "/3a8PuiSe1KHP6COteqofD7QgEsm.jpg",
+   "s": 2
+  },
+  "080": {
+   "t": "tv",
+   "id": 62126,
+   "p": "/eAwXQcrWQQb3Qw1L5NrruwcKkA5.jpg",
+   "s": 2
+  },
+  "081": {
+   "t": "tv",
+   "id": 62127,
+   "p": "/tp9s4qiKNQeIgaYjS9OTQv1SLZt.jpg",
+   "s": 2
+  },
+  "082": {
+   "t": "tv",
+   "id": 61889,
+   "p": "/vp8Qp1YCsnPwm40NN96rfsxB8yc.jpg",
+   "s": 3
+  },
+  "083": {
+   "t": "tv",
+   "id": 1403,
+   "p": "/xTeqJyS3O7j5sXlahbOL6ssoThH.jpg",
+   "s": 5
+  },
+  "084": {
+   "t": "movie",
+   "id": 299536,
+   "p": "/t24aimjQLa0dyoZQEbSws7XK1U0.jpg"
+  },
+  "085": {
+   "t": "movie",
+   "id": 363088,
+   "p": "/lNs2tFWH7OMJzhF2sLBsQA2MNrM.jpg"
+  },
+  "087": {
+   "t": "tv",
+   "id": 38472,
+   "p": "/sskSrSpS6P0sdWbcsT8BSkJvZr8.jpg",
+   "s": 3
+  },
+  "089": {
+   "t": "movie",
+   "id": 299534,
+   "p": "/hj1xaEUGMiUxaFYoutlljtlkHSG.jpg"
+  },
+  "090": {
+   "t": "movie",
+   "id": 429617,
+   "p": "/blWCg2gs0uQiEl4e3ml6j3yDSKg.jpg"
+  },
+  "091": {
+   "t": "tv",
+   "id": 1403,
+   "p": "/no3yiBwadGQvTkkR9NZiG7SJgzT.jpg",
+   "s": 6
+  },
+  "092": {
+   "t": "tv",
+   "id": 1403,
+   "p": "/fA8cDwfadL6VT9y9994kEgsZvDJ.jpg",
+   "s": 7
+  },
+  "093": {
+   "t": "tv",
+   "id": 85271,
+   "p": "/ijWWwINc8h71NQ8j1LTJMFSj5wr.jpg"
+  },
+  "094": {
+   "t": "tv",
+   "id": 88396,
+   "p": "/6kbAMLteGO8yyewYau6bJ683sw7.jpg"
+  },
+  "095": {
+   "t": "tv",
+   "id": 84958,
+   "p": "/msTzicvW4cYzwdBrexW3pQLQHco.jpg",
+   "s": 1
+  },
+  "097": {
+   "t": "movie",
+   "id": 566525,
+   "p": "/rhW4Uo7iVdAf2wgAjpIgkkObBE8.jpg"
+  },
+  "098": {
+   "t": "movie",
+   "id": 524434,
+   "p": "/753WHOCaelFNYtUlcYZtNDhD9ZC.jpg"
+  },
+  "099": {
+   "t": "movie",
+   "id": 634649,
+   "p": "/xLnZ0DB06H0MuGXcF0uhJxr6b8y.jpg"
+  },
+  "100": {
+   "t": "tv",
+   "id": 88329,
+   "p": "/2hVSIuRLmYsguq2oAoIaInwMVyT.jpg"
+  },
+  "101": {
+   "t": "tv",
+   "id": 92749,
+   "p": "/oQ8D99pDbsLxcdCMqErm6qVMh3C.jpg"
+  },
+  "102": {
+   "t": "movie",
+   "id": 453395,
+   "p": "/fh62tD1EuavkTpEgVA7U4V7d2Yj.jpg"
+  },
+  "103": {
+   "t": "tv",
+   "id": 92782,
+   "p": "/3HWWh92kZbD7odwJX7nKmXNZsYo.jpg"
+  },
+  "104": {
+   "t": "movie",
+   "id": 616037,
+   "p": "/AdJ1CM122jyAhWps7qhRvcmDn87.jpg"
+  },
+  "105": {
+   "t": "tv",
+   "id": 92783,
+   "p": "/5rAEXNru5V0b8lmBbEaqjfnq8XR.jpg"
+  },
+  "106": {
+   "t": "movie",
+   "id": 894205,
+   "p": "/3b5Ue7CygC7yFGSHITnCUwVXapF.jpg"
+  },
+  "108": {
+   "t": "movie",
+   "id": 505642,
+   "p": "/jcDnXDBMj11W4jfa8oeUON1lcut.jpg"
+  },
+  "109": {
+   "t": "movie",
+   "id": 640146,
+   "p": "/1lgJ7MirKaMKj4tDi0vz2Io2PGx.jpg"
+  },
+  "110": {
+   "t": "movie",
+   "id": 447365,
+   "p": "/sLMcJW43RrNcLcyVjgueqTM2eO2.jpg"
+  },
+  "111": {
+   "t": "tv",
+   "id": 114472,
+   "p": "/3rINdUPSy9AklJg74jWHOyUXuZd.jpg"
+  },
+  "112": {
+   "t": "tv",
+   "id": 84958,
+   "p": "/botyR7EPVJvNSmq8YIss930MGu2.jpg",
+   "s": 2
+  },
+  "113": {
+   "t": "movie",
+   "id": 609681,
+   "p": "/loFp0xOdy4VxLzC2OthMcNz5pA5.jpg"
+  },
+  "116": {
+   "t": "tv",
+   "id": 122226,
+   "p": "/vFyJH630cF68LohVYjQW49074Sy.jpg"
+  },
+  "117": {
+   "t": "movie",
+   "id": 533535,
+   "p": "/tDYG0QPL54nUKDUoBPdvtsmzbBI.jpg"
+  },
+  "118": {
+   "t": "tv",
+   "id": 138501,
+   "p": "/jefhjbhbeLhgfbrO9SRhw1cS50H.jpg"
+  },
+  "120": {
+   "t": "tv",
+   "id": 138503,
+   "p": "/oJn1R9kPQ83fV1Iwgex7SKQzjGp.jpg",
+   "s": 1
+  },
+  "121": {
+   "t": "movie",
+   "id": 822119,
+   "p": "/ypQnN8NuMXN9PzFt4b7tVtGtb2y.jpg"
+  },
+  "123": {
+   "t": "movie",
+   "id": 986056,
+   "p": "/2q16SeTsXCgigsl8uV85qDN4375.jpg"
+  },
+  "124": {
+   "t": "tv",
+   "id": 114471,
+   "p": "/nDdesJoWpvCoAwPO0EsPz0NruOU.jpg"
+  },
+  "126": {
+   "t": "tv",
+   "id": 241388,
+   "p": "/aS6Sa2dbsK6P2vuwXPkSydJQCAn.jpg"
+  },
+  "127": {
+   "t": "tv",
+   "id": 198178,
+   "p": "/6yy9nQlFt2l6UVWzrfhszFCaZ5C.jpg"
+  },
+  "129": {
+   "t": "movie",
+   "id": 1439930,
+   "p": "/xV181Nhxyef8ZXPNFc0gLtaA4PS.jpg"
+  },
+  "130": {
+   "t": "tv",
+   "id": 138502,
+   "p": "/jCaIgigKPPk9jOMRRwERhYcO8kc.jpg",
+   "s": 1
+  },
+  "131": {
+   "t": "tv",
+   "id": 138502,
+   "p": "/25pGNB2r3ldya2hCxr6nHFk7St2.jpg",
+   "s": 2
+  },
+  "132": {
+   "t": "movie",
+   "id": 969681,
+   "p": "/vKHjwe9tSPWSkiv3m8Iq1nVedOT.jpg"
+  },
+  "134": {
+   "t": "tv",
+   "id": 138503,
+   "p": "/rAgl03cfcLgPSzeozownXAdhDkw.jpg",
+   "s": 2
+  },
+  "136": {
+   "t": "movie",
+   "id": 1003596,
+   "p": "/6uOkzW0gF1ANWz2flhwXfTUQuLY.jpg"
+  },
+  "138": {
+   "t": "tv",
+   "id": 138502,
+   "p": "/gU4ezBtf2K9t4AsYjbSsYd8Gzga.jpg",
+   "s": 3
+  },
+  "139": {
+   "t": "movie",
+   "id": 1003598,
+   "p": "/f0YBuh4hyiAheXhh4JnJWoKi9g5.jpg"
+  }
+ }
+}
