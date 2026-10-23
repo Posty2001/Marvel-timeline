@@ -1,0 +1,40 @@
+from playwright.sync_api import sync_playwright
+import subprocess,json,re
+R=[];  
+def ck(n,c,d=''): R.append(c); print(('PASS ' if c else 'FAIL ')+n+(' '+str(d) if d and not c else ''))
+with sync_playwright() as p:
+    b=p.chromium.launch(); pg=b.new_page(viewport={'width':390,'height':844}); errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)))
+    pg.goto('http://localhost:8124/index.html'); pg.wait_for_timeout(1500)
+    ck('build id',pg.evaluate("document.querySelector('meta[name=tva-build]').content")=='20261023-1400-m32')
+    h=pg.evaluate("()=>document.querySelector('#item-075').innerText")
+    ck('075 niente "otto anni" come riferimento',('otto anni dopo la battaglia' not in h) and 'incongruenza di continuità' in h,h[:200])
+    a=pg.evaluate("()=>JSON.parse(document.getElementById('atlasData').textContent).opere.find(o=>o.id==='075')")
+    ck('075 atlas amb+nota',a['notaContinuita'].startswith('La didascalia') and 'otto' not in a['ambientazione'])
+    ck('075 anno null',pg.evaluate("()=>window.tvaUniverse.annoAmbientazione(JSON.parse(document.getElementById('atlasData').textContent).opere.find(o=>o.id==='075').ambientazione).y")is None)
+    # Cronologie
+    pg.evaluate("()=>tvaAtlas2.ext.api.crOpen('uni',{uid:'uni-earth-199999-mcu'})"); pg.wait_for_timeout(800)
+    pg.evaluate("()=>{const b=[...document.querySelectorAll('button')].find(x=>/Senza anno di ambientazione/.test(x.innerText));if(b)b.click()}"); pg.wait_for_timeout(500)
+    txt=pg.evaluate("()=>[...document.querySelectorAll('.a2-scroll')].map(x=>x.innerText).join('\\n')")
+    ck('cronologia: tag post-Endgame pos.', 'timeline disney+ (ordine)' in txt.lower(), txt[:120])
+    ck('cronologia: nessun "(senza anno)" per i post-Endgame con pos', pg.evaluate("""()=>{const L=[...document.querySelectorAll('.cr-it, .cr-item, li')].filter(x=>/pos\\. \\d+\\/18/.test(x.innerText));return L.length}""")>=1)
+    pos=[int(x) for x in re.findall(r'pos\. (\d+)/18',txt)]
+    ck('ordine pos crescente nel gruppo senza anno', pos==sorted(pos) and len(pos)>=10, pos)
+    # Dossier opera: posizione + locandina
+    pg.evaluate("()=>tvaAtlas2.openOpera('item-100')"); pg.wait_for_timeout(500)
+    d=pg.evaluate("()=>[...document.querySelectorAll('.a2-scroll')].map(x=>x.innerText).join('\\n')")
+    ck('dossier opera: posizione Disney+', 'posizione' in d and 'timeline Disney+' in d, d[:200])
+    ck('dossier: senza manifest nessuna locandina', pg.evaluate("()=>document.querySelectorAll('.m3-poster').length")==0)
+    pg.evaluate("()=>{window.TVA_IMG_MANIFEST['item:100']={src:'assets/images/tva/cronologie.webp',w:1280,h:720,licence:'test',verified:false}}")
+    pg.evaluate("()=>tvaAtlas2.openOpera('item-100')"); pg.wait_for_timeout(400)
+    ck('non verificata: nessuna locandina', pg.evaluate("()=>document.querySelectorAll('.m3-poster').length")==0)
+    pg.evaluate("()=>{window.TVA_IMG_MANIFEST['item:100'].verified=true}")
+    pg.evaluate("()=>tvaAtlas2.openOpera('item-100')"); pg.wait_for_timeout(700)
+    ck('verificata: locandina presente e emblema nascosto', pg.evaluate("()=>{const i=document.querySelector('.m3-poster');return !!i&&i.naturalWidth>0}"))
+    pg.evaluate("()=>{window.TVA_IMG_MANIFEST['item:100'].src='assets/images/tva/non_esiste.webp'}")
+    pg.evaluate("()=>tvaAtlas2.openOpera('item-100')"); pg.wait_for_timeout(700)
+    ck('file mancante: fallback senza rottura', pg.evaluate("()=>document.querySelectorAll('.m3-poster').length")==0)
+    ck('blob imageManifest vuoto', pg.evaluate("()=>Object.keys(JSON.parse(document.getElementById('imageManifest').textContent).voci).length")==0)
+    ck('nessun errore JS',not errs,errs)
+o=subprocess.run(['python3','/home/claude/work/tools/img_catalog.py','scan'],capture_output=True,text=True); ck('tool scan',o.returncode==0 and 'voci senza file: []' in o.stdout,o.stdout+o.stderr)
+o=subprocess.run(['python3','/home/claude/work/tools/img_catalog.py','list','--kind','item','--missing'],capture_output=True,text=True); ck('tool list',o.returncode==0 and o.stdout.count('--  item:')>=100,o.stdout[:100]+o.stderr)
+print('TOT',sum(R),'/',len(R))
