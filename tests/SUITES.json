@@ -2,6 +2,10 @@
  "note": "Elenco delle suite eseguite da run_suites.py. Le suite c2/c3/c4 sono nuove (C2-C6); le altre sono storiche.",
  "suites": [
   {
+   "name": "fa1_test",
+   "area": "F-A1 Auth email/password (MOCK SDK)"
+  },
+  {
    "name": "c2_test",
    "area": "C2 Timeline/backup"
   },

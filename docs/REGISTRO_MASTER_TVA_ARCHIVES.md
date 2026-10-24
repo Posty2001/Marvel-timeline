@@ -225,3 +225,13 @@ Fonti: **P**=prompt/brief · **R**=rapporto · **C**=codice (file/funzione) · *
 | `fx_test4`, `bl_test`, `fy_test`, `b32_test`, `cron3c_test`, `ui_audit` | FAIL documentati, preesistenti, non corretti per ottenere PASS |
 | Metadati catalogo `multiverso` (`st:'cls'`, azione `map`) | Segnalato, non modificato (contenuto) |
 | Cache SW: gli utenti con la vecchia `v9` la perdono all'attivazione della nuova | Intenzionale; la pagina della nuova build entra in cache già all'installazione del SW |
+
+## F. Aggiornamento 24/10/2026 — F-A1 Autenticazione email/password (build `20261023-2355-fa1`, base `fbf3399`, tag `pre-fa1`)
+| Voce | Nota |
+|---|---|
+| Funzione | Account personale **facoltativo** (Centrale TVA → Operazioni): registrazione, verifica email + reinvio, login, logout, recupero password, sessione Firebase, email in italiano. Nessuna sincronizzazione dati, nessuna scrittura su RTDB/`sync/`/`rooms/`/`users/`, nessuna lettura/modifica del profilo |
+| CSP | Solo `connect-src` +`identitytoolkit.googleapis.com` +`securetoken.googleapis.com` (motivazione completa in `docs/REPORT_F-A1_RIFINITURA.md` §3) |
+| Test | `fa1_test` (SDK **simulato**) 64 PASS; `b322_test` risolto (helper `tests/b321_geom.py` mancante nel repo) |
+| **ATTIVITA' APERTA — SRI** | Hash SRI Firebase 10.13.0 **non calcolati** (rete bloccata nel sandbox). Script pronti: `tools/sri_firebase.sh|ps1`, `tools/apply_sri.py`. **F-A1 non è chiusa finché l'SRI non è risolto** |
+| **ATTIVITA' APERTA — collaudo reale** | Test su iPhone con Firebase reale (`docs/PROCEDURA_TEST_REALE_IPHONE_F-A1.md`): SDK reale sotto CSP (verificare assenza di `apis.google.com`), email, Safari/PWA. Rollback: `docs/STRATEGIA_ROLLBACK_F-A1.md` (`git revert`, tag `pre-fa1`) |
+| Non iniziato | F-A2 (regole `users/{uid}`), migrazione, sync account |
